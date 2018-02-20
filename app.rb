@@ -10,3 +10,8 @@ before do
   }
   @client = Twitter::REST::Client.new(config)
 end
+
+get '/' do
+  erb :nav
+  erb :index
+end
