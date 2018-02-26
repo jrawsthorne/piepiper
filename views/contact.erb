@@ -1,3 +1,26 @@
 <%= erb :header %>
   <p>Contact page</p>
+  <div>
+    <form action="http://www.dcs.shef.ac.uk/cgi-intranet/public/FormMail.pl" method="get">
+  		<input type="hidden" name="recipient" value="sbodurova1@sheffield.ac.uk">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email here">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName">Your first name</label>
+              <input type="name" class="form-control" id="exampleInputName" aria-describedby="surnameHelp" placeholder="Enter your first name here">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Your surname</label>
+            <input type="name" class="form-control" id="exampleInputSurname" aria-describedby="surnameHelp" placeholder="Enter your surname surname here ">
+        </div>
+        <div class="form-group">
+          <label for="exampleTextarea">Leave a message here</label>
+            <textarea class="form-control" id="exampleTextarea" rows="6"></textarea>
+        </div>
+          <input type="submit"  name="submit" value="Submit">
+      </form>
+    </div>
 <%= erb :footer %>
