@@ -10,3 +10,27 @@ before do
   }
   @client = Twitter::REST::Client.new(config)
 end
+
+def current_class?(test_path)
+    request.path == test_path ? 'active' : ''
+end
+
+get '/' do
+  @title = "Home"
+  erb :index
+end
+
+get '/about' do
+  @title = "About Us"
+  erb :about
+end
+
+get '/contact' do
+  @title = "Contact"
+  erb :contact
+end
+
+get '/login' do
+  @title = "Login"
+  erb :login
+end
