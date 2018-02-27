@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .Menu .card img {
   object-fit: cover;
   width: 100%;
@@ -7,3 +8,28 @@
 .Menu .menu img {
   object-fit: contain;
 }
+=======
+.Home .card img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%
+}
+
+@media only screen and (min-width: 768px) {
+  .Home .card {
+    -webkit-box-orient: vertical!important;
+    -webkit-flex-direction: column!important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .Home .card img {
+    width: 200px;
+    height: 253px;
+  }
+  .Home .card {
+    -webkit-box-orient: horizontal!important;
+    -webkit-flex-direction: row!important
+  }
+}
+>>>>>>> 150fbefc738dc5f2fce7f10dd6deb2972dac6a8b
