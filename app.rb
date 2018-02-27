@@ -16,7 +16,7 @@ def current_class?(test_path)
 end
 
 get '/' do
-  @title = "Home"
+  @title = "Menu"
   erb :index
 end
 
@@ -25,12 +25,12 @@ get '/about' do
   erb :about
 end
 
-get '/contact' do
-  @title = "Contact"
-  erb :contact
-end
-
 get '/login' do
   @title = "Login"
   erb :login
+end
+
+get '/orders' do
+  @title = "Orders"
+  erb :orders
 end

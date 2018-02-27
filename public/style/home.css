@@ -1,9 +1,9 @@
-.Home .card img {
+.Menu .card img {
   object-fit: cover;
   width: 100%;
   height: 200px;
 }
 
-.Home .menu img {
+.Menu .menu img {
   object-fit: contain;
 }

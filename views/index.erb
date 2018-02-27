@@ -1,65 +1,117 @@
 <%= erb :header %>
-<div class="row mb-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <strong class="d-inline-block mb-2 text-primary">World</strong>
-            <h3 class="mb-0">
-              <a class="text-dark" href="#">Featured post</a>
-            </h3>
-            <div class="mb-1 text-muted">Nov 12</div>
-            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            <a href="#">Continue reading</a>
+  <h3 class="mb-3">Food menu</h3>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="menu-pies-tab" data-toggle="tab" href="#menu-pies" role="tab" aria-controls="menu-pies" aria-selected="true">Pies</a>
+        <a class="nav-item nav-link" id="menu-sides-tab" data-toggle="tab" href="#menu-sides" role="tab" aria-controls="menu-sides" aria-selected="false">Sides</a>
+        <a class="nav-item nav-link" id="menu-drinks-tab" data-toggle="tab" href="#menu-drinks" role="tab" aria-controls="menu-drinks" aria-selected="false">Drinks</a>
+      </div>
+    </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="menu-pies" role="tabpanel" aria-labelledby="menu-pies-tab">
+          <h4 class="mt-3 mb-3">Pies</h4>
+          <div class="menu row mb-4">
+            <div class="col-lg-4 col-md-6">
+              <div class="card mb-3">
+                <img src="./img/food-collection-8-006.jpg">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card mb-3">
+                <img src="./img/food-collection-8-006.jpg">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="card mb-3">
+                <img src="./img/food-collection-8-006.jpg">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
           </div>
-          <img src="./img/pexels-photo-266905.jpeg">
+        </div>
+        <div class="tab-pane fade" id="menu-sides" role="tabpanel" aria-labelledby="menu-sides-tab">
+          <h4 class="mt-3 mb-3">Sides</h4>
+          <div class="menu row mb-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="card mb-3">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card mb-3">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card mb-3">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <strong class="d-inline-block mb-2 text-success">Design</strong>
-            <h3 class="mb-0">
-              <a class="text-dark" href="#">Post title</a>
-            </h3>
-            <div class="mb-1 text-muted">Nov 11</div>
-            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            <a href="#">Continue reading</a>
+        <div class="tab-pane fade" id="menu-drinks" role="tabpanel" aria-labelledby="menu-drinks-tab">
+          <h4 class="mt-3 mb-3">Drinks</h4>
+          <div class="menu row mb-4">
+          <div class="col-lg-4 col-md-6">
+            <div class=" mb-3 card ">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
           </div>
-          <img src="./img/meat-pie-514423_1280.jpg">
+          <div class="col-lg-4 col-md-6">
+            <div class=" mb-3 card ">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card mb-3">
+              <img src="./img/food-collection-8-006.jpg">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-      <div class="menu row mb-4">
-        <div class="col-lg-4 col-md-6">
-          <div class="card ">
-            <img src="./img/food-collection-8-006.jpg">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card ">
-            <img src="./img/food-collection-8-006.jpg">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card ">
-            <img src="./img/food-collection-8-006.jpg">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    
 <%= erb :footer %>
