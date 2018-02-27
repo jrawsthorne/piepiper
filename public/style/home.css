@@ -1,23 +1,9 @@
-/*.Home .card img {
+.Home .card img {
   object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 200px;
 }
 
-/*@media only screen and (min-width: 768px) {
-  .Home .card {
-    -webkit-box-orient: vertical!important;
-    -webkit-flex-direction: column!important;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .Home .card img {
-    width: 200px;
-    height: 253px;
-  }
-  .Home .card {
-    -webkit-box-orient: horizontal!important;
-    -webkit-flex-direction: row!important
-  }
+.Home .menu img {
+  object-fit: contain;
 }
