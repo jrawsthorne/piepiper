@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'twitter'
+require 'json'
 
 before do
   config = {
@@ -33,4 +34,15 @@ end
 get '/orders' do
   @title = "Orders"
   erb :orders
+end
+
+post '/new-order' do
+  # Submit stuff to the database here
+  # returns some stuff for now - will be a separate get url when the database works
+  content_type :json
+  { :username => @client.status(params[:tweet_id]).user.screen_name, :items => params[:items] }.to_json
+end
+
+get '/new-order' do
+  redirect '/orders'
 end

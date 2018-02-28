@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Arizonia|Capriola');
 @import "./login.css";
 @import "./home.css";
+@import "./orders.css";
 
 html {
   position: relative;
@@ -34,10 +35,6 @@ nav .logo:hover {
 
 main {
   padding: 20px;
-}
-
-a {
-  transition: color .3s ease;
 }
 
 .btn-primary {
