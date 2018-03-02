@@ -52,7 +52,7 @@ def get_orders
   rs.each do |row|
     items = []
     # Gets item name from Items based on ID from OrderItems ItemID
-    stmt2 = db.prepare "SELECT Items.Name FROM OrderItems INNER JOIN Items ON Items.ID = OrderItems.Item WHERE Order=?"
+    stmt2 = db.prepare "SELECT Items.Name FROM OrderItems INNER JOIN Items ON Items.ID = OrderItems.Item WHERE `Order`=?"
     stmt2.bind_params(row)
     rs2 = stmt2.execute
     rs2.each do |row|
