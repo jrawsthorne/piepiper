@@ -1,49 +1,63 @@
 <%= erb :header %>
-  <p>orders</p>
+<% tweets = @client.mentions_timeline() %>
+  <p>Orders</p>
 <div class="row">
-  <div class=" col-md-6">
-    <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
+  <div class=" col-md-6 mb-3">
+    <div class="list-group" id="tweets">
+      <%  
+          i = 0 
+          tweets.each do |tweet|
+      %>
+      <a data-toggle="list" id="tweet-to-sort-<%= tweet.id %>" href="#tweet-<%= tweet.id %>" class="list-group-item list-group-item-action flex-column align-items-start <% if(i==0) %> active <% end %>">
+        
+        <div class="d-flex w-100">
+          <div class="profile-image mr-3">
+            <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+          </div>
+          <div class="profile">
+            <h5 class="mb-1"><%= tweet.user.screen_name %> <span><%= tweet.created_at.asctime %></span></h5>
+            <p class="mb-1"><%= tweet.text %></p>
+          </div>
+            
+        </div>
+      </a>
+      <% 
+          i += 1
+          end
+      %>
     </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small>Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
-</div>
   </div>
   <div class=" col-md-6">
-    <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cras justo odio
-    <span class="badge badge-primary badge-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Dapibus ac facilisis in
-    <span class="badge badge-primary badge-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
-</ul>
+    <ul class="list-group mb-3" id="order-forms">
+    <div class="tab-content" id="nav-tabContent">
+      <% 
+          i = 0
+          tweets.each do |tweet|
+      %>
+        <div class="tab-pane <% if(i==0) %> show active <% end %>" id="tweet-<%= tweet.id %>" role="tabpanel">
+            <div class="card">
+              <div class="card-body">
+                <h5>
+                  Create an order for <%= tweet.user.screen_name %> 
+                  <button data-id="<%= tweet.id %>" type="button" class="add btn btn-success ml-1">+</button>
+                  <button data-id="<%= tweet.id %>" type="button" class="remove btn btn-danger ml-1">-</button>
+                </h5>
+                <form novalidate class="new-order" id="new-order-<%= tweet.id %>" method="post">
+                  <div class="form-group menu-inputs"></div>
+                  <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+              </div>
+            </div>
+        </div>
+      <% 
+          i += 1
+          end 
+      %>
+    </div>
+  </ul>
+    <ul class="list-group" id="created-orders">
+      <p>Created orders</p>
+    </ul>
   </div>
 </div>
 <%= erb :footer %>

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Arizonia|Capriola');
 @import "./login.css";
 @import "./home.css";
+@import "./orders.css";
 
 html {
   position: relative;
@@ -36,10 +37,6 @@ main {
   padding: 20px;
 }
 
-a {
-  transition: color .3s ease;
-}
-
 .btn-primary {
   background: #9c814b;
   border-color: #9c814b;
@@ -52,8 +49,4 @@ a {
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
   background: #343a40;
   border-color: #343a40;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 150fbefc738dc5f2fce7f10dd6deb2972dac6a8b

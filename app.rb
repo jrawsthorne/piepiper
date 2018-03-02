@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'twitter'
+require 'json'
 
 before do
   config = {
@@ -16,11 +17,7 @@ def current_class?(test_path)
 end
 
 get '/' do
-<<<<<<< HEAD
   @title = "Menu"
-=======
-  @title = "Home"
->>>>>>> 150fbefc738dc5f2fce7f10dd6deb2972dac6a8b
   erb :index
 end
 
@@ -29,7 +26,6 @@ get '/about' do
   erb :about
 end
 
-<<<<<<< HEAD
 get '/login' do
   @title = "Login"
   erb :login
@@ -39,14 +35,14 @@ get '/orders' do
   @title = "Orders"
   erb :orders
 end
-=======
-get '/contact' do
-  @title = "Contact"
-  erb :contact
+
+post '/new-order' do
+  # Submit stuff to the database here
+  # returns some stuff for now - will be a separate get url when the database works
+  content_type :json
+  { :username => @client.status(params[:tweet_id]).user.screen_name, :items => params[:items] }.to_json
 end
 
-get '/login' do
-  @title = "Login"
-  erb :login
+get '/new-order' do
+  redirect '/orders'
 end
->>>>>>> 150fbefc738dc5f2fce7f10dd6deb2972dac6a8b
