@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 require 'sqlite3'
 
 begin
@@ -18,7 +18,7 @@ db.execute("CREATE TABLE IF NOT EXISTS `AccountTypes` (
 db.execute("INSERT INTO `AccountTypes` (ID,Name) VALUES (1,'User'),
  (2,'Order handler'),
  (3,'Admin');")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Users` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Username`	TEXT NOT NULL UNIQUE,
@@ -39,7 +39,7 @@ db.execute("INSERT INTO `SpecialCondition` (ID,Condition) VALUES (1,'Non-vegetar
  (3,'Vegetarian'),
  (4,'Gluten free');
 ")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Orders` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`User`	INTEGER NOT NULL,
@@ -67,7 +67,7 @@ db.execute("INSERT INTO `ItemTypes` (ID,Name) VALUES (1,'Pie'),
  (4,'Milkshakes'),
  (5,'Alcohol');
 ")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Items` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Name`	TEXT NOT NULL UNIQUE,
@@ -104,7 +104,6 @@ db.execute("INSERT INTO `Items` (ID,Name,Type,Price,Special) VALUES (1,'Pork pie
  (24,'Lager',5,5.7,NULL);
 ")
 
-=======
 require 'sqlite3'
 
 begin
@@ -124,7 +123,7 @@ db.execute("CREATE TABLE IF NOT EXISTS `AccountTypes` (
 db.execute("INSERT INTO `AccountTypes` (ID,Name) VALUES (1,'User'),
  (2,'Order handler'),
  (3,'Admin');")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Users` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Username`	TEXT NOT NULL UNIQUE,
@@ -145,7 +144,7 @@ db.execute("INSERT INTO `SpecialCondition` (ID,Condition) VALUES (1,'Non-vegetar
  (3,'Vegetarian'),
  (4,'Gluten free');
 ")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Orders` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`User`	INTEGER NOT NULL,
@@ -173,7 +172,7 @@ db.execute("INSERT INTO `ItemTypes` (ID,Name) VALUES (1,'Pie'),
  (4,'Milkshakes'),
  (5,'Alcohol');
 ")
- 
+
 db.execute("CREATE TABLE IF NOT EXISTS `Items` (
 	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Name`	TEXT NOT NULL UNIQUE,
@@ -209,6 +208,4 @@ db.execute("INSERT INTO `Items` (ID,Name,Type,Price,Special) VALUES (1,'Pork pie
  (23,'Chocolate milkshake',4,3.5,NULL),
  (24,'Lager',5,5.7,NULL);
 ")
-
->>>>>>> eb5ce3e76a2c7ea178aab2a0bf9adbaf5c93c1cf
 db.close
