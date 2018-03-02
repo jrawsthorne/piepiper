@@ -1,0 +1,65 @@
+<%= erb :header %>
+<% tweet = @client.status(params['tweet_id']) %>
+<div class="row">
+  <div class="mb-3 col-md-6">
+    <p>Tweet</p>
+    <ul class="list-group mb-3">      
+        <li class='list-group-item'>
+          <div class="d-flex w-100">
+            <div class="profile-image mr-3">
+              <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+            </div>
+            <div class="profile">
+              <h5 class="mb-1"><%= tweet.user.screen_name %> <span><%= tweet.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= tweet.text %></p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p>User Details</p>
+      <ul class="list-group mb-3">      
+          <li class='list-group-item'>
+            <div class="d-flex w-100">
+              <div class="profile-image mr-3">
+                <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+              </div>
+              <div class="profile">
+                <h5 class="mb-1"><%= tweet.user.screen_name %></h5>
+                <p class="mb-1">Name: </p>
+                <p class="mb-1">Diertry requirements: </p>
+                <p class="mb-1">Address: </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+    </div>
+  <div class=" col-md-6">
+    <p>Order Overview</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+        <%= tweet.user.screen_name %>
+        <span class="badge badge-danger">Not yet created</span>
+      </div>
+      <form class="needs-validation" id="new-order" method="post">
+        <ul class="list-group list-group-flush">
+          <div class="form-group mb-0" id="menu-items">
+            <li class="list-group-item">Search for items to add to the order</li>
+            <li class="list-group-item">
+              <input name="item[]" class="form-control typeahead" type="text" value="Pork pie" placeholder="Search for an item..." required>
+            </li>
+            <li class="list-group-item">
+              <input name="item[]" class="form-control typeahead" type="text" value="Mash" placeholder="Search for an item..." required>
+            </li>
+            <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
+          </div>
+        </ul>
+        <div class="card-footer border-top-0">
+          <button type="submit" class="btn btn-success">Update</button>
+          <a class="btn btn-danger" href="/delete-order/<%=tweet.id%>">Delete order</a>
+        </div>
+      </form>
+    </div>
+</div>
+</div>
+<%= erb :footer %>
