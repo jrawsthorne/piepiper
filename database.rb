@@ -50,11 +50,4 @@ end
 #db.execute "INSERT INTO items(item, item_type, price, special_condition) VALUES (?, ?, ?, ?, ?)", [item, item_type, price, special_condition]
 
 items = db.execute "SELECT * FROM items ORDER BY item_type;"
-
-items = db.execute "SELECT * FROM items WHERE item_type == 'Pie'"
-for i in items
-  for e in i
-    print e.to_s + "|"
-  end
-  puts
-end
+print items
