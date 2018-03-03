@@ -1,5 +1,9 @@
 <%= erb :header %>
-<% tweet = @client.status(params['tweet_id']) %>
+<% 
+  order_id = params['order_id']
+  order = get_order(order_id)
+  tweet = order.tweet
+%>
 <div class="row">
   <div class="mb-3 col-md-6">
     <p>Tweet</p>
@@ -38,25 +42,25 @@
     <div class="card mb-3">
       <div class="card-header">
         <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+        #<%=order_id%> 
         <%= tweet.user.screen_name %>
-        <span class="badge badge-danger">Not yet created</span>
+        <span class="badge badge-info"><%= order.state %></span>
       </div>
       <form class="needs-validation" id="new-order" method="post">
         <ul class="list-group list-group-flush">
           <div class="form-group mb-0" id="menu-items">
             <li class="list-group-item">Search for items to add to the order</li>
-            <li class="list-group-item">
-              <input name="item[]" class="form-control typeahead" type="text" value="Pork pie" placeholder="Search for an item..." required>
-            </li>
-            <li class="list-group-item">
-              <input name="item[]" class="form-control typeahead" type="text" value="Mash" placeholder="Search for an item..." required>
-            </li>
+            <% order.items.each do |item| %>
+              <li class="list-group-item">
+                <input name="item[]" class="form-control typeahead" type="text" value="<%= item.name %>" placeholder="Search for an item..." required>
+              </li>
+            <% end %>
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
           </div>
         </ul>
         <div class="card-footer border-top-0">
-          <button type="submit" class="btn btn-success">Update</button>
-          <a class="btn btn-danger" href="/delete-order/<%=tweet.id%>">Delete order</a>
+          <button type="button" class="disabled btn btn-success">Update</button>
+          <a class="btn btn-danger" href="/delete-order/<%=order_id%>">Delete order</a>
         </div>
       </form>
     </div>

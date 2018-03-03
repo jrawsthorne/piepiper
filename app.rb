@@ -12,58 +12,163 @@ before do
       :access_token => '965615031185485824-xCVnWm6q628bwhbLcFjhAsGCpPojDKT',
       :access_token_secret => 'ilEkrfVAahr8odgafGkodNkRl045MbbSgeoicL4x80EB8'
   }
-  @client = Twitter::REST::Client.new(config)
-  @db = "piepiper.db"
+  $client = Twitter::REST::Client.new(config)
+  $db = SQLite3::Database.new "piepiper.db"
 end
 
-def get_items
-  items = []
-  db = SQLite3::Database.new @db
-  # Gets item name and type by joining data from two ItemTypes and Items tables
-  stm = db.prepare "SELECT Items.Name,ItemTypes.Name FROM Items INNER JOIN ItemTypes ON ItemTypes.ID = Items.Type"
-  rs = stm.execute
-  while (row = rs.next) do
-      items.push(row[0]) # Only pulls item name for now, not item type 
+def isorder(tweet_id)
+  count = $db.get_first_value("SELECT COUNT(*) FROM Orders WHERE Tweet = CAST(? as TEXT)",[tweet_id])
+  return (count == 1)
+end
+
+def get_order_ids
+  orders = []
+  query = $db.prepare "SELECT ID FROM Orders"
+  results = query.execute
+  while (row = results.next) do
+      orders.push(row.join)
   end
-  return items;
-  stm.close if stm
-  db.close if db
+  return orders;
+  query.close if query
+end
+
+class Order
+  def initialize(order_id)
+    @id = order_id
+  end
+  def tweet
+    tweet_id = $db.get_first_value("SELECT Tweet FROM Orders WHERE ID = CAST(? as TEXT)",[@id])
+    return $client.status(tweet_id)
+  end
+  def items
+    items = []
+    query = $db.prepare "SELECT Items.ID FROM Items INNER JOIN OrderItems ON OrderItems.Item = Items.ID WHERE `Order` = CAST(? as INTEGER)"
+    query.bind_params(@id)
+    results = query.execute
+    while (row = results.next) do
+        item = get_item(row.join)
+        items.push(item)
+    end
+    return items;
+    query.close if query
+  end
+  def delete()
+    $db.execute("DELETE FROM OrderItems WHERE `Order` = CAST(? as INTEGER)",[@id])
+    $db.execute("DELETE FROM Orders WHERE ID = CAST(? as INTEGER)",[@id])
+  end
+  def state 
+    state = $db.get_first_value("SELECT OrderStates.Name FROM OrderStates INNER JOIN Orders ON Orders.State = OrderStates.ID WHERE Orders.ID = CAST(? as INTEGER)",[@id])
+    return state
+  end
+end
+
+def get_order(order_id)
+  return Order.new(order_id)
 end
 
 def new_order(items, tweet_id)
-  user_id = @client.status(tweet_id).user.id
-  db = SQLite3::Database.new @db
+  user_id = $client.status(tweet_id).user.id
   # Creates new order
-  db.execute("INSERT INTO Orders (User, Tweet) 
-              VALUES (?, ?)", [user_id, tweet_id])
-  new_order_id = db.last_insert_row_id()
+  $db.execute("INSERT INTO Orders (User, Tweet, State) VALUES (?, CAST(? as TEXT), 1)", [user_id, tweet_id])
+  new_order_id = $db.last_insert_row_id()
   items.each do |item|
-    # Inserts into OrderItems the OrderID from the order added above and the item name from the form
-    db.execute("INSERT INTO OrderItems (`Order`, Item) VALUES (?, (SELECT ID FROM Items WHERE Name = ?))", [new_order_id, item])
+    $db.execute("INSERT INTO OrderItems (`Order`, Item) VALUES (?, (SELECT ID FROM Items WHERE Name = ?))", [new_order_id, item])
   end
-  db.close
 end
 
-def get_orders  
-  orders = Hash.new
-  db = SQLite3::Database.new @db
-  stmt = db.prepare "SELECT ID FROM Orders"
-  rs = stmt.execute
-  rs.each do |row|
-    items = []
-    # Gets item name from Items based on ID from OrderItems ItemID
-    stmt2 = db.prepare "SELECT Items.Name FROM OrderItems INNER JOIN Items ON Items.ID = OrderItems.Item WHERE `Order`=?"
-    stmt2.bind_params(row)
-    rs2 = stmt2.execute
-    rs2.each do |row|
-      items.push(row.join)
-    end
-    stmt2.close
-    orders[row.join] = items
+class Item
+  def initialize(item_id)
+    @id = item_id
   end
-  stmt.close
-  db.close
-  return orders
+  def name
+    name = $db.get_first_value("SELECT Name FROM Items WHERE ID = ?",[@id])
+    return name
+  end
+  def price 
+    price = $db.get_first_value("SELECT Price FROM Items WHERE ID = ?",[@id])
+    return price
+  end
+  def type
+    type_id = $db.get_first_value("SELECT ItemTypes.ID FROM ItemTypes INNER JOIN Items ON Items.Type = ItemTypes.ID WHERE Items.ID = ?",[@id])
+    return get_item_type(type_id)
+  end
+  def special
+    special_id = $db.get_first_value("SELECT SpecialCondition.ID FROM SpecialCondition INNER JOIN Items ON Items.Special = SpecialCondition.ID WHERE Items.ID = ?",[@id])
+    return get_item_special(special_id)
+  end
+end
+
+def get_item(item_id)
+  return Item.new(item_id)
+end
+
+def get_all_item_names
+  items = []
+  get_item_ids.each do |item_id|
+      items.push(get_item(item_id).name)
+  end
+  return items
+end
+
+def get_item_ids
+  items = []
+  query = $db.prepare "SELECT ID FROM Items"
+  results = query.execute
+  while (row = results.next) do
+      items.push(row.join)
+  end
+  return items;
+  query.close if query
+end
+
+class ItemType
+  def initialize(type_id)
+    @id = type_id
+  end
+  def name
+    name = $db.get_first_value("SELECT Name FROM ItemTypes WHERE ID = ?",[@id])
+    return name
+  end
+end
+
+def get_item_type(type_id)
+  return ItemType.new(type_id)
+end
+
+def get_item_type_ids
+  types = []
+  query = $db.prepare "SELECT ID FROM ItemTypes"
+  results = query.execute
+  while (row = results.next) do
+      types.push(row.join)
+  end
+  return types;
+  query.close if query
+end
+
+class Special
+  def initialize(special_id)
+    @id = special_id
+  end
+  def name
+    name = $db.get_first_value("SELECT Name FROM SpecialCondition WHERE ID = ?",[@id])
+    return name
+  end
+end
+
+def get_item_special(special_id)
+  return Special.new(special_id)
+end
+
+def get_item_special_ids
+  specials = []
+  query = $db.prepare "SELECT ID FROM SpecialCondition"
+  results = query.execute
+  while (row = results.next) do
+      specials.push(row.join)
+  end
+  return specials;
+  query.close if query
 end
 
 def current_class?(test_path)
@@ -114,7 +219,7 @@ end
 
 post '/new-order/:tweet_id' do
   authenticate!
-  new_order(params[:item], params[:tweet_id])
+  new_order(params[:item], params[:tweet_id.to_s])
   redirect '/orders'
 end
 
@@ -129,7 +234,7 @@ get '/new-order/:tweet_id' do
   erb :'new-order'
 end
 
-post '/edit-order/:tweet_id' do
+post '/edit-order/:order_id' do
   authenticate!
   puts params[:item]
   redirect '/orders'
@@ -140,14 +245,15 @@ get '/edit-order' do
   redirect '/orders'
 end
 
-get '/edit-order/:tweet_id' do
+get '/edit-order/:order_id' do
   authenticate!
   @title = "Edit order"
   erb :'edit-order'
 end
 
-get '/delete-order/:tweet_id' do
+get '/delete-order/:order_id' do
   authenticate!
+  get_order(params[:order_id]).delete()
   redirect '/orders'
 end
 
@@ -158,27 +264,4 @@ end
 
 not_found do
   redirect '/'
-end
-
-# Just for testing
-
-get '/api/get-items' do
-  content_type :json
-  items = get_items
-  {:items => items }.to_json
-end
-
-def parse_orders(orders)
-  get_orders.each do |key, array|
-    array.each do |item|
-      puts "Item ID: "+key
-      puts "Item Name: "+item
-    end
-  end
-end
-
-get '/api/get-orders' do
-  parse_orders(get_orders)
-  content_type :json
-  {:orders => get_orders }.to_json
 end

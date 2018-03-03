@@ -1,11 +1,12 @@
 <%= erb :header %>
-<% tweets = @client.mentions_timeline() %>
+<% tweets = $client.mentions_timeline() %>
 <div class="row">
   <div class="mb-3 col-md-6">
     <p>Incoming tweets</p>
     <ul class="list-group">
       <%  
-          tweets.each do |tweet|
+        tweets.each do |tweet|
+        if(!isorder(tweet.id))
       %>
       
         <li class='list-group-item'>
@@ -22,34 +23,45 @@
         </li>
       
       <% 
-          end
+        end
+        end
       %>
       </ul>
     </div>
   <div class=" col-md-6">
     <p>Orders</p>
     <div id="accordion">
-    <% tweets.each do |tweet| %>
+    <% 
+      get_order_ids.each do |order_id|
+      order = get_order(order_id)
+      tweet = order.tweet
+    %>
     <div class="card mb-3">
       <div class="card-header">
         <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+        #<%=order_id%> 
         <%= tweet.user.screen_name %>
-        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%=tweet.id%>">
+        <span class="badge badge-info"><%= order.state %></span>
+        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order_id %>">
           View order details
         </button>
-        <span class="badge badge-success">Complete</span>
+        
       </div>
-      <div id="order-details-<%=tweet.id%>" class="collapse">
+      <div id="order-details-<%=order_id%>" class="collapse">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">1x Pork pie</li>
-          <li class="list-group-item">2x Mash</li>
+          <% order.items.each do |item| %>
+            <li class="list-group-item"><%= item.name %></li>
+          <% end %>
         </ul>
         <div class="card-footer border-top-0">
-          <a class="btn btn-primary" href="/edit-order/<%=tweet.id%>">Edit order</a>
+          <a class="btn btn-primary" href="/edit-order/<%=order_id%>">Edit order</a>
+          <a class="btn btn-danger" href="/delete-order/<%=order_id%>">Delete order</a>
         </div>
     </div>
     </div>
-    <% end %>
+    <% 
+      end
+    %>
   </div>
 </div>
 </div>

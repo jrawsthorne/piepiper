@@ -1,5 +1,5 @@
 <%= erb :header %>
-<% tweet = @client.status(params['tweet_id']) %>
+<% tweet = $client.status(params['tweet_id']) %>
 <div class="row">
   <div class="mb-3 col-md-6">
     <p>Tweet</p>
