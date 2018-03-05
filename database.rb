@@ -1,53 +1,28 @@
 require 'sqlite3'
 
-db = SQLite3::Database.open "items.db"
+db = SQLite3::Database.open "piepiper.db"
 
-def get_item()
-  puts "What is the item? "
-  return gets
+def query(db, table, attribute_searched, operator, value_wanted) #outputs as an array of arrays
+  #parameters are: the databse variable, the table searched, column, operator
+  #eg things(db, items, type, =, 1)
+  sqlQuery = "SELECT * FROM " + table
+  if attribute_searched != nil?
+    sqlQuery += " WHERE " + attribute_searched + " " + operator + " " + value_wanted +";"
+  end
+  data = db.execute sqlQuery
+  return data
 end
 
-def get_item_type()
-  puts "What type of item is it?"
-  puts "Enter associated number:
-  1. Pie
-  2. Side
-  3. Soft drinks
-  4. Milkshakes
-  5. Alcohol"
-
-  type = gets
-  if type == 1
-    return "Pie"
-  elsif type == 2
-    return "Side"
-  elsif type == 3
-    return "Soft drinks"
-  elsif type == 4
-    return "Milkshakes"
-  elsif type == 5
-    return "Alcohol"
+def dataOutput(list)
+  for i in list
+    for e in i
+      print e.to_s + "|"
+    end
+    puts
   end
 end
 
-def get_price()
-  puts "What is the price"
-  price = gets
-  #should probably check the type
-  return price
-end
-
-def get_special_condition()
-  puts "What is the special condition"
-  return gets
-end
-
-#item = get_item
-#item_type = get_item_type
-#price = get_price
-#special_condition = get_special_condition
-
-#db.execute "INSERT INTO items(item, item_type, price, special_condition) VALUES (?, ?, ?, ?, ?)", [item, item_type, price, special_condition]
-
-items = db.execute "SELECT * FROM items ORDER BY item_type;"
-print items
+#items = db.execute "SELECT * FROM items WHERE type=1;"
+#these do the same thing, so you know how it all works
+#print query(db, "items", "type", "=", "1")
+#dataOutput(query(db, "items", "type", "=", "1"))
