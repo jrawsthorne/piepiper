@@ -62,7 +62,8 @@ end
 
 get '/auth/twitter/callback' do
   auth = request.env["omniauth.auth"]
-  auth ? session[:handle] = auth['info']['name'] : halt(401,'Not Authorized')
+  auth ? session[:handle] = env['omniauth.auth']['extra']['raw_info']['screen_name'] : halt(401,'Not Authorized')
+  redirect '/account'
 end
 
 post '/new-order' do
