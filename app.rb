@@ -1,6 +1,15 @@
 require 'sinatra'
 require 'twitter'
 require 'json'
+require 'omniauth-twitter'
+
+use OmniAuth::Builder do
+  provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
+end
+
+configure do
+  enable :sessions
+end
 
 before do
   config = {
@@ -10,6 +19,12 @@ before do
       :access_token_secret => 'ilEkrfVAahr8odgafGkodNkRl045MbbSgeoicL4x80EB8'
   }
   @client = Twitter::REST::Client.new(config)
+end
+
+helpers do
+  def handle?
+    session[:handle]
+  end
 end
 
 def current_class?(test_path)
@@ -34,6 +49,20 @@ end
 get '/orders' do
   @title = "Orders"
   erb :orders
+end
+
+get '/account' do
+  @title = "Account"
+  erb :account
+end
+
+get '/login_twitter' do
+  redirect to("/auth/twitter")
+end
+
+get '/auth/twitter/callback' do
+  auth = request.env["omniauth.auth"]
+  auth ? session[:handle] = auth['info']['name'] : halt(401,'Not Authorized')
 end
 
 post '/new-order' do

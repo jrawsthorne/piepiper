@@ -1,0 +1,22 @@
+<%= erb :header %>
+  <h1>Account Settings</h1>
+  <form>
+    <div class="form-group">
+      <p>First name: </p>              <input type = 'text'     name = 'forename'>
+      <p>Last name: </p>               <input type = 'text'     name = 'surname'>
+      <p>Email: </p>                   <input type = 'text'     name = 'email'>
+      <p>Twitter Handle: </p>          <p>Twitter_User</p>
+      <p>Change Twitter Handle: </p>   <a href='/auth/twitter'><img src='https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png'></a>
+      <br>
+      <p>Dietary requirements: </p>
+      <p>   Vegetarian: </p>           <input type = 'checkbox' name = 'vegetarian'>
+      <p>   Vegan: </p>                <input type = 'checkbox' name = 'vegan'>
+      <p>   Allergies: </p>            <input type = 'text'     name = 'allergies'>
+      <br>
+      <p>Address Line 1: </p>          <input type = 'text'     name = 'addressLine1'>
+      <p>Address Line 2: </p>          <input type = 'text'     name = 'addressLine2'>
+      <p>City/Region: </p>             <input type = 'text'     name = 'region'>
+      <p>Postcode: </p>                <input type = 'text'     name = 'postcode'>
+    </div>
+  <form>
+<%= erb :footer %>
