@@ -8,3 +8,9 @@ get '/user/:user_id' do
     redirect('/')
   end
 end
+
+get '/users' do
+  authenticate!
+  @title = "Users"
+  erb :users
+end
