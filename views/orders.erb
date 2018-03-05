@@ -1,12 +1,13 @@
 <%= erb :header %>
 <% tweets = $client.mentions_timeline() %>
 <div class="row">
-  <div class="mb-3 col-md-6">
+  <div class="mb-3 col-lg-6 col-md-12">
     <p>Incoming tweets</p>
     <ul class="list-group">
       <%  
         tweets.each do |tweet|
-        if(!isorder(tweet.id))
+        if(!isorder(tweet_id: tweet.id))
+        user = get_user(twitter_id: tweet.user.id) if(isuser(twitter_id: tweet.user.id))
       %>
       
         <li class='list-group-item'>
@@ -15,9 +16,18 @@
               <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
             </div>
             <div class="profile">
-              <h5 class="mb-1"><%= tweet.user.screen_name %> <span><%= tweet.created_at.asctime %></span></h5>
+              <h5 class="mb-1">
+                <a href="/user/<%= user.id if(user) %>"><%= user.fullname if(user) %></a>
+                <%= tweet.user.screen_name if(!user )%>
+                <span><%= tweet.created_at.asctime %></span>
+              </h5>
               <p class="mb-1"><%= tweet.text %></p>
-              <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
+              <% if(isuser(twitter_id: tweet.user.id)) %>
+                <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
+              <% else %>
+                <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
+                <p class="mb-1">Tell user they need to sign up before tweeting</p>
+              <% end %>
             </div>
           </div>
         </li>
@@ -28,34 +38,35 @@
       %>
       </ul>
     </div>
-  <div class=" col-md-6">
+  <div class="col-lg-6 col-md-12">
     <p>Orders</p>
     <div id="accordion">
     <% 
-      get_order_ids.each do |order_id|
-      order = get_order(order_id)
+      get_orders.each do |order|
       tweet = order.tweet
     %>
     <div class="card mb-3">
       <div class="card-header">
         <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
-        #<%=order_id%> 
-        <%= tweet.user.screen_name %>
-        <span class="badge badge-info"><%= order.state %></span>
-        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order_id %>">
+        #<%=order.id%> 
+        <%= order.user.fullname %>
+        <span class="badge badge-info"><%= order.state.name %></span>
+        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order.id %>">
           View order details
         </button>
         
       </div>
-      <div id="order-details-<%=order_id%>" class="collapse">
+      <div id="order-details-<%=order.id%>" class="collapse">
         <ul class="list-group list-group-flush">
-          <% order.items.each do |item| %>
-            <li class="list-group-item"><%= item.name %></li>
+          <% order.items.each do |order_item| %>
+            <% item = order_item.item %>
+            <li class="list-group-item"><%=display_currency(item.price*order_item.quantity)%> <%= order_item.quantity %>x <%= item.name %></li>
           <% end %>
+          <li class="list-group-item">Total order price: <%= display_currency(total_order_price(order.items)) %></li>
         </ul>
         <div class="card-footer border-top-0">
-          <a class="btn btn-primary" href="/edit-order/<%=order_id%>">Edit order</a>
-          <a class="btn btn-danger" href="/delete-order/<%=order_id%>">Delete order</a>
+          <a class="btn btn-primary" href="/edit-order/<%=order.id%>">Edit</a>
+          <a class="btn btn-danger" href="/delete-order/<%=order.id%>">Delete</a>
         </div>
     </div>
     </div>
