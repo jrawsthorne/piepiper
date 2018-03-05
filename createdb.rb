@@ -10,17 +10,21 @@ end
 db = SQLite3::Database.new "piepiper.db"
 
 db.execute_batch <<-SQL
-  CREATE TABLE `Users` (
+  CREATE TABLE IF NOT EXISTS `Users` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Username`	TEXT NOT NULL UNIQUE,
+  `FirstName`	TEXT NOT NULL,
+  `LastName`	TEXT NOT NULL,
   `Password`	TEXT NOT NULL,
   `TwitterID`	TEXT NOT NULL UNIQUE,
-  `DietryRequirements`	TEXT,
+  `DietryRequirements`	INTEGER,
   `Address`	TEXT NOT NULL,
   `AccountType`	INTEGER NOT NULL,
-  FOREIGN KEY(`AccountType`) REFERENCES `AccountTypes`(`ID`)
+  FOREIGN KEY(`AccountType`) REFERENCES `AccountTypes`(`ID`),
+  FOREIGN KEY(`DietryRequirements`) REFERENCES `SpecialCondition`(`ID`)
   );
-  CREATE TABLE `SpecialCondition` (
+  INSERT INTO `Users` VALUES (1,'collin602','Collin','Coutinho','password','226319377',NULL,'S10 3AU',1);
+  CREATE TABLE IF NOT EXISTS `SpecialCondition` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Name`	TEXT NOT NULL UNIQUE
   );
@@ -28,29 +32,29 @@ db.execute_batch <<-SQL
   (2,'Vegan'),
   (3,'Vegetarian'),
   (4,'Gluten free');
-  CREATE TABLE `Orders` (
+  CREATE TABLE IF NOT EXISTS `Orders` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `User`	INTEGER NOT NULL,
   `Tweet`	TEXT NOT NULL,
   `State`	INTEGER NOT NULL,
-  FOREIGN KEY(`State`) REFERENCES `OrderStates`(`ID`),
-  FOREIGN KEY(`User`) REFERENCES `Users`(`ID`)
+  FOREIGN KEY(`User`) REFERENCES `Users`(`ID`),
+  FOREIGN KEY(`State`) REFERENCES `OrderStates`(`ID`)
   );
-  CREATE TABLE `OrderStates` (
+  CREATE TABLE IF NOT EXISTS `OrderStates` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Name`	TEXT
   );
   INSERT INTO `OrderStates` VALUES (1,'Preparing'),
   (2,'Complete');
-  CREATE TABLE `OrderItems` (
+  CREATE TABLE IF NOT EXISTS `OrderItems` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Order`	INTEGER NOT NULL,
   `Item`	INTEGER NOT NULL,
   `Quantity`	INTEGER NOT NULL DEFAULT 1,
-  FOREIGN KEY(`Order`) REFERENCES `Orders`(`ID`),
-  FOREIGN KEY(`Item`) REFERENCES `Items`(`ID`)
+  FOREIGN KEY(`Item`) REFERENCES `Items`(`ID`),
+  FOREIGN KEY(`Order`) REFERENCES `Orders`(`ID`)
   );
-  CREATE TABLE `Items` (
+  CREATE TABLE IF NOT EXISTS `Items` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Name`	TEXT NOT NULL UNIQUE,
   `Type`	INTEGER NOT NULL,
@@ -83,7 +87,7 @@ db.execute_batch <<-SQL
   (22,'Vanilla milkshake',4,3.5,NULL),
   (23,'Chocolate milkshake',4,3.5,NULL),
   (24,'Lager',5,5.7,NULL);
-  CREATE TABLE `ItemTypes` (
+  CREATE TABLE IF NOT EXISTS `ItemTypes` (
   `ID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Name`	TEXT UNIQUE
   );
@@ -92,7 +96,7 @@ db.execute_batch <<-SQL
   (3,'Soft drinks'),
   (4,'Milkshakes'),
   (5,'Alcohol');
-  CREATE TABLE `AccountTypes` (
+  CREATE TABLE IF NOT EXISTS `AccountTypes` (
   `ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `Name`	TEXT NOT NULL
   );
