@@ -18,3 +18,19 @@ before do
   $client = Twitter::REST::Client.new(config)
   $db = SQLite3::Database.new 'piepiper.db'
 end
+
+helpers do
+  def handle?
+    session[:handle]
+  end
+end
+
+get '/login_twitter' do
+  redirect to("/auth/twitter")
+end
+
+get '/auth/twitter/callback' do
+  auth = request.env["omniauth.auth"]
+  auth ? session[:handle] = env['omniauth.auth']['extra']['raw_info']['screen_name'] : halt(401,'Not Authorized')
+  redirect '/account'
+end
