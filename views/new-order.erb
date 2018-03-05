@@ -1,0 +1,95 @@
+<%= erb :header %>
+<div class="row">
+  <% 
+    tweet_id = params['tweet_id']
+    if(!istweet(tweet_id)) 
+  %>
+    <%= display_error($errors[:tweet_not_exist]) %>
+  <% elsif(isorder(tweet_id: tweet_id)) %>
+    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+get_order(tweet: tweet_id).id.to_s+'">View it here</a>') %>
+  <% else %>  
+  <% 
+    tweet = $client.status(tweet_id)
+    user = get_user(twitter_id: tweet.user.id)
+  %>
+  <% if(!isuser(user_id: user.id)) %>
+    <%= display_error($errors[:user_not_registered]) %>
+  <% else %>
+  <% if(@error) %>
+    <%= display_error(@error) %>
+  <% end %>
+  <div class="mb-3 col-lg-5 col-md-12">
+    <p>Tweet</p>
+    <a target="_blank" href="<%= tweet.uri %>"><ul class="list-group mb-3">      
+        <li class='list-group-item'>
+          <div class="d-flex w-100">
+            <div class="profile-image mr-3">
+              <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+            </div>
+            <div class="profile">
+              <h5 class="mb-1"><%= user.fullname %> <span><%= tweet.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= tweet.text %></p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </a>
+      <p>User Details <small><a href="/user/<%= user.id %>">View user</a></small></p>
+      <ul class="list-group mb-3">      
+          <li class='list-group-item'>
+            <div class="d-flex w-100">
+              <div class="profile-image mr-3">
+                <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+              </div>
+              <div class="profile">
+                <p class="mb-1">Name: <%= user.fullname %></p>
+                <p class="mb-1">Username: <%= user.username %></p>
+                <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
+                <p class="mb-1">Diertry requirements: <% if(user.dietry_requirements.name.nil?) then %>N/A<% else %><%= user.dietry_requirements.name %><% end %></p>
+                <p class="mb-1">Address: <%= user.address %></p>
+              </div>
+            </div>
+          </li>
+        </ul>
+    </div>
+  <div class="col-lg-7 col-md-12">
+    <p>Order Overview</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+        <%= user.fullname %>
+        <span class="badge badge-danger">Not yet created</span>
+      </div>
+      <form class="needs-validation" id="order" method="post" novalidate>
+        <ul class="list-group list-group-flush">
+          <div class="form-group mb-0" id="menu-items">
+            <li class="list-group-item">Search for items to add to the order</li>
+            <li class="list-group-item">
+              <div class="form-row">
+                <div class="form-group mb-0 col-sm-2">
+                  <input class="form-control disabled price" disabled type="texr" value="£0.00" placeholder="£0.00">
+                </div>
+                <div class="form-group mb-0 col-sm-7">
+                  <input name="item[]" class="form-control typeahead" type="text" placeholder="Search for an item..." required>
+                </div>
+                <div class="form-group mb-0 col-sm-2">
+                  <input name="quantity[]" class="form-control" type="number" min="1" value="1" required>
+                </div>
+                <div class="form-group mb-0 col-sm-1">
+                  <button disabled type="button" class="disabled btn btn-danger btn-block">-</button>
+                </div>
+              </div>
+            </li>
+            <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
+            <li class="list-group-item" id="total-order-price">Total order price: £0.00</li>
+          </div>
+        </ul>
+        <div class="card-footer border-top-0">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+</div>
+<% end end %>
+</div>
+<%= erb :footer %>

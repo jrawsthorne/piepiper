@@ -1,5 +1,12 @@
 require 'sinatra'
+require_relative 'models/init'
+require_relative 'helpers/init'
+require_relative 'routes/init'
 require 'twitter'
+require 'sqlite3'
+require 'json'
+
+enable :sessions
 
 before do
   config = {
@@ -8,29 +15,6 @@ before do
       :access_token => '965615031185485824-xCVnWm6q628bwhbLcFjhAsGCpPojDKT',
       :access_token_secret => 'ilEkrfVAahr8odgafGkodNkRl045MbbSgeoicL4x80EB8'
   }
-  @client = Twitter::REST::Client.new(config)
-end
-
-def current_class?(test_path)
-    request.path == test_path ? 'active' : ''
-end
-
-get '/' do
-  @title = "Home"
-  erb :index
-end
-
-get '/about' do
-  @title = "About Us"
-  erb :about
-end
-
-get '/contact' do
-  @title = "Contact"
-  erb :contact
-end
-
-get '/login' do
-  @title = "Login"
-  erb :login
+  $client = Twitter::REST::Client.new(config)
+  $db = SQLite3::Database.new 'piepiper.db'
 end
