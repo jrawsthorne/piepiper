@@ -5,8 +5,8 @@
     if(!istweet(tweet_id))
   %>
     <%= display_error($errors[:tweet_not_exist]) %>
-  <% elsif(Order.exists?(tweet: tweet_id)) %>
-    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.find_by(tweet: tweet_id).id.to_s+'">View it here</a>') %>
+  <% elsif(Order.exists?(tweet_id: tweet_id)) %>
+    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.where(tweet_id: tweet_id).pluck(:id).join.to_s+'">View it here</a>') %>
   <% else %>
   <%
     tweet = $client.status(tweet_id)

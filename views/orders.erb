@@ -8,7 +8,7 @@
     <ul class="list-group">
       <%  
         tweets.each do |tweet|
-        if(!Order.exists?(tweet: tweet.id))
+        if(!Order.exists?(tweet_id: tweet.id))
         user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
       %>
         <li class='list-group-item'>
@@ -43,6 +43,7 @@
       <p>Orders</p>
       <div id="accordion">
       <% 
+        if(Order.exists?)
         Order.all.each do |order|
         tweet = order.get_tweet
       %>
@@ -71,6 +72,7 @@
       </div>
       </div>
       <% 
+        end
         end
       %>
     </div>

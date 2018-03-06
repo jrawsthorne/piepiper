@@ -20,8 +20,8 @@ end
 
 def new_order(items, quantities, tweet_id)
   order = Order.new do |u|
-    u.user_id = User.find_by(twitter_id: get_user_from_tweet(tweet_id)).id
-    u.tweet = tweet_id.to_s
+    u.user_id = User.where(twitter_id: get_user_from_tweet(tweet_id)).pluck(:id).join
+    u.tweet_id = tweet_id
     u.order_state_id = 1
   end
   order.save
