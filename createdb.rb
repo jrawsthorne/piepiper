@@ -36,9 +36,9 @@ db.execute_batch <<-SQL
   `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `user_id`	INTEGER NOT NULL,
   `tweet`	TEXT NOT NULL,
-  `state_id`	INTEGER NOT NULL,
+  `order_state_id`	INTEGER NOT NULL,
   FOREIGN KEY(`user_id`) REFERENCES `users`(`id`),
-  FOREIGN KEY(`state_id`) REFERENCES `order_states`(`id`)
+  FOREIGN KEY(`order_state_id`) REFERENCES `order_states`(`id`)
   );
   CREATE TABLE IF NOT EXISTS `order_states` (
   `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
