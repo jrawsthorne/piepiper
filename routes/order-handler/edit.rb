@@ -1,7 +1,7 @@
 post '/edit-order/:order_id' do
   @error = check_input(params[:item],params[:quantity])
   if(@error == false)
-    edit_order(params[:item], params[:quantity], params[:order_id])
+    Order.find(params[:order_id]).edit_order(params[:item], params[:quantity])
     redirect '/orders'
   else
     @title = "Edit order"
