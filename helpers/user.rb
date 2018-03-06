@@ -1,10 +1,12 @@
 def authenticate!
+    session[:user_id] = nil if(!User.exists?(session[:user_id]))
     unless session[:user_id]
       redirect '/login'
     end
 end
 
 def authenticated?
+    session[:user_id] = nil if(!User.exists?(session[:user_id]))
     !!session[:user_id]
 end
 
