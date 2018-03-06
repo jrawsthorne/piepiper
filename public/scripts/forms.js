@@ -46,9 +46,9 @@ $(function (){
     totalOrderPirceChange()
     validateItems()
     if(isValid) {
-      $("button#submit").removeAttr("disabled");
+      $("button#submit_order").removeAttr("disabled");
     } else {
-      $("#submit").attr("disabled", true);
+      $("#submit_order").attr("disabled", true);
     }
   }
 
