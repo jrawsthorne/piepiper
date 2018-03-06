@@ -1,14 +1,14 @@
 <%= erb :header %>
 <div class="row">
-  <% 
+  <%
     tweet_id = params['tweet_id']
-    if(!istweet(tweet_id)) 
+    if(!istweet(tweet_id))
   %>
     <%= display_error($errors[:tweet_not_exist]) %>
   <% elsif(Order.exists?(tweet: tweet_id)) %>
     <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.find_by(tweet: tweet_id).id.to_s+'">View it here</a>') %>
-  <% else %>  
-  <% 
+  <% else %>
+  <%
     tweet = $client.status(tweet_id)
     user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
   %>
@@ -20,7 +20,7 @@
   <% end %>
   <div class="mb-3 col-lg-5 col-md-12">
     <p>Tweet</p>
-    <a target="_blank" href="<%= tweet.uri %>"><ul class="list-group mb-3">      
+    <a target="_blank" href="<%= tweet.uri %>"><ul class="list-group mb-3">
         <li class='list-group-item'>
           <div class="d-flex w-100">
             <div class="profile-image mr-3">
@@ -35,7 +35,7 @@
       </ul>
     </a>
       <p>User Details <small><a href="/user/<%= user.id %>">View user</a></small></p>
-      <ul class="list-group mb-3">      
+      <ul class="list-group mb-3">
           <li class='list-group-item'>
             <div class="d-flex w-100">
               <div class="profile-image mr-3">
@@ -85,7 +85,7 @@
           </div>
         </ul>
         <div class="card-footer border-top-0">
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button disabled type="submit" id="submit" class="btn btn-primary">Create</button>
         </div>
       </form>
     </div>
