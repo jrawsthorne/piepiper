@@ -45,11 +45,6 @@ $(function (){
     }
     totalOrderPirceChange()
     validateItems()
-    if(isValid) {
-      $("button#submit_order").removeAttr("disabled");
-    } else {
-      $("#submit_order").attr("disabled", true);
-    }
   }
 
   function totalOrderPirceChange() {
@@ -66,7 +61,8 @@ $(function (){
 
   $("#menu-items").on('click', ".remove-item", function() {
     $(this).closest(".list-group-item").remove()
-    totalOrderPirceChange()
+    totalOrderPirceChange();
+    validateItems();
   })
 
   var num = 0;
@@ -86,6 +82,7 @@ $(function (){
       source: availableItems
     });
     num += 1;
+    validateItems();
   });
 
   function validateItems() {
@@ -108,6 +105,11 @@ $(function (){
           $(this).removeClass('is-invalid');
       }
     })
+    if(isValid) {
+      $("button#submit_order").removeAttr("disabled");
+    } else {
+      $("#submit_order").attr("disabled", true);
+    }
     return isValid
   }
 
