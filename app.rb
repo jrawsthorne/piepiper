@@ -8,7 +8,7 @@ require_relative 'models/init'
 require_relative 'helpers/init'
 require_relative 'routes/init'
 
-set :database, "sqlite3:piepiper.db"
+set :database, "sqlite3:db/piepiper.db"
 
 use OmniAuth::Builder do
   provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
