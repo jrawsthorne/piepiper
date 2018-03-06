@@ -9,18 +9,27 @@ get '/about' do
 end
 
 get '/login' do
-  @title = "Login"
-  erb :login
+  if(authenticated?)
+    redirect '/'
+  else
+    @title = "Login"
+    erb :login
+  end
 end
 
 post '/login' do
-  # Accepts any credentials for now
-  session[:user] = "username"
+  # Sign in as Colin for now
+  session[:user_id] = 1
   redirect '/orders'
 end
 
+get '/signup' do
+  @title = "Sign up"
+  erb :signup
+end
+
 get '/logout' do
-  session[:user] = nil
+  session[:user_id] = nil
   redirect '/'
 end
 

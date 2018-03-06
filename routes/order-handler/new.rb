@@ -3,6 +3,7 @@ post '/new-order/:tweet_id' do
   @error = check_input(params[:item],params[:quantity])
   if(@error == false)
     new_order(params[:item], params[:quantity], params[:tweet_id])
+    flash[:new_order] = Order.find_by(tweet: params[:tweet_id]).id
     redirect '/orders'
   else
     @title = "New order"

@@ -10,9 +10,16 @@
         <title><%= @title %> - Pie Piper</title>
     </head>
     <body>
-      <% if(authenticated?) then %>
-      <%= erb :navadmin %>
+      <% if(authenticated?) %>
+        <% user = get_user_from_session %>
+        <% if(user.account_type.id == 1) %>
+          <%= erb :navuser %>
+        <% elsif(user.account_type.id == 2) %>
+          <%= erb :navorder %>
+        <% else %>
+          <%= erb :navadmin %>
+        <% end %>
       <% else %>
-      <%= erb :nav %>
+        <%= erb :nav %>
       <% end %>
       <main class="container <%= @title.delete(' ') %>">
