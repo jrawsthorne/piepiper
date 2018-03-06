@@ -6,10 +6,9 @@
     <ul class="list-group">
       <%  
         tweets.each do |tweet|
-        if(!isorder(tweet_id: tweet.id))
-        user = get_user(twitter_id: tweet.user.id) if(isuser(twitter_id: tweet.user.id))
+        if(!Order.exists?(tweet: tweet.id))
+        user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
       %>
-      
         <li class='list-group-item'>
           <div class="d-flex w-100">
             <div class="profile-image mr-3">
@@ -22,7 +21,7 @@
                 <span><%= tweet.created_at.asctime %></span>
               </h5>
               <p class="mb-1"><%= tweet.text %></p>
-              <% if(isuser(twitter_id: tweet.user.id)) %>
+              <% if(User.exists?(twitter_id: tweet.user.id)) %>
                 <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
               <% else %>
                 <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
@@ -34,46 +33,45 @@
       
       <% 
         end
-        end
+      end
       %>
       </ul>
     </div>
-  <div class="col-lg-6 col-md-12">
-    <p>Orders</p>
-    <div id="accordion">
-    <% 
-      get_orders.each do |order|
-      tweet = order.tweet
-    %>
-    <div class="card mb-3">
-      <div class="card-header">
-        <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
-        #<%=order.id%> 
-        <%= order.user.fullname %>
-        <span class="badge badge-info"><%= order.state.name %></span>
-        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order.id %>">
-          View order details
-        </button>
-        
-      </div>
-      <div id="order-details-<%=order.id%>" class="collapse">
-        <ul class="list-group list-group-flush">
-          <% order.items.each do |order_item| %>
-            <% item = order_item.item %>
-            <li class="list-group-item"><%=display_currency(item.price*order_item.quantity)%> <%= order_item.quantity %>x <%= item.name %></li>
-          <% end %>
-          <li class="list-group-item">Total order price: <%= display_currency(total_order_price(order.items)) %></li>
-        </ul>
-        <div class="card-footer border-top-0">
-          <a class="btn btn-primary" href="/edit-order/<%=order.id%>">Edit</a>
-          <a class="btn btn-danger" href="/delete-order/<%=order.id%>">Delete</a>
+    <div class="col-lg-6 col-md-12">
+      <p>Orders</p>
+      <div id="accordion">
+      <% 
+        Order.all.each do |order|
+        tweet = order.get_tweet
+      %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+          #<%=order.id%> 
+          <%= order.user.fullname %>
+          <span class="badge badge-info"><%= order.order_state.name %></span>
+          <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order.id %>">
+            View order details
+          </button>
         </div>
+        <div id="order-details-<%=order.id%>" class="collapse">
+          <ul class="list-group list-group-flush">
+            <% order.order_items.each do |order_item| %>
+              <% item = order_item.item %>
+              <li class="list-group-item"><%=display_currency(item.price*order_item.quantity)%> <%= order_item.quantity %>x <%= item.name %></li>
+            <% end %>
+            <li class="list-group-item">Total order price: <%= display_currency(order.total_price) %></li>
+          </ul>
+          <div class="card-footer border-top-0">
+            <a class="btn btn-primary" href="/edit-order/<%=order.id%>">Edit</a>
+            <a class="btn btn-danger" href="/delete-order/<%=order.id%>">Delete</a>
+          </div>
+      </div>
+      </div>
+      <% 
+        end
+      %>
     </div>
     </div>
-    <% 
-      end
-    %>
-  </div>
-</div>
 </div>
 <%= erb :footer %>

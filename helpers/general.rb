@@ -22,8 +22,8 @@ def istweet(tweet_id)
   end
 end
 
-def get_twitter_user(twitter_id)
-  return $client.user(twitter_id)
+def get_user_from_tweet(tweet_id)
+  return $client.status(tweet_id.to_i).user.id
 end
 
 def display_currency(price)

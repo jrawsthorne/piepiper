@@ -1,45 +1,36 @@
-class OrderItem
-  attr_accessor :id, :order_id, :item, :quantity
-  def initialize(id)
-    @id = id
-    @order_id = $db.get_first_value("SELECT `Order` FROM OrderItems WHERE ID = CAST(? as INTEGER)",[@id])
-    @item = get_item(id: $db.get_first_value("SELECT Item FROM OrderItems WHERE ID = CAST(? as INTEGER)",[@id]))
-    @quantity = $db.get_first_value("SELECT Quantity FROM OrderItems WHERE ID = CAST(? as INTEGER)",[@id])
-  end
+class OrderItem < ActiveRecord::Base
+  belongs_to :order
+  belongs_to :item
 end
 
-class Order
-  attr_accessor :id, :tweet, :user, :state, :items
-  def initialize(id = nil, tweet = nil)
-    if (id == nil)
-      @id = $db.get_first_value("SELECT ID FROM Orders WHERE Tweet = CAST(? as TEXT)",[tweet])
-      @tweet = tweet
-    else
-      begin
-        @tweet = $client.status($db.get_first_value("SELECT Tweet FROM Orders WHERE ID = CAST(? as INTEGER)",[id]))
-      rescue Twitter::Error
-      end
-      @id = id
+class OrderState < ActiveRecord::Base
+end
+
+class Order < ActiveRecord::Base
+  has_many :order_items
+  belongs_to :order_state
+  belongs_to :user
+  def get_tweet
+    return $client.status(tweet.to_i)
+  end
+  def total_price
+    total = 0
+    order_items.each do |order_item|
+      total += order_item.item.price
     end
-    @user = get_user(id: $db.get_first_value("SELECT User FROM Orders WHERE ID = CAST(? as INTEGER)",[@id]))
-    @state = get_order_state(id: $db.get_first_value("SELECT State FROM Orders WHERE ID = CAST(? as INTEGER)",[@id]))
-    @items = get_order_items(@id)
+    return total
   end
-  def delete()
-    $db.execute("DELETE FROM OrderItems WHERE `Order` = CAST(? as INTEGER)",[@id])
-    $db.execute("DELETE FROM Orders WHERE ID = CAST(? as INTEGER)",[@id])
-  end
-end
-
-class OrderState
-  attr_accessor :id, :name
-  def initialize(id = nil, name = nil)
-    if (id == nil)
-      @id = $db.get_first_value("SELECT ID FROM OrderStates WHERE Name = CAST(? as TEXT)",[name])
-      @name = name
-    else
-      @name = $db.get_first_value("SELECT Name FROM OrderStates WHERE ID = CAST(? as INTEGER)",[id])
-      @id = id
+  def edit_order(items, quantities)
+    order_items.each do |order_item|
+      order_item.destroy
+    end
+    items.each_with_index do |item,i|
+      order_item = OrderItem.new do |u|
+        u.order_id = id
+        u.item_id = Item.find_by(name: item).id
+        u.quantity = quantities[i].to_i
+      end
+      order_item.save
     end
   end
 end

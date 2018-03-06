@@ -8,14 +8,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item <%=current_class?('/')%>">
+          <a class="nav-link" href="/">Menu</a>
+        </li>
         <li class="nav-item <%=current_class?('/users')%>">
-          <a class="nav-link" href="/users">User Management</a>
+          <a class="nav-link" href="/users">Users</a>
         </li>
         <li class="nav-item <%=current_class?('/orders')%>">
           <a class="nav-link" href="/orders">Orders</a>
         </li>
         <li class="nav-item <%=current_class?('/campaigns')%>">
-          <a class="nav-link" href="/campaigns">Marketing Campaigns</a>
+          <a class="nav-link" href="/campaigns">Campaigns</a>
         </li>
         <li class="nav-item <%=current_class?('/logout')%>">
           <a class="nav-link" href="/logout">Log Out</a>

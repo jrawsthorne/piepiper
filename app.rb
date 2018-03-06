@@ -1,13 +1,20 @@
 require 'sinatra'
+require 'sinatra/flash'
+require 'active_record'
+require 'twitter'
+require 'json'
+require 'omniauth-twitter'
 require_relative 'models/init'
 require_relative 'helpers/init'
 require_relative 'routes/init'
-require 'twitter'
-require 'sqlite3'
-require 'json'
-require 'omniauth-twitter'
+
+ActiveRecord::Base.establish_connection(
+  :adapter => 'sqlite3',
+  :database =>  'piepiper.db'
+)
 
 enable :sessions
+set :session_secret, 'to%LRLr#GdYWf9Mh@#Yf*E89#Wzp#x6tXSgQG#@b7WJ6Oet66va@fgxxWw11gtinVUx92Bvl3wNBG7nQhlfw1MYXRAmhRaGU7c@x'
 
 before do
   config = {
@@ -17,20 +24,14 @@ before do
       :access_token_secret => 'ilEkrfVAahr8odgafGkodNkRl045MbbSgeoicL4x80EB8'
   }
   $client = Twitter::REST::Client.new(config)
-  $db = SQLite3::Database.new 'piepiper.db'
 end
 
 use OmniAuth::Builder do
   provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
 end
 
-helpers do
-  def handle?
-    session[:handle]
-  end
-end
-
 get '/account' do
+  authenticate!
   @title = "Account Settings"
   erb :account
 end
@@ -41,6 +42,12 @@ end
 
 get '/auth/twitter/callback' do
   auth = request.env["omniauth.auth"]
-  auth ? session[:handle] = env['omniauth.auth']['extra']['raw_info']['screen_name'] : halt(401,'Not Authorized')
-  redirect '/account'
+  if(User.exists?(twitter_id: auth.uid))
+    user = User.find_by(twitter_id: auth.uid)
+    auth ? session[:user_id] = user.id : halt(401,'Not Authorized')
+    redirect '/account'
+  else
+    flash[:twitter_id] = auth.uid
+    redirect '/signup'
+  end
 end

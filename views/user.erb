@@ -1,5 +1,5 @@
 <%= erb :header %>
-<% user = get_user(id: params['user_id']) %>
+<% user = User.find(params['user_id']) %>
     <p>User details <small><a href="/users">Go to users</a></small></p>
     <div class="table-responsive mb-3">
       <table class="table">
@@ -10,7 +10,7 @@
           <th scope="col">Last</th>
           <th scope="col">Username</th>
           <th scope="col">Twitter Profile</th>
-          <th scope="col">Dietry Requirements</th>
+          <th scope="col">Dietary Requirements</th>
           <th scope="col">Address</th>
           <th scope="col">Account Type</th>
         </tr>
@@ -22,7 +22,7 @@
           <td><%= user.lastname %></td>
           <td><%= user.username %></td>
           <td><a target="_blank" href="<%= $client.user(user.twitter_id.to_i).uri %>"><%= $client.user(user.twitter_id.to_i).screen_name %></a></td>
-          <td><% if(user.dietry_requirements.name.nil?) then %>N/A<% else %><%= user.dietry_requirements.name %><% end %></td>
+          <td><% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></td>
           <td><%= user.address %></td>
           <td><%= user.account_type.name %></td>
         </tr>
@@ -40,11 +40,12 @@
         </tr>
       </thead>
       <tbody>
-        <% get_orders(user: user).each do |order| %>
+        <% user.orders.each do |order| %>
           <tr>
             <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
-            <td><a target="_blank" href="<%= order.tweet.uri %>"><%= order.tweet.text[0...20] %><%= "..." if(order.tweet.text.length > 20) %></a></td>
-            <td><%= order.state.name %></td>
+            <% tweet = order.get_tweet %>
+            <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.text[0...20] %><%= "..." if(tweet.text.length > 20) %></a></td>
+            <td><%= order.order_state.name %></td>
           </tr>
         <% end %>
       </tbody>
