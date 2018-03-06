@@ -7,6 +7,7 @@ get '/delete-order/:order_id' do
       order_item.destroy
     end
     order.destroy
+    flash[:delete_order] = order_id
   end
   redirect '/orders'
 end

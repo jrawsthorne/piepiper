@@ -1,6 +1,8 @@
 <%= erb :header %>
 <% tweets = $client.mentions_timeline() %>
 <div class="row">
+  <%= display_success("New order \##{flash[:new_order]} added successfully") if(flash[:new_order]) %>
+  <%= display_success("Order \##{flash[:delete_order]} deleted successfully") if(flash[:delete_order]) %>
   <div class="mb-3 col-lg-6 col-md-12">
     <p>Incoming tweets</p>
     <ul class="list-group">
@@ -75,3 +77,8 @@
     </div>
 </div>
 <%= erb :footer %>
+<% if(flash[:new_order]) %>
+  <script>
+    $('#order-details-<%=flash[:new_order]%>').collapse('show')
+  </script>
+<% end %>
