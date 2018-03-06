@@ -6,6 +6,10 @@ def display_error(error)
   return '<div class="alert alert-danger col-sm-12" role="alert">'+error+'</div>'
 end
 
+def display_success(success)
+  return '<div class="alert alert-success col-sm-12" role="alert">'+success+'</div>'
+end
+
 $errors = {
   :order_not_exist => 'That order doesn\'t exist. <a href="/orders">Go to orders</a>',
   :tweet_not_exist => 'That tweet doesn\'t exist. <a href="/orders">Go to orders</a>',
@@ -22,8 +26,8 @@ def istweet(tweet_id)
   end
 end
 
-def get_twitter_user(twitter_id)
-  return $client.user(twitter_id)
+def get_user_from_tweet(tweet_id)
+  return $client.status(tweet_id.to_i).user.id
 end
 
 def display_currency(price)

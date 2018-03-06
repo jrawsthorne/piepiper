@@ -1,12 +1,12 @@
 <%= erb :header %>
 <% 
   order_id = params['order_id']
-  order = get_order(id: order_id)
-  tweet = order.tweet
-  user = order.user
+  order = Order.find(order_id) if(Order.exists?(order_id))
+  tweet = order.get_tweet if order
+  user = order.user if order
 %>
 <div class="row">
-  <% if(!isorder(order_id: order_id)) %>
+  <% if(!Order.exists?(order_id)) %>
     <%= display_error($errors[:order_not_exist]) %>
   <% else %>
   <div class="mb-3 col-lg-5 col-md-12">
@@ -36,7 +36,7 @@
                 <p class="mb-1">Name: <%= user.fullname %></p>
                 <p class="mb-1">Username: <%= user.username %></p>
                 <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
-                <p class="mb-1">Diertry requirements: <% if(user.dietry_requirements.name.nil?) then %>N/A<% else %><%= user.dietry_requirements.name %><% end %></p>
+                <p class="mb-1">Dietary requirements: <% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></p>
                 <p class="mb-1">Address: <%= user.address %></p>
               </div>
             </div>
@@ -50,13 +50,13 @@
         <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
         #<%=order_id%> 
         <%= user.fullname %>
-        <span class="badge badge-info"><%= order.state.name %></span>
+        <span class="badge badge-info"><%= order.order_state.name %></span>
       </div>
       <form class="needs-validation" id="order" method="post" novalidate>
         <ul class="list-group list-group-flush">
           <div class="form-group mb-0" id="menu-items">
             <li class="list-group-item">Search for items to add to the order</li>
-            <% order.items.each_with_index do |order_item,i| %>
+            <% order.order_items.each_with_index do |order_item,i| %>
               <li class="list-group-item">
                 <div class="form-row">
                   <div class="form-group mb-0 col-sm-2">
@@ -75,7 +75,7 @@
               </li>
             <% end %>
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
-            <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(total_order_price(order.items)) %></li>
+            <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(order.total_price) %></li>
           </div>
         </ul>
         <div class="card-footer border-top-0">

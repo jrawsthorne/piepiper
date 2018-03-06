@@ -1,65 +1,55 @@
 <%= erb :header %>
-<% types = get_item_types %>
-<% specials = get_item_specials %>
-  <h3 class="mb-3">Food menu</h3>
-    <nav>
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <% types.each_with_index do |type,i| %>
-          <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=type.name%>-tab" data-toggle="tab" href="#menu-<%=type.name%>" role="tab"><%= type.name %></a>
-        <% end %>
-        <% specials.each do |special| %>
-          <a class="nav-item nav-link" id="menu-<%=special.name%>-tab" data-toggle="tab" href="#menu-<%=special.name%>" role="tab"><%= special.name %></a>
-        <% end %>
+<% item_types = ItemType.all %>
+<% special_conditions = SpecialCondition.all %>
+<h3 class="mb-3">Food menu</h3>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <% item_types.each_with_index do |item_type,i| %>
+      <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>-tab" data-toggle="tab" href="#menu-<%=item_type.name%>" role="tab"><%= item_type.name %></a>
+    <% end %>
+    <% special_conditions.each do |special_condition| %>
+      <a class="nav-item nav-link" id="menu-<%=special_condition.name%>-tab" data-toggle="tab" href="#menu-<%=special_condition.name%>" role="tab"><%= special_condition.name %></a>
+    <% end %>
+  </div>
+</nav>
+<div class="tab-content mt-3" id="nav-tabContent">
+  <% item_types.each_with_index do |item_type,i| %>
+  <div class="tab-pane fade show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>" role="tabpanel">
+    <div class="row menu">
+      <% Item.where("item_type_id = ?",item_type.id).each do |item| %>
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-3">
+          <img src="/img/food-collection-8-006.jpg">
+          <div class="card-body">
+            <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
+            <%= '<span class="badge badge-success">'+item.special_condition.name+'</span>' if item.special_condition %>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted"></small></p>
+          </div>
+        </div>
       </div>
-    </nav>
-      <div class="tab-content mt-3" id="nav-tabContent">
-        <% 
-          types.each_with_index do |type,i|
-        %>
-        <div class="tab-pane fade show <%if(i==0)%>active<%end%>" id="menu-<%=type.name%>" role="tabpanel">
-          <div class="row menu">
-            <% 
-              get_items(type: type).each do |item|
-            %>
-            <div class="col-lg-4 col-md-6">
-              <div class="card mb-3">
-                <img src="/img/food-collection-8-006.jpg">
-                <div class="card-body">
-                  <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
-                  <% if(!item.special.name.nil?) %><span class="badge badge-success"><%=item.special.name%></span><%end%>
-                  <p class="card-text"></p>
-                  <p class="card-text"><small class="text-muted"></small></p>
-                </div>
-              </div>
-            </div>
-            <% 
-              end 
-            %>
-          </div>
-        </div>
-        <% end %>
-        <% specials.each do |special| %>
-        <div class="tab-pane fade show" id="menu-<%=special.name%>" role="tabpanel">
-          <div class="row menu">
-            <% 
-              get_items(special: special).each do |item|
-            %>
-            <div class="col-lg-4 col-md-6">
-              <div class="card mb-3">
-                <img src="/img/food-collection-8-006.jpg">
-                <div class="card-body">
-                  <h5 class="card-title mb-0">£<%= '%.2f' % item.price%> <%=item.name%></h5>
-                  <% if(!item.special.name.nil?) %><span class="badge badge-success"><%=item.special.name%></span><%end%>
-                  <p class="card-text"></p>
-                  <p class="card-text"><small class="text-muted"></small></p>
-                </div>
-              </div>
-            </div>
-            <% 
-              end 
-            %>
-          </div>
-        </div>
-        <% end %>
+      <% end %>
     </div>
+  </div>
+  <% end %>
+  <% special_conditions.each do |special_condition| %>
+  <div class="tab-pane fade show" id="menu-<%=special_condition.name%>" role="tabpanel">
+    <div class="row menu">
+      <% Item.where("special_condition_id = ?",special_condition.id).each do |item| %>
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-3">
+          <img src="/img/food-collection-8-006.jpg">
+          <div class="card-body">
+            <h5 class="card-title mb-0"><%=display_currency(item.price)%> <%=item.name%> (<%=item.item_type.name%>)</h5>
+            <span class="badge badge-success"><%=item.special_condition.name%></span>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted"></small></p>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
 <%= erb :footer %>

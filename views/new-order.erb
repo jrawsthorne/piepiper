@@ -5,14 +5,14 @@
     if(!istweet(tweet_id)) 
   %>
     <%= display_error($errors[:tweet_not_exist]) %>
-  <% elsif(isorder(tweet_id: tweet_id)) %>
-    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+get_order(tweet: tweet_id).id.to_s+'">View it here</a>') %>
+  <% elsif(Order.exists?(tweet: tweet_id)) %>
+    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.find_by(tweet: tweet_id).id.to_s+'">View it here</a>') %>
   <% else %>  
   <% 
     tweet = $client.status(tweet_id)
-    user = get_user(twitter_id: tweet.user.id)
+    user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
   %>
-  <% if(!isuser(user_id: user.id)) %>
+  <% if(!user) %>
     <%= display_error($errors[:user_not_registered]) %>
   <% else %>
   <% if(@error) %>
@@ -45,7 +45,7 @@
                 <p class="mb-1">Name: <%= user.fullname %></p>
                 <p class="mb-1">Username: <%= user.username %></p>
                 <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
-                <p class="mb-1">Diertry requirements: <% if(user.dietry_requirements.name.nil?) then %>N/A<% else %><%= user.dietry_requirements.name %><% end %></p>
+                <p class="mb-1">Dietary requirements: <% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></p>
                 <p class="mb-1">Address: <%= user.address %></p>
               </div>
             </div>

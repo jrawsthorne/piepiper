@@ -1,22 +1,44 @@
 <%= erb :header %>
-  <h1>Account Settings</h1>
-  <form>
-    <div class="form-group">
-      <p>First name: </p>              <input type = 'text'     name = 'forename'>
-      <p>Last name: </p>               <input type = 'text'     name = 'surname'>
-      <p>Email: </p>                   <input type = 'text'     name = 'email'>
-      <p>Twitter Handle: </p>          <p>Twitter_User</p>
-      <p>Change Twitter Handle: </p>   <a href='/auth/twitter'><img src='https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png'></a>
-      <br>
-      <p>Dietary requirements: </p>
-      <p>   Vegetarian: </p>           <input type = 'checkbox' name = 'vegetarian'>
-      <p>   Vegan: </p>                <input type = 'checkbox' name = 'vegan'>
-      <p>   Allergies: </p>            <input type = 'text'     name = 'allergies'>
-      <br>
-      <p>Address Line 1: </p>          <input type = 'text'     name = 'addressLine1'>
-      <p>Address Line 2: </p>          <input type = 'text'     name = 'addressLine2'>
-      <p>City/Region: </p>             <input type = 'text'     name = 'region'>
-      <p>Postcode: </p>                <input type = 'text'     name = 'postcode'>
-    </div>
-  <form>
+<% user = get_user_from_session %>
+<% twitter = $client.user(user.twitter_id.to_i) %>
+<div class="row">
+  <div class="mb-3 col-lg-5 col-md-12">
+  <p>Account Settings</p>
+    <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstname">First Name</label>
+          <input name="lastname" type="text" class="form-control" id="firstname" value="<%=user.firstname%>" placeholder="<%=user.firstname%>">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastname">Last Name</label>
+          <input name="firstname" type="text" class="form-control" id="lastname" value="<%=user.lastname%>"placeholder="<%=user.lastname%>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" value="<%=user.address%>" placeholder="<%=user.address%>">
+      </div>
+      <div class="form-group">
+        <label for="twitterhandle">Twitter Handle</label>
+        <input type="text" class="form-control" id="twitterhandle" value="<%=twitter.screen_name%>" placeholder="<%=twitter.screen_name%>">
+      </div>
+      <div class="form-group">
+        <label for="dietaryrequirements">Dietary Requirements</label>
+        <select class="form-control" id="dietaryrequirements">
+          <option>None</option>
+          <% SpecialCondition.all.each do |special_condition| %>
+            <option <%= "selected" if(special_condition.id == user.special_condition_id)%>><%=special_condition.name%></option>
+          <% end %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="reset" class="btn btn-danger">Reset</button>
+    </form>
+  </div>
+</div>
 <%= erb :footer %>
