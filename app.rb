@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/flash'
-require 'active_record'
+require 'sinatra/activerecord'
 require 'twitter'
 require 'json'
 require 'omniauth-twitter'
@@ -8,10 +8,7 @@ require_relative 'models/init'
 require_relative 'helpers/init'
 require_relative 'routes/init'
 
-ActiveRecord::Base.establish_connection(
-  :adapter => 'sqlite3',
-  :database =>  'piepiper.db'
-)
+set :database, "sqlite3:piepiper.db"
 
 use OmniAuth::Builder do
   provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
