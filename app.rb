@@ -13,6 +13,10 @@ ActiveRecord::Base.establish_connection(
   :database =>  'piepiper.db'
 )
 
+use OmniAuth::Builder do
+  provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
+end
+
 enable :sessions
 set :session_secret, 'to%LRLr#GdYWf9Mh@#Yf*E89#Wzp#x6tXSgQG#@b7WJ6Oet66va@fgxxWw11gtinVUx92Bvl3wNBG7nQhlfw1MYXRAmhRaGU7c@x'
 
@@ -24,30 +28,4 @@ before do
       :access_token_secret => 'ilEkrfVAahr8odgafGkodNkRl045MbbSgeoicL4x80EB8'
   }
   $client = Twitter::REST::Client.new(config)
-end
-
-use OmniAuth::Builder do
-  provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
-end
-
-get '/account' do
-  authenticate!
-  @title = "Account Settings"
-  erb :account
-end
-
-get '/login_twitter' do
-  redirect to("/auth/twitter")
-end
-
-get '/auth/twitter/callback' do
-  auth = request.env["omniauth.auth"]
-  if(User.exists?(twitter_id: auth.uid))
-    user = User.find_by(twitter_id: auth.uid)
-    auth ? session[:user_id] = user.id : halt(401,'Not Authorized')
-    redirect '/account'
-  else
-    flash[:twitter_id] = auth.uid
-    redirect '/signup'
-  end
 end

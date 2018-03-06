@@ -28,6 +28,12 @@ get '/signup' do
   erb :signup
 end
 
+get '/account' do
+  authenticate!
+  @title = "Account Settings"
+  erb :account
+end
+
 get '/logout' do
   session[:user_id] = nil
   redirect '/'
