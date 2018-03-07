@@ -1,6 +1,7 @@
 <%= erb :header %>
 <% item_types = ItemType.all %>
 <% special_conditions = SpecialCondition.all %>
+<% items = Item.all %>
 <h3 class="mb-3">Food menu</h3>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -16,13 +17,13 @@
   <% item_types.each_with_index do |item_type,i| %>
   <div class="tab-pane fade show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>" role="tabpanel">
     <div class="row menu">
-      <% Item.where("item_type_id = ?",item_type.id).each do |item| %>
+      <% items.select{|item| item.item_type_id == item_type.id}.each do |item| %>
       <div class="col-lg-4 col-md-6">
         <div class="card mb-3">
           <img src="/img/food-collection-8-006.jpg">
           <div class="card-body">
             <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
-            <%= '<span class="badge badge-success">'+item.special_condition.name+'</span>' if item.special_condition %>
+            <%= '<span class="badge badge-success">'+special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
             <p class="card-text"></p>
             <p class="card-text"><small class="text-muted"></small></p>
           </div>
@@ -35,13 +36,13 @@
   <% special_conditions.each do |special_condition| %>
   <div class="tab-pane fade show" id="menu-<%=special_condition.name%>" role="tabpanel">
     <div class="row menu">
-      <% Item.where("special_condition_id = ?",special_condition.id).each do |item| %>
+      <% items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
       <div class="col-lg-4 col-md-6">
         <div class="card mb-3">
           <img src="/img/food-collection-8-006.jpg">
           <div class="card-body">
-            <h5 class="card-title mb-0"><%=display_currency(item.price)%> <%=item.name%> (<%=item.item_type.name%>)</h5>
-            <span class="badge badge-success"><%=item.special_condition.name%></span>
+            <h5 class="card-title mb-0"><%=display_currency(item.price)%> <%=item.name%></h5>
+            <span class="badge badge-success"><%=special_condition.name%></span>
             <p class="card-text"></p>
             <p class="card-text"><small class="text-muted"></small></p>
           </div>
