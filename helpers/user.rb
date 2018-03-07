@@ -6,7 +6,6 @@ def authenticate!
 end
 
 def authenticated?
-    session[:user_id] = nil if(!User.exists?(session[:user_id]))
     !!session[:user_id]
 end
 
