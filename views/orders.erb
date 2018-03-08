@@ -78,9 +78,9 @@
     </div>
     </div>
 </div>
-<%= erb :footer %>
 <% if(flash[:new_order]) %>
   <script>
     $('#order-details-<%=flash[:new_order]%>').collapse('show')
   </script>
 <% end %>
+<%= erb :footer %>
