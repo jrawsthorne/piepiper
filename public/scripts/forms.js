@@ -1,4 +1,5 @@
 $(function (){
+  $("#submit_order").attr("disabled", true);
   var itemPrices = []
   var itemsArray = []
   var availableItems = []
