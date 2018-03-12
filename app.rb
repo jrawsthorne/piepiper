@@ -9,6 +9,7 @@ require_relative 'helpers/init'
 require_relative 'routes/init'
 
 set :database, "sqlite3:db/piepiper.db"
+set :bind, '0.0.0.0' 
 
 use OmniAuth::Builder do
   provider :twitter, 'vqJ9GQDOns00WAQx7oDoBJqFX', 'HmlsBdLGWcZXcFCiidsq74AlLr2XWJnKaO09QPxMWN24ZdpxjK'
