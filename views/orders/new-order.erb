@@ -75,18 +75,19 @@
                 <p class="mb-1">Name: <%= user.fullname %></p>
                 <p class="mb-1">Username: <%= user.username %></p>
                 <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
-                <p class="mb-1">Dietary requirements: 
-                    <% special_conditions = SpecialConditionsUsers.where(user_id: user.id) %>
-                    <% if(special_conditions.empty?) %>
-                      N/A
-                    <% else %>
+                <p class="mb-1">
+                  Dietary requirements: 
+                  <% if(user.user_special_conditions.empty?) %>
+                  N/A
+                  <% else %>
                     <ul>
-                      <% special_conditions.each do |special_condition| %>
-                        <li><%=special_condition.special_condition.name%></li>
+                      <% user.user_special_conditions.each do |user_special_condition| %>  
+                        <li><%= user_special_condition.special_condition.name %></li>
                       <% end %>
                     </ul>
-                    <% end %>
-                  <p class="mb-1">Address: <%= user.address %></p>
+                  <% end %>
+                </p>
+                <p class="mb-1">Address: <%= user.address %></p>
                 </div>
               </div>
             </li>

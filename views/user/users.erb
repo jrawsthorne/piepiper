@@ -25,7 +25,17 @@
           <td><%= user.username %></td>
           <% twitter_user = user.get_twitter_user %>
           <td><a target="_blank" href="<%= twitter_user.uri %>"><%= twitter_user.screen_name %></a></td>
-          <td><% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></td>
+          <td>
+            <% if(user.user_special_conditions.empty?) %>
+            N/A
+            <% else %>
+              <ul>
+                <% user.user_special_conditions.each do |user_special_condition| %>  
+                  <li><%= user_special_condition.special_condition.name %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
           <td><%= user.address %></td>
           <td><%= user.account_type.name %></td>
         </tr>
