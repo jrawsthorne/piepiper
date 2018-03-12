@@ -2,8 +2,11 @@ require_relative 'new'
 require_relative 'edit'
 require_relative 'delete'
 
-get '/orders' do
-  authenticate!
-  @title = "Orders"
-  erb :orders
+class PiePiper < Sinatra::Base
+  get '/orders' do
+    order_handler!
+    @js = 'orders.js'
+    @title = "Orders"
+    erb :'orders/orders'
+  end
 end
