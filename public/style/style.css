@@ -40,14 +40,25 @@ main {
   background: #9c814b;
   border-color: #9c814b;
 }
+
 .btn-primary:hover, .btn-primary:active {
   background: #343a40;
   border-color: #343a40;
+  box-shadow: none;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
   background: #343a40;
   border-color: #343a40;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background: #343a40;
+  border-color: #343a40;
+}
+
+#submit_order:focus {
+  box-shadow: none;
 }
 
 /* Home */

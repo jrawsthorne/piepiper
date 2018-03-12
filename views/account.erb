@@ -1,6 +1,4 @@
 <%= erb :header %>
-<% user = get_user_from_session %>
-<% twitter = $client.user(user.twitter_id.to_i) %>
 <div class="row">
   <div class="mb-3 col-lg-5 col-md-12">
   <p>Account Settings</p>
@@ -8,11 +6,11 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="firstname">First Name</label>
-          <input name="lastname" type="text" class="form-control" id="firstname" value="<%=user.firstname%>" placeholder="<%=user.firstname%>">
+          <input name="lastname" type="text" class="form-control" id="firstname" value="<%=@user.firstname%>" placeholder="<%=@user.firstname%>">
         </div>
         <div class="form-group col-md-6">
           <label for="lastname">Last Name</label>
-          <input name="firstname" type="text" class="form-control" id="lastname" value="<%=user.lastname%>"placeholder="<%=user.lastname%>">
+          <input name="firstname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>">
         </div>
       </div>
       <div class="form-group">
@@ -21,18 +19,18 @@
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" value="<%=user.address%>" placeholder="<%=user.address%>">
+        <input type="text" class="form-control" id="address" value="<%=@user.address%>" placeholder="<%=@user.address%>">
       </div>
       <div class="form-group">
         <label for="twitterhandle">Twitter Handle</label>
-        <input type="text" class="form-control" id="twitterhandle" value="<%=twitter.screen_name%>" placeholder="<%=twitter.screen_name%>">
+        <input disabled type="text" class="form-control" id="twitterhandle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
       </div>
       <div class="form-group">
         <label for="dietaryrequirements">Dietary Requirements</label>
         <select class="form-control" id="dietaryrequirements">
           <option>None</option>
-          <% SpecialCondition.all.each do |special_condition| %>
-            <option <%= "selected" if(special_condition.id == user.special_condition_id)%>><%=special_condition.name%></option>
+          <% @special_conditions.each do |special_condition| %>
+            <option <%= "selected" if(special_condition.id == @user.special_condition_id)%>><%=special_condition.name%></option>
           <% end %>
         </select>
       </div>

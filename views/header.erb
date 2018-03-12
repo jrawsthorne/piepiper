@@ -11,10 +11,10 @@
     </head>
     <body>
       <% if(authenticated?) %>
-        <% user = get_user_from_session %>
-        <% if(user.account_type.id == 1) %>
+        <% account_type = get_account_type_from_session %>
+        <% if(account_type == 1) %>
           <%= erb :navuser %>
-        <% elsif(user.account_type.id == 2) %>
+        <% elsif(account_type == 2) %>
           <%= erb :navorder %>
         <% else %>
           <%= erb :navadmin %>

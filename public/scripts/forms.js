@@ -1,4 +1,5 @@
 $(function (){
+  $("#submit_order").attr("disabled", true);
   var itemPrices = []
   var itemsArray = []
   var availableItems = []
@@ -31,7 +32,7 @@ $(function (){
       });
     }
   });
-  
+
   function inputChange(input) {
     var formrow = $(input).closest(".form-row")
     var iteminput = formrow.find("input[name='item[]']")
@@ -45,8 +46,8 @@ $(function (){
     }
     totalOrderPirceChange()
     validateItems()
-  } 
-  
+  }
+
   function totalOrderPirceChange() {
     total = 0
     $("#menu-items").find(".price").each(function() {
@@ -54,16 +55,17 @@ $(function (){
     })
     $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
   }
-  
+
   $("#menu-items").on('keyup keydown change click', "input, .dropdown-item", function() {
     inputChange(this)
   })
-  
+
   $("#menu-items").on('click', ".remove-item", function() {
     $(this).closest(".list-group-item").remove()
-    totalOrderPirceChange()
+    totalOrderPirceChange();
+    validateItems();
   })
-  
+
   var num = 0;
   $("#add button").click(function(){
     $('<li class="list-group-item"><div class="form-row"><div class="form-group mb-0 col-sm-2"><input class="form-control disabled price" disabled type="text" value="£0.00" placeholder="£0.00"></div><div class="form-group mb-0 col-md-7"><input placeholder="Search for an item..." required name="item[]" class="form-control typeahead-'+num+'" type="text"></div><div class="form-group mb-0 col-md-2"><input name="quantity[]" class="form-control" type="number" min="1" value="1" required></div><div class="form-group mb-0 col-sm-1"><button type="button" class="remove-item btn btn-danger btn-block">-</button></div></div></li>').insertBefore($(this).parent());
@@ -81,8 +83,9 @@ $(function (){
       source: availableItems
     });
     num += 1;
+    validateItems();
   });
-  
+
   function validateItems() {
     isValid = true
     $("input[name='item[]']").each(function() {
@@ -103,9 +106,14 @@ $(function (){
           $(this).removeClass('is-invalid');
       }
     })
+    if(isValid) {
+      $("button#submit_order").removeAttr("disabled");
+    } else {
+      $("#submit_order").attr("disabled", true);
+    }
     return isValid
   }
-  
+
   $("form[id='order']").submit(function(e){
     e.preventDefault();
     if(validateItems()) {
