@@ -8,7 +8,15 @@ special_conditions = [
   {name: 'Non-vegetarian'},
   {name: 'Vegan'},
   {name: 'Vegetarian'},
-  {name: 'Gluten free'}
+  {name: 'Gluten free'},
+  {name: 'Nut alergy'},
+  {name: 'Dairy alergy'},
+]
+
+special_conditions_users = [
+  {user_id: 1, special_condition_id: 3},
+  {user_id: 1, special_condition_id: 5},
+  {user_id: 2, special_condition_id: 1}
 ]
 
 order_states = [

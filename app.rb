@@ -26,3 +26,7 @@ before do
   }
   $client = Twitter::REST::Client.new(config)
 end
+
+get '/test' do
+  erb :test
+end
