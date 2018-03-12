@@ -3,7 +3,6 @@ require 'sprockets'
 require 'uglifier'
 require 'sass'
 
-
 map '/assets' do
   environment = Sprockets::Environment.new
   environment.append_path 'public/style'

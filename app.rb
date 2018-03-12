@@ -10,8 +10,7 @@ class PiePiper < Sinatra::Base
   
   register Sinatra::ActiveRecordExtension
   register Sinatra::Flash
-  set :bind, '0.0.0.0'
-    
+  
   configure :development do
     register Sinatra::Reloader
   end
@@ -34,3 +33,7 @@ class PiePiper < Sinatra::Base
   end
   
 end
+
+require_relative 'models/init'
+require_relative 'helpers/init'
+require_relative 'routes/init'
