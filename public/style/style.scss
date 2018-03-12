@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Arizonia|Capriola');
+
+/* Change bootstrap defaults */
+
+@import "bootstrap_changes";
+
+/* Import bootstrap */
+
+@import "bootstrap/scss/bootstrap";
+
+/* Import custom css */
+
+@import "main";
+@import "home";
+@import "login";
+@import "orders";
