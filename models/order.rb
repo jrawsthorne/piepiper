@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
   belongs_to :order_state
   belongs_to :user
   def get_tweet
-    return $client.status(tweet_id.to_i)
+    return $client.status(tweet_id.to_i, tweet_mode: "extended")
   end
   def total_price
     total = 0
