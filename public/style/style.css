@@ -73,6 +73,19 @@ main {
   object-fit: contain;
 }
 
+.frame {
+  width: 350px;
+  height: 350px;
+  margin: 10px;
+}
+
+.text{
+  height:70px;
+  text-align: center;
+  margin:10px;
+}
+
+
 /* Login */
 
 .form-signin {
