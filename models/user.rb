@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   #belongs_to :special_condition
   belongs_to :account_type
-  has_many :special_conditions, through: :special_conditions_users
-  has_many :special_conditions_users
+  has_many :user_special_conditions
   has_many :orders
   def fullname
     [firstname, lastname].join(' ')

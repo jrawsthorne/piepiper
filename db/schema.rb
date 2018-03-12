@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312133443) do
+ActiveRecord::Schema.define(version: 20180312223516) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -67,9 +67,13 @@ ActiveRecord::Schema.define(version: 20180312133443) do
     t.datetime "updated_at"
   end
 
-  create_table "special_conditions_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "special_condition_id", null: false
+  create_table "user_special_conditions", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "special_condition_id"
+    t.integer "user_id"
+    t.index ["special_condition_id"], name: "index_user_special_conditions_on_special_condition_id"
+    t.index ["user_id"], name: "index_user_special_conditions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,10 +85,8 @@ ActiveRecord::Schema.define(version: 20180312133443) do
     t.string "address"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "special_condition_id"
     t.integer "account_type_id"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"
-    t.index ["special_condition_id"], name: "index_users_on_special_condition_id"
   end
 
 end
