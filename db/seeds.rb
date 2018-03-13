@@ -1,14 +1,22 @@
 users = [
-  {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', special_condition_id: nil, address: 'S10 3AU', account_type_id: 1},
-  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', special_condition_id: nil, address: 'S10 3AU', account_type_id: 2},
-  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', special_condition_id: nil, address: 'S10 3AU', account_type_id: 3}
+  {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', address: 'S10 3AU', account_type_id: 1},
+  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', address: 'S10 3AU', account_type_id: 2},
+  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', address: 'S10 3AU', account_type_id: 3}
 ]
 
 special_conditions = [
   {name: 'Non-vegetarian'},
   {name: 'Vegan'},
   {name: 'Vegetarian'},
-  {name: 'Gluten free'}
+  {name: 'Gluten free'},
+  {name: 'Nut alergy'},
+  {name: 'Dairy alergy'},
+]
+
+user_special_conditions = [
+  {user_id: 1, special_condition_id: 3},
+  {user_id: 1, special_condition_id: 5},
+  {user_id: 2, special_condition_id: 1}
 ]
 
 order_states = [
@@ -79,4 +87,8 @@ end
 
 account_types.each do |u|
   AccountType.create(u)
+end
+
+user_special_conditions.each do |u|
+  UserSpecialCondition.create(u)
 end
