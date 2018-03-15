@@ -9,5 +9,5 @@ cd team-10
 bundle
 bundle exec rake db:migrate db:seed
 
-rackup -p 4567
+ruby app.rb
 ```

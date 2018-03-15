@@ -3,11 +3,6 @@
   order_id = params['order_id']
   order = Order.find(order_id) if(Order.exists?(order_id))
   tweet = order.get_tweet if order
-  if tweet.truncated? && tweet.attrs[:extended_tweet]
-    tweet_text = tweet.attrs[:extended_tweet][:full_text]
-  else
-    tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
-  end
   user = order.user if order
 %>
 <div class="row">
@@ -15,8 +10,8 @@
     <%= display_error($errors[:order_not_exist]) %>
   <% else %>
   <div class="mb-3 col-lg-5 col-md-12">
-    <p>Tweet <small><a target="_blank" href="<%= tweet.uri %>">View tweet</a></small></p>
-    <ul class="list-group mb-3">      
+    <p>Tweet</p>
+    <a target="_blank" href="<%= tweet.uri %>"><ul class="list-group mb-3">      
         <li class='list-group-item'>
           <div class="d-flex w-100">
             <div class="profile-image mr-3">
@@ -24,11 +19,12 @@
             </div>
             <div class="profile">
               <h5 class="mb-1"><%= user.fullname %> <span><%= tweet.created_at.asctime %></span></h5>
-              <p class="mb-1"><%= tweet_text %></p>
+              <p class="mb-1"><%= tweet.text %></p>
             </div>
           </div>
         </li>
       </ul>
+    </a>
       <p>User Details <small><a href="/user/<%= user.id %>">View user</a></small></p>
       <ul class="list-group mb-3">      
           <li class='list-group-item'>
@@ -40,18 +36,7 @@
                 <p class="mb-1">Name: <%= user.fullname %></p>
                 <p class="mb-1">Username: <%= user.username %></p>
                 <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
-                <p class="mb-1">
-                  Dietary requirements: 
-                  <% if(user.user_special_conditions.empty?) %>
-                  N/A
-                  <% else %>
-                    <ul>
-                      <% user.user_special_conditions.each do |user_special_condition| %>  
-                        <li><%= user_special_condition.special_condition.name %></li>
-                      <% end %>
-                    </ul>
-                  <% end %>
-                </p>
+                <p class="mb-1">Dietary requirements: <% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></p>
                 <p class="mb-1">Address: <%= user.address %></p>
               </div>
             </div>

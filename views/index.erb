@@ -15,10 +15,10 @@
   <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>" role="tabpanel">
     <div class="row menu">
       <% @items.select{|item| item.item_type_id == item_type.id}.each do |item| %>
-      <div class="frame"  class="col-lg-4 col-md-6">
-        <div  class="card mb-3">
+      <div height="200" width="200" class="col-lg-4 col-md-6">
+        <div height="200" width="200" class="card mb-3">
           <img src="/img/food-collection-8-006.jpg">
-          <div class="text" class="card-body">
+          <div class="card-body">
             <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
             <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
             <p class="card-text"></p>
@@ -34,10 +34,10 @@
   <div class="tab-pane show" id="menu-<%=special_condition.name%>" role="tabpanel">
     <div class="row menu">
       <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
-      <div class="frame" class="col-lg-4 col-md-6">
-        <div class="card mb-3">
+      <div height="200" width="200"  class="col-lg-4 col-md-6">
+        <div height="200" width="200"  class="card mb-3">
           <img src="/img/food-collection-8-006.jpg">
-          <div class="text" class="card-body">
+          <div class="card-body">
             <h5 class="card-title mb-0"><%=display_currency(item.price)%> <%=item.name%></h5>
             <span class="badge badge-success"><%=special_condition.name%></span>
             <p class="card-text"></p>

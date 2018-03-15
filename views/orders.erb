@@ -1,5 +1,5 @@
 <%= erb :header %>
-<% tweets = $client.mentions_timeline(tweet_mode: "extended") %>
+<% tweets = $client.mentions_timeline() %>
 <div class="row">
   <%= display_success("New order \##{flash[:new_order]} added successfully") if(flash[:new_order]) %>
   <%= display_success("Order \##{flash[:delete_order]} deleted successfully") if(flash[:delete_order]) %>
@@ -9,11 +9,6 @@
       <%  
         tweets.each do |tweet|
         if(!Order.exists?(tweet_id: tweet.id))
-          if tweet.truncated? && tweet.attrs[:extended_tweet]
-            tweet_text = tweet.attrs[:extended_tweet][:full_text]
-          else
-            tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
-          end
         user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
       %>
         <li class='list-group-item'>
@@ -27,14 +22,12 @@
                 <%= tweet.user.screen_name if(!user )%>
                 <span><%= tweet.created_at.asctime %></span>
               </h5>
-              <p class="mb-1"><%= tweet_text %></p>
+              <p class="mb-1"><%= tweet.text %></p>
               <% if(User.exists?(twitter_id: tweet.user.id)) %>
                 <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
               <% else %>
                 <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
-                <button type="button" class="btn btn-primary mb-0 tell-user-signup" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">
-                  Tell user they need to sign up before tweeting
-                </button>
+                <p class="mb-1">Tell user they need to sign up before tweeting</p>
               <% end %>
             </div>
           </div>
@@ -64,7 +57,7 @@
             View order details
           </button>
         </div>
-        <div id="order-details-<%=order.id%>" class="collapse" data-parent="#accordion">
+        <div id="order-details-<%=order.id%>" class="collapse">
           <ul class="list-group list-group-flush">
             <% order.order_items.each do |order_item| %>
               <% item = order_item.item %>
@@ -85,9 +78,9 @@
     </div>
     </div>
 </div>
-<%= erb :footer %>
 <% if(flash[:new_order]) %>
   <script>
     $('#order-details-<%=flash[:new_order]%>').collapse('show')
   </script>
 <% end %>
+<%= erb :footer %>
