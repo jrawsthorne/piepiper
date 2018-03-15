@@ -15,7 +15,7 @@ class PiePiper < Sinatra::Base
     end
   end
 
-  post '/user/signup' do
+  post '/signup' do
     puts(
       params[:username],
       params[:forename],
