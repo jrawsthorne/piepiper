@@ -1,0 +1,47 @@
+<%= erb :header %>
+<% users = User.all %>
+<p>Users</p>
+<% if(!User.exists?) %>
+<p>Sorry, no users exist</p>
+<% else %>
+    <div class="table-responsive mb-3">
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Twitter Profile</th>
+          <th scope="col">Dietary Requirements</th>
+          <th scope="col">Address</th>
+          <th scope="col">Account Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.each do |user| %>
+        <tr>
+          <th scope="row"><a href="/user/<%= user.id %>"><%= user.id %></a></th>
+          <td><%= user.fullname %></td>
+          <td><%= user.username %></td>
+          <% twitter_user = user.get_twitter_user %>
+          <td><a target="_blank" href="<%= twitter_user.uri %>"><%= twitter_user.screen_name %></a></td>
+          <td>
+            <% if(user.user_special_conditions.empty?) %>
+            N/A
+            <% else %>
+              <ul>
+                <% user.user_special_conditions.each do |user_special_condition| %>  
+                  <li><%= user_special_condition.special_condition.name %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+          <td><%= user.address %></td>
+          <td><%= user.account_type.name %></td>
+        </tr>
+        <% end %>
+      </tbody>
+      </table>
+    </div>
+<% end %>
+<%= erb :footer %>
