@@ -1,5 +1,6 @@
 <% twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id] %>
 <% if (twitter_user) %>
+<% flash[:twitter_id] = flash[:twitter_id] %>
 <%= erb :header %>
 <div class="row">
   <div class="mb-3 col-lg-5 col-md-12">
@@ -58,7 +59,7 @@
         <% end %>
       </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Signup</button>
         <button type="reset" class="btn btn-danger">Reset</button>
       </div>
     </form>
@@ -66,6 +67,5 @@
 </div>
 <%= erb :footer %>
 <% else %>
-  <% flash[:error] = "Please sign in with Twitter first" %>
-  <% redirect('/login') %>
+  <% redirect('/auth/twitter') %>
 <% end %>
