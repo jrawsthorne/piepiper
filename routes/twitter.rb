@@ -25,7 +25,7 @@ class PiePiper < Sinatra::Base
       params[:address_line_2],
       params[:postcode],
       params[:city_region],
-      params[:twitter_handle],
+      flash[:twitter_id],
       params[:diet]
           )
   end
