@@ -120,4 +120,22 @@ $(function (){
       this.submit();
     }
   });
+  
+  $("#reply-send").click(function() {
+    var in_reply_to = $(this).data("tweet")
+    var user = $(this).data("user")
+    var text = $("#message-text").val();
+    $.ajax({
+      url: "/send-tweet",
+      data: { 'tweet': text, 'user': user, 'in_reply_to': in_reply_to },
+      dataType: "json",
+      type: "POST",
+      success: function() {
+        $("#reply").modal('toggle');
+      }
+  });
+  $("#reply").modal('toggle');
+  $("#message-text").val("");
+});
+  
 });

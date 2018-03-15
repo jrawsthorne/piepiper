@@ -1,0 +1,8 @@
+
+
+<%-#This shows how you can access the special_conditions of a user -%>
+<%-#This gets all of the special_conditions associated with user_id 2 -%>
+<%-#And out puts the related names -%>
+<%SpecialConditionsUsers.where(user_id: 2).each do |x| %>
+<%=x.special_condition.name%>
+<%end%>

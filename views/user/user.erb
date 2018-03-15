@@ -22,7 +22,17 @@
           <td><%= user.lastname %></td>
           <td><%= user.username %></td>
           <td><a target="_blank" href="<%= $client.user(user.twitter_id.to_i).uri %>"><%= $client.user(user.twitter_id.to_i).screen_name %></a></td>
-          <td><% if(user.special_condition.nil?) then %>N/A<% else %><%= user.special_condition.name %><% end %></td>
+          <td>
+            <% if(user.user_special_conditions.empty?) %>
+            N/A
+            <% else %>
+              <ul>
+                <% user.user_special_conditions.each do |user_special_condition| %>  
+                  <li><%= user_special_condition.special_condition.name %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
           <td><%= user.address %></td>
           <td><%= user.account_type.name %></td>
         </tr>
@@ -44,7 +54,7 @@
           <tr>
             <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
             <% tweet = order.get_tweet %>
-            <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.text[0...20] %><%= "..." if(tweet.text.length > 20) %></a></td>
+            <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
             <td><%= order.order_state.name %></td>
           </tr>
         <% end %>
