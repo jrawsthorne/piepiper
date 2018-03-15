@@ -13,12 +13,12 @@
     </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="firstname">First Name</label>
-          <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First Name">
+          <label for="forename">First Name</label>
+          <input name="forename" type="text" class="form-control" id="forename" placeholder="First Name">
         </div>
         <div class="form-group col-md-6">
-          <label for="lastname">Last Name</label>
-          <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last Name">
+          <label for="surname">Last Name</label>
+          <input name="surname" type="text" class="form-control" id="surname" placeholder="Last Name">
         </div>
       </div>
       <div class="form-group">
@@ -27,32 +27,32 @@
       </div>
       <div class="form-group">
         <label for="address_line_1">Address Line 1</label>
-        <input type="text" class="form-control" id="address_line_1" placeholder="Address Line 1">
+        <input name="address_line_1" type="text" class="form-control" id="address_line_1" placeholder="Address Line 1">
       </div>
       <div class="form-group">
           <label for="address_line_2">Address Line 2</label>
-          <input type="text" class="form-control" id="address_line_2" placeholder="Address Line 2">
+          <input name="address_line_2" type="text" class="form-control" id="address_line_2" placeholder="Address Line 2">
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
         <label for="postcode">Post Code</label>
-        <input type="text" class="form-control" id="postcode">
+        <input name="postcode" type="text" class="form-control" id="postcode" placeholder="Postcode">
         </div>
       </div>
       <div class="form-group">
         <label for="city_region">City Region</label>
-        <input type="text" class="form-control" id="city_region" placeholder="City Region">
+        <input name="city_region" type="text" class="form-control" id="city_region" placeholder="City Region">
       </div>
 
       <div class="form-group">
         <label for="twitter_handle">Twitter Handle</label>
-        <input type="text" readonly class="form-control" id="twitter_handle" value="<%=twitter_user.screen_name%>" placeholder="<%=twitter_user.screen_name%>">
+        <input name="twitter_handle" type="text" readonly class="form-control" id="twitter_handle" value="<%=twitter_user.screen_name%>" placeholder="<%=twitter_user.screen_name%>">
       </div>
 
       <div class="form-group">
         <% SpecialCondition.all.each do |special_condition| %>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="diet[]" value="" id="<%=special_condition.name%>">
+          <input class="form-check-input" type="checkbox" name="diet[]" value="<%=special_condition.id%>" id="<%=special_condition.name%>">
           <label class="form-check-label" for="<%=special_condition.name%>"><%=special_condition.name%></label>
         </div>
         <% end %>
