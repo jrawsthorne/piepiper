@@ -14,4 +14,20 @@ class PiePiper < Sinatra::Base
       redirect '/signup'
     end
   end
+
+  post '/user/signup' do
+    puts(
+      params[:username],
+      params[:forename],
+      params[:surname],
+      params[:email],
+      params[:address_line_1],
+      params[:address_line_2],
+      params[:postcode],
+      params[:city_region],
+      params[:twitter_handle],
+      params[:diet]
+          )
+  end
+  
 end
