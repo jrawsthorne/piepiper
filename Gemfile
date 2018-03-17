@@ -19,3 +19,4 @@ gem 'sinatra-contrib'
 group :development, :test do
   gem 'sqlite3'
 end
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'

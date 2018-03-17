@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312223516) do
+ActiveRecord::Schema.define(version: 20180317154604) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20180312223516) do
     t.string "username"
     t.string "firstname"
     t.string "lastname"
-    t.string "password"
+    t.string "password_hash"
     t.string "twitter_id"
     t.string "address"
     t.datetime "created_at"
