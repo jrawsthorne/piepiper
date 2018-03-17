@@ -8,10 +8,26 @@ class PiePiper < Sinatra::Base
     if(User.exists?(twitter_id: auth.uid))
       user = User.find_by(twitter_id: auth.uid)
       auth ? session[:user_id] = user.id : halt(401,'Not Authorized')
-      redirect '/account'
+      redirect '/'
     else
       flash[:twitter_id] = auth.uid
       redirect '/signup'
     end
   end
+
+  post '/signup' do
+    puts(
+      params[:username],
+      params[:forename],
+      params[:surname],
+      params[:email],
+      params[:address_line_1],
+      params[:address_line_2],
+      params[:postcode],
+      params[:city_region],
+      flash[:twitter_id],
+      params[:diet]
+          )
+  end
+  
 end

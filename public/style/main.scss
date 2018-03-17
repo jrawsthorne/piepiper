@@ -9,11 +9,20 @@ body {
   margin-bottom: 60px;
 }
 
+
 nav .logo {
   font-family: "Arizonia";
   font-size: 50px;
-  transition: opacity .3s ease
+  transition: opacity .3s ease;
+  display: inline-block;
+  margin-bottom: 20px;
 }
+
+.fix {
+  margin-bottom: 0px;
+    display: inline-block;
+}
+
 
 nav .logo:hover {
     opacity: 0.65;

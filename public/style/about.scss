@@ -1,24 +1,22 @@
 /* About */
 
 .img {
-  display: block;
-  margin-top: 2px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  height: 15%;
+  display: inline-block;
+  width: 530px;
+  height: 10%;
   opacity: 0.8;
+  margin-top: 30px;
+  margin-right: 22px;
 
 }
 
-.aroundimg{
-  border:black;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  width:400px;
-  margin-left: auto;
-  margin-right: auto;
+p .text{
+  margin-top: 30px;
+  text-align: center;
+}
+
+p{
+  text-align: center;
 }
 
 img:hover {
