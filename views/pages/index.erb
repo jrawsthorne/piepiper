@@ -20,7 +20,9 @@
           <img src="/img/food-collection-8-006.jpg">
           <div class="text" class="card-body">
             <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
-            <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+              <% extraclass = '' %>
+              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+            <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
             <p class="card-text"></p>
             <p class="card-text"><small class="text-muted"></small></p>
           </div>

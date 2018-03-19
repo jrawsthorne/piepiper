@@ -5,6 +5,7 @@ require 'twitter'
 require 'json'
 require 'omniauth-twitter'
 require 'sinatra/reloader'
+require 'bcrypt'
 
 class PiePiper < Sinatra::Base
   
