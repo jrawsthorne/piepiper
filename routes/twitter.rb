@@ -28,6 +28,7 @@ class PiePiper < Sinatra::Base
       flash[:twitter_id],
       params[:diet]
           )
+      redirect("/")
   end
-  
+
 end
