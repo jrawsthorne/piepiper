@@ -16,7 +16,7 @@ class Order < ActiveRecord::Base
   def total_price
     total = 0
     order_items.each do |order_item|
-      total += order_item.item.price
+      total += order_item.item.price*order_item.quantity
     end
     return total
   end
