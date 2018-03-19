@@ -12,8 +12,8 @@ special_conditions = [
   {name: 'Vegan'},
   {name: 'Vegetarian'},
   {name: 'Gluten free'},
-  {name: 'Nut alergy'},
-  {name: 'Dairy alergy'},
+  {name: 'Nut allergy'},
+  {name: 'Dairy allergy'},
 ]
 
 user_special_conditions = [
