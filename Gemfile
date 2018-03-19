@@ -20,4 +20,5 @@ gem 'sinatra-contrib'
 group :development, :test do
   gem 'sqlite3'
 end
-gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', require: 'bcrypt' if Gem.win_platform?
+gem 'bcrypt' if !Gem.win_platform?
