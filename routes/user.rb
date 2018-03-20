@@ -33,6 +33,7 @@ class PiePiper < Sinatra::Base
 
   get '/account' do
     authenticate!
+    @js ='address.js'
     @title = "Account Settings"
     @user = get_user_from_session
     @twitter_user = $client.user(@user.twitter_id.to_i)

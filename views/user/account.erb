@@ -17,10 +17,67 @@
         <label for="email">Email</label>
         <input name="email" type="email" class="form-control" id="email" placeholder="Email">
       </div>
+
+
       <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" value="<%=@user.address%>" placeholder="<%=@user.address%>">
+        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="<%=@user.address%>" placeholder="<%=@user.address%>">
       </div>
+      <div class="modal-opener-btn">
+      <div class="modal fade" id="map_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="mapModalLable">Address</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value="<%=@user.address%>" placeholder="<%=@user.address%>">
+                    <div class="form-group">
+                      <label for="inputAddress">Postcode</label>
+                      <input type="text" class="form-control" id="postal_code" placeholder="Postode">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputAddress">Address line 1</label>
+                      <input type="text" class="form-control" id="street_number" placeholder="Address line 1">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputAddress2">Address line 2</label>
+                      <input type="text" class="form-control" id="route" placeholder="Address line 2">
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputCounty">County</label>
+                        <input type="text" class="form-control" id="administrative_area_level_2" placeholder="County">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputCountry
+                        ">Country</label>
+                        <input type="text" id="administrative_area_level_1" class="form-control" placeholder="Country" >
+                        </input>
+                      </div>
+                    </div>
+                  <div id="map"></div>
+
+                    <p id= "address_checker"> Sorry, we do not deliver to this address. </p>
+
+            </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="save" disabled>Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
       <div class="form-group">
         <label for="twitterhandle">Twitter Handle</label>
         <input disabled type="text" class="form-control" id="twitterhandle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
