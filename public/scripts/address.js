@@ -42,7 +42,6 @@ circle = new google.maps.Circle({
     street_number: 'short_name',
     route: 'long_name',
     administrative_area_level_2: 'long_name',
-    administrative_area_level_1: 'long_name'
   };
 
   function initAutocomplete() {
