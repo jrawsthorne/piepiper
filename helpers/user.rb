@@ -1,17 +1,12 @@
 def authenticate!
-  is_user_still
-  unless session[:user_id]
-    redirect '/login'
-  end
-end
-
-def is_user_still
-  session[:user_id] = nil if(!User.exists?(session[:user_id]))
+    session[:user_id] = nil if(!User.exists?(session[:user_id]))
+    unless session[:user_id]
+      redirect '/login'
+    end
 end
 
 def authenticated?
-  is_user_still
-  !!session[:user_id]
+    !!session[:user_id]
 end
 
 def get_user_from_session
