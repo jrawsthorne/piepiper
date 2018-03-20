@@ -1,7 +1,10 @@
 users = [
   {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', address: 'S10 3AU', account_type_id: 1},
-  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', address: 'S10 3AU', account_type_id: 2},
-  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', address: 'S10 3AU', account_type_id: 3}
+  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', address: 'S10 3AU', account_type_id: 1},
+  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', address: 'S10 3AU', account_type_id: 1},
+  {username: 'admin', firstname: 'Admin', lastname: 'User', password: 'admin', account_type_id: 3},
+  {username: 'user', firstname: 'Regular', lastname: 'User', password: 'user', account_type_id: 1},
+  {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2}
 ]
 
 special_conditions = [
@@ -9,8 +12,8 @@ special_conditions = [
   {name: 'Vegan'},
   {name: 'Vegetarian'},
   {name: 'Gluten free'},
-  {name: 'Nut alergy'},
-  {name: 'Dairy alergy'},
+  {name: 'Nut allergy'},
+  {name: 'Dairy allergy'},
 ]
 
 user_special_conditions = [

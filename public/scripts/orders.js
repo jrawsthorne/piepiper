@@ -1,5 +1,6 @@
 $(function (){
-  $(".tell-user-signup").click(function() {
+  $(".tell-user-signup").click(function(e) {
+    e.preventDefault();
     var in_reply_to = $(this).data("tweet")
     var user = $(this).data("user")
     var text = "Please signup before ordering https://pie-piper.me/signup";

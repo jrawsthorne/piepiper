@@ -1,5 +1,6 @@
 <%= erb :header %>
 <% user = User.find(params['user_id']) %>
+<% twitter_user = user.get_twitter_user %>
     <p>User details <small><a href="/users">Go to users</a></small></p>
     <div class="table-responsive mb-3">
       <table class="table">
@@ -9,7 +10,7 @@
           <th scope="col">First</th>
           <th scope="col">Last</th>
           <th scope="col">Username</th>
-          <th scope="col">Twitter Profile</th>
+          <%= '<th scope="col">Twitter Profile</th>' if twitter_user %>
           <th scope="col">Dietary Requirements</th>
           <th scope="col">Address</th>
           <th scope="col">Account Type</th>
@@ -21,16 +22,16 @@
           <td><%= user.firstname %></td>
           <td><%= user.lastname %></td>
           <td><%= user.username %></td>
-          <td><a target="_blank" href="<%= $client.user(user.twitter_id.to_i).uri %>"><%= $client.user(user.twitter_id.to_i).screen_name %></a></td>
+          <% if twitter_user %>
+            <td><a target="_blank" href="<%= twitter_user.uri %>"><%= twitter_user.screen_name %></a></td>
+          <% end %>
           <td>
             <% if(user.user_special_conditions.empty?) %>
             N/A
             <% else %>
-              <ul>
-                <% user.user_special_conditions.each do |user_special_condition| %>  
-                  <li><%= user_special_condition.special_condition.name %></li>
-                <% end %>
-              </ul>
+              <% user.user_special_conditions.each do |user_special_condition| %>  
+                <p><%= user_special_condition.special_condition.name %></p>
+              <% end %>
             <% end %>
           </td>
           <td><%= user.address %></td>

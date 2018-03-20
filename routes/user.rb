@@ -20,10 +20,15 @@ class PiePiper < Sinatra::Base
     erb :'/user/login'
   end
 
-  post '/login' do
-    # Sign in as Colin for now
-    session[:user_id] = 1
-    redirect '/'
+  post '/login' do  
+    user = User.find_by_username(params[:username])
+    if !user.nil? && user.password == params[:password]
+      session[:user_id] = user.id
+      redirect '/'
+    else
+      flash[:error] = "Incorrect credentials"
+      redirect('/login')
+    end
   end
 
   get '/signup' do

@@ -7,6 +7,7 @@ gem 'omniauth-twitter'
 gem 'sinatra-flash'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'minitest'
 gem 'rake'
 gem 'cucumber'
 gem 'capybara'
@@ -19,3 +20,4 @@ gem 'sinatra-contrib'
 group :development, :test do
   gem 'sqlite3'
 end
+gem 'bcrypt'

@@ -16,7 +16,12 @@ class PiePiper < Sinatra::Base
   end
 
   post '/signup' do
-    puts(
+    if params[:diet].nil?
+      diet = [1]
+    else
+      diet = params[:diet]
+    end
+    new_user(
       params[:username],
       params[:forename],
       params[:surname],
@@ -25,9 +30,10 @@ class PiePiper < Sinatra::Base
       params[:address_line_2],
       params[:postcode],
       params[:city_region],
-      params[:twitter_handle],
-      params[:diet]
+      flash[:twitter_id],
+      diet
           )
+      redirect("/")
   end
-  
+
 end

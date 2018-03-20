@@ -5,9 +5,10 @@
     <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="firstname">First Name</label>
-          <input name="lastname" type="text" class="form-control" id="firstname" value="<%=@user.firstname%>" placeholder="<%=@user.firstname%>">
+          <label for="username">Username</label>
+          <input name="username" readonly type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>">
         </div>
+<<<<<<< HEAD
         <div class="form-group col-md-6">
           <label for="lastname">Last Name</label>
           <input name="firstname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>">
@@ -96,6 +97,62 @@
       </div>
       <button type="submit" class="btn btn-primary">Save</button>
       <button type="reset" class="btn btn-danger">Reset</button>
+=======
+      </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="forename">First Name</label>
+            <input name="forename" type="text" class="form-control" id="forename" placeholder="<%=@user.firstname%>" value="<%=@user.firstname%>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="surname">Last Name</label>
+            <input name="surname" type="text" class="form-control" id="surname" placeholder="<%=@user.lastname%>" value="<%=@user.lastname%>">
+          </div>
+        </div>
+        <!--<div class="form-group">
+          <label for="email">Email</label>
+          <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+        </div>-->
+        <div class="form-group">
+          <label for="address_line_1">Address Line 1</label>
+          <input name="address_line_1" type="text" class="form-control" id="address_line_1" placeholder="<%=@user.address%>" value="<%=@user.address%>">
+        </div>
+        <div class="form-group">
+            <label for="address_line_2">Address Line 2</label>
+            <input name="address_line_2" type="text" class="form-control" id="address_line_2" placeholder="<%=@user.address%>" value="<%=@user.address%>">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+          <label for="postcode">Post Code</label>
+          <input name="postcode" type="text" class="form-control" id="postcode" placeholder="<%=@user.address%>" value="<%=@user.address%>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city_region">City Region</label>
+          <input name="city_region" type="text" class="form-control" id="city_region" placeholder="<%=@user.address%>" value="<%=@user.address%>">
+        </div>
+
+        <div class="form-group">
+          <label for="twitter_handle">Twitter Handle</label>
+          <input name="twitter_handle" type="text" readonly class="form-control" id="twitter_handle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
+        </div>
+
+        <div class="form-group">
+          <label for="dietaryrequirements">Dietary Requirements</label>
+          <% special_condition_ids = @user.user_special_conditions.pluck(:special_condition_id) %>
+            <% @special_conditions.each do |special_condition| %>
+              <div class="form-check">
+                <input <%= "checked" if (special_condition_ids.include?(special_condition.id)) %> class="form-check-input" type="checkbox" value="<%=special_condition.id%>" id="<%=special_condition.id%>">
+                <label class="form-check-label" for="defaultCheck1">
+                  <%=special_condition.name%>
+                </label>
+              </div>
+            <% end %>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+>>>>>>> caf773d5fa9da9f769cf0d2d83dd9df67ff31fed
     </form>
   </div>
 </div>

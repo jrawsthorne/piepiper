@@ -32,9 +32,7 @@
                 <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
               <% else %>
                 <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
-                <button type="button" class="btn btn-primary mb-0 tell-user-signup" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">
-                  Tell user they need to sign up before tweeting
-                </button>
+                <p class="mb-1"><a class="text-secondary tell-user-signup" href="/orders" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">Tell user they need to sign up before tweeting</a></p>
               <% end %>
             </div>
           </div>
