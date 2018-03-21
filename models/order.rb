@@ -33,4 +33,8 @@ class Order < ActiveRecord::Base
       order_item.save
     end
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> a7ec877586362c19e5505aaf4e034f7409700bc6
