@@ -71,11 +71,12 @@
       </div>
       </div>
 
-
+      <% if(@twitter) %>
       <div class="form-group">
         <label for="twitterhandle">Twitter Handle</label>
         <input disabled type="text" class="form-control" id="twitterhandle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
       </div>
+      <% end %>
       <div class="form-group">
         <label for="dietaryrequirements">Dietary Requirements</label>
         <% special_condition_ids = @user.user_special_conditions.pluck(:special_condition_id) %>

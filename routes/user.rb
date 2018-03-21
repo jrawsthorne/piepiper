@@ -41,7 +41,7 @@ class PiePiper < Sinatra::Base
     @js ='address.js'
     @title = "Account Settings"
     @user = get_user_from_session
-    @twitter_user = $client.user(@user.twitter_id.to_i)
+    @twitter_user = $client.user(@user.twitter_id.to_i) if @user.twitter_id
     @special_conditions = SpecialCondition.all
     erb :'/user/account'
   end
