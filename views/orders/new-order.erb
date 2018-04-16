@@ -23,6 +23,7 @@
   <% if(@error) %>
     <%= display_error(@error) %>
   <% end %>
+  <script>var json = <%= $client.retweets(tweet.id, options = {}).to_json %>;console.log(json)</script>
   <div class="mb-3 col-lg-5 col-md-12">
     <p>Tweet <small><a target="_blank" href="<%= tweet.uri %>">View tweet</a></small></p>
     <ul class="list-group mb-3">
