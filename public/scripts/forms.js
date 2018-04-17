@@ -125,17 +125,30 @@ $(function (){
     var in_reply_to = $(this).data("tweet")
     var user = $(this).data("user")
     var text = $("#message-text").val();
-    $.ajax({
-      url: "/send-tweet",
-      data: { 'tweet': text, 'user': user, 'in_reply_to': in_reply_to },
-      dataType: "json",
-      type: "POST",
-      success: function() {
-        $("#reply").modal('toggle');
-      }
-  });
-  $("#reply").modal('toggle');
-  $("#message-text").val("");
+    var data = { 'tweet': text, 'user': user, 'in_reply_to': in_reply_to };
+    fetch('/send-tweet', {
+      credentials: "same-origin",
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then((response) => {
+      response.json()
+      .then((tweet) => {
+        if(response.status !== 200) {
+          alert(tweet.error)
+        } else {
+          $("#reply").modal('toggle');
+          $("#message-text").val("");
+          $('#tweets').append('<li class="list-group-item"><div class="d-flex w-100"><div class="profile-image mr-3"><img src="'+tweet.user.profile_image_url+'" /></div><div class="profile"><h5 class="mb-1">'+tweet.user.full_name+' <span>'+tweet.created_at+'</span></h5><p class="mb-1">'+tweet.tweet_text+'</p></div></div></li>')
+        }
+      })
+      .catch((err) => console.error(err))
+    }
+  )
+  .catch((err) => console.error(err))
 });
   
 });
