@@ -32,9 +32,6 @@ module NavigationHelpers
     when /the logout page/
       '/logout'
       
-    when /the twitter_auth page/
-      '/auth/twitter'
-      
     when /the new_order page/
       '/new-order/968523084159438848'
     
