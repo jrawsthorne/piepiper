@@ -41,6 +41,11 @@
   <% if(@error) %>
     <%= display_error(@error) %>
   <% end %>
+  <%# this gives a list of all of the retweet datas%>
+  <%# iterate through this and get the user, then the user's ID%>
+  <%# then check if this is in the user's database%>
+  <script>var json = <%= $client.retweets(tweet.id, options = {}).to_json %>;console.log(json)</script>
+
   <div class="mb-3 col-lg-5 col-md-12">
     <p>Tweet <small><a target="_blank" href="<%= tweet.uri %>">View tweet</a></small></p>
     <ul class="list-group mb-3" id="tweets">
