@@ -18,4 +18,16 @@
     <a class="btn btn-primary" href="#" role="button">Submit</a>
   </form>
 
+  <script>
+    function getRetweets(){
+      //updated version
+      var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
+      console.log(ids)
+      
+    }
+  </script>
+
+  <button class="btn btn-primary mb-3" onclick="getRetweets()">Close Campaign</button>
+
+
 <%= erb :footer %>
