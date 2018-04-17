@@ -5,7 +5,7 @@ class PiePiper < Sinatra::Base
     if(User.exists?(user_id))
       @title = "User - "+User.find(user_id).fullname
       erb :'/user/user'
-    else 
+    else
       redirect('/')
     end
   end
@@ -15,4 +15,11 @@ class PiePiper < Sinatra::Base
     @title = "Users"
     erb :'/user/users'
   end
+
+  get '/campaigns' do
+    admin!
+    @title = "Campaigns"
+    erb :'/pages/campaigns'
+  end
+
 end

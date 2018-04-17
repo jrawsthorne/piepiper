@@ -1,0 +1,21 @@
+<%= erb :header %>
+<form class="form-signin" method="post" action="/campaigns">
+  <h3> Marketing Campaigns </h3>
+
+  <form class="campaignform">
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Select a prize</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>Dscount</option>
+        <option>Free item</option>
+        <option>2-4-1</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Message</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <a class="btn btn-primary" href="#" role="button">Submit</a>
+  </form>
+
+<%= erb :footer %>
