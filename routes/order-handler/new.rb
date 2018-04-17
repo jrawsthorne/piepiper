@@ -35,8 +35,27 @@ class PiePiper < Sinatra::Base
   end
   
   post '/send-tweet' do
+    payload = params 
+    payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
     if(authenticated?)
-      $client.update("@"+params[:user]+" "+params[:tweet], in_reply_to_status_id: params[:in_reply_to].to_i)
+      tweet = $client.update("@"+payload[:user]+" "+payload[:tweet], in_reply_to_status_id: payload[:in_reply_to].to_i)
+      if tweet.truncated? && tweet.attrs[:extended_tweet]
+        tweet_text = tweet.attrs[:extended_tweet][:full_text]
+      else
+        tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
+      end
+      return {
+          created_at: tweet.created_at.asctime,
+          tweet_text: tweet_text,
+          user: {
+            profile_image_url: tweet.user.profile_image_url.to_s,
+            full_name: User.find_by(twitter_id: tweet.user.id).fullname
+          }
+      }.to_json
+    else
+      content_type :json
+      status 400
+      return {error: "Unauthorised"}.to_json
     end
   end
   

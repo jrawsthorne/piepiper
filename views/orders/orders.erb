@@ -1,5 +1,10 @@
 <%= erb :header %>
-<% tweets = $client.mentions_timeline(tweet_mode: "extended") %>
+<% 
+  mentions = $client.mentions_timeline(tweet_mode: "extended")
+  tweets = mentions.select do |tweet|
+    tweet.in_reply_to_status_id.nil?
+  end
+%>
 <div class="row">
   <%= display_success("New order \##{flash[:new_order]} added successfully") if(flash[:new_order]) %>
   <%= display_success("Order \##{flash[:delete_order]} deleted successfully") if(flash[:delete_order]) %>
