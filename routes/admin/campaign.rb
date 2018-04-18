@@ -6,6 +6,18 @@ get '/campaigns' do
 	erb :'/pages/campaigns'
 end
 
+# get '/singlecampaign' do
+# 	admin!
+# 	@title = "SingleCampaign"
+# 	erb :'/pages/singlecampaign'
+# end
+
+get '/allcampaigns' do
+	admin!
+	@title = "AllCampaigns"
+	erb :'/pages/allcampaigns'
+end
+
 post '/campaigns' do
 	if(authenticated?)
 		 tweet=$client.update(params[:message])
