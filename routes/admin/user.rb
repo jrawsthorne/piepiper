@@ -1,4 +1,5 @@
 class PiePiper < Sinatra::Base
+
   get '/user/:user_id' do
     admin!
     user_id = params['user_id']
@@ -16,10 +17,5 @@ class PiePiper < Sinatra::Base
     erb :'/user/users'
   end
 
-  get '/campaigns' do
-    admin!
-    @title = "Campaigns"
-    erb :'/pages/campaigns'
-  end
 
 end
