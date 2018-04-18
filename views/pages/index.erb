@@ -9,6 +9,9 @@
       <a class="nav-item nav-link" id="menu-<%=special_condition.name%>-tab" data-toggle="tab" href="#menu-<%=special_condition.name%>" role="tab"><%= special_condition.name %></a>
     <% end %>
   </div>
+  <div>
+    <p>Payment: Cash only</p>
+  </div>
 </nav>
 <div class="tab-content mt-3" id="nav-tabContent">
   <% @item_types.each_with_index do |item_type,i| %>

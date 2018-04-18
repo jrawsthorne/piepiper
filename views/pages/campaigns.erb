@@ -17,7 +17,10 @@
       <label for="message">Message</label>
       <textarea class="form-control" name="message" rows="3"></textarea>
     </div>
-    <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
+
+      <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
+
+    <button class="btn btn-primary" onclick="getRetweets()">Close Campaign</button>
   </form>
 
   <script>
@@ -25,11 +28,7 @@
       //updated version
       var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
       console.log(ids)
-
     }
   </script>
-
-  <button class="btn btn-primary mb-3" onclick="getRetweets()">Close Campaign</button>
-
 
 <%= erb :footer %>
