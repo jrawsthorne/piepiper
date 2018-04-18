@@ -6,8 +6,12 @@
 git clone https://github.com/COM1001-ComputerScience-Sheffield/team-10.git
 cd team-10
 
+If error occurs with bcrypt:
+gem uninstall bcrypt
+gem install bcrypt --platform=ruby
+
 bundle
-bundle exec rake db:migrate db:seed
+bundle exec rake
 
 rackup -p 4567
 ```
