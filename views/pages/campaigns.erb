@@ -4,18 +4,18 @@
 
   <form class="campaignform">
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Select a prize</label>
-      <select class="form-control" id="exampleFormControlSelect1">
+      <label for="prize">Select a prize</label>
+      <select class="form-control" id="prize">
         <option>Dscount</option>
         <option>Free item</option>
         <option>2-4-1</option>
       </select>
     </div>
     <div class="form-group">
-      <label for="exampleFormControlTextarea1">Message</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <label for="message">Message</label>
+      <textarea class="form-control" name="message" rows="3"></textarea>
     </div>
-    <a class="btn btn-primary" href="#" role="button">Submit</a>
+    <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
   </form>
 
   <script>
@@ -23,7 +23,7 @@
       //updated version
       var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
       console.log(ids)
-      
+
     }
   </script>
 
