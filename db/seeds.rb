@@ -24,6 +24,7 @@ user_special_conditions = [
 
 order_states = [
   {name: 'Preparing'},
+  {name: 'Ready'},
   {name: 'Complete'},
 ]
 

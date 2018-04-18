@@ -1,3 +1,35 @@
 <%= erb :header %>
-	<p>Campaigns</p>
+<form class="form-signin" method="post" action="/campaigns">
+  <h3> New Marketing Campaigns </h3>
+
+  <form class="campaignform">
+    <div class="form-group">
+      <label for="prize">Select a prize</label>
+      <select class="form-control" id="prize">
+        <option>10% Discount</option>
+        <option>25% Discount</option>
+        <option>50% Discount</option>
+        <option>Free item</option>
+        <option>2-4-1</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea class="form-control" name="message" rows="3"></textarea>
+    </div>
+    <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
+  </form>
+
+  <script>
+    function getRetweets(){
+      //updated version
+      var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
+      console.log(ids)
+
+    }
+  </script>
+
+  <button class="btn btn-primary mb-3" onclick="getRetweets()">Close Campaign</button>
+
+
 <%= erb :footer %>
