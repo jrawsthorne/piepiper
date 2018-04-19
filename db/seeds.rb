@@ -69,6 +69,14 @@ account_types = [
   {name: 'Admin'}
 ]
 
+campaign_types = [
+  {type_name: '10% Discount', percentage_reduced: 10},
+  {type_name: '25% Discount', percentage_reduced: 25},
+  {type_name: '50% Discount', percentage_reduced: 50},
+  {type_name: 'Free item', percentage_reduced: 100},
+  {type_name: '2-4-1'} 
+  ]
+
 users.each do |u|
   User.create(u)
 end
@@ -95,4 +103,8 @@ end
 
 user_special_conditions.each do |u|
   UserSpecialCondition.create(u)
+end
+
+campaign_types.each do |u|
+  CampaignType.create(u)
 end
