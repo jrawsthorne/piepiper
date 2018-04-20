@@ -16,11 +16,9 @@
       <% @items.select{|item| item.item_type_id == item_type.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
-            <% if(item.item_type_id === 1) %>
             <div class="mr-3">
-              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="50px">
+              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
             </div>
-            <% end %>
             <div>
               <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
             </div>
