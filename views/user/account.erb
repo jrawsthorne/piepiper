@@ -19,7 +19,21 @@
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="<%=@user.address%>" placeholder="<%=@user.address%>">
+        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="house">House Number/Name</label>
+        <input name="house" type="text" class="form-control" id="house" placeholder="House Name/Number">
+      </div>
+      <div class="form-group">
+        <label for="street">Street Name</label>
+        <input name="street" type="text" class="form-control" id="street" placeholder="Street Name">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="postcode">Post Code</label>
+        <input name="postcode" type="text" class="form-control" id="postcode" placeholder="Postcode">
+        </div>
       </div>
       <% # display their twitter screen name if the user has a twitter id associated with them %>
       <% if (@twitter_user) %>
@@ -60,24 +74,24 @@
         <div class="form-group">
           <div class="form-group">
             <label for="address">Address</label>
-            <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value="<%=@user.address%>" placeholder="<%=@user.address%>">
+            <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value="" placeholder="">
+          </div>
+
+          <div class="form-group">
+            <label for="house">House Number/Name</label>
+            <input type="text" class="form-control" id="house" placeholder="House Name/Number">
           </div>
           <div class="form-group">
-            <label for="inputAddress">Postcode</label>
-            <input type="text" class="form-control" id="postal_code" placeholder="Postode">
+            <label for="street">Street Name</label>
+            <input type="text" class="form-control" id="street" placeholder="Street Name">
           </div>
-          <div class="form-group">
-            <label for="inputAddress">Address line 1</label>
-            <input type="text" class="form-control" id="street_number" placeholder="Address line 1">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="postcode">Post Code</label>
+            <input type="text" class="form-control" id="postcode" placeholder="Postcode">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="inputAddress2">Address line 2</label>
-            <input type="text" class="form-control" id="route" placeholder="Address line 2">
-          </div>
-          <div class="form-group">
-            <label for="city_region">City Region</label>
-            <input name="city_region" type="text" class="form-control" id="administrative_area_level_2" placeholder="<%=@user.address%>" value="<%=@user.address%>">
-          </div>
+
         </div>
         <div id="map"></div>
         <p id= "address_checker"> Sorry, we do not deliver to this address. </p>
