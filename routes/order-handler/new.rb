@@ -19,7 +19,7 @@ class PiePiper < Sinatra::Base
 
   get '/new-order/:tweet_id' do
     order_handler!
-    @js = 'forms.js'
+    @js = ['/scripts/forms.js']
     @title = "New order"
     erb :'/orders/new-order'
   end
@@ -33,9 +33,9 @@ class PiePiper < Sinatra::Base
       return {}
     end
   end
-  
+
   post '/send-tweet' do
-    payload = params 
+    payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
     if(authenticated?)
       tweet = $client.update("@"+payload[:user]+" "+payload[:tweet], in_reply_to_status_id: payload[:in_reply_to].to_i)
@@ -58,5 +58,5 @@ class PiePiper < Sinatra::Base
       return {error: "Unauthorised"}.to_json
     end
   end
-  
+
 end
