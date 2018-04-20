@@ -35,4 +35,11 @@ post '/campaigns' do
 	end
 end
 
+post '/allcampaigns' do
+    campaign = Campaign.find(params[:campaign_id])
+    ids = campaign.get_retweet_ids
+    return ids.to_json
+end
+
+
 end
