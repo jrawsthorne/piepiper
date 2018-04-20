@@ -4,11 +4,11 @@
 
   <form class="campaignform">
     <div class="form-group">
-      <label for="prize">Select a prize</label>
-      <select class="form-control" id="prize">
+      <label for="prize">Select a prize </label>
+      <select style="height:45px" class="form-control" id="prize" >
         <% (CampaignType.all).each do |campaign_type| %>
           <option><%=campaign_type.type_name%></option>
-        
+
         <% end %>
       </select>
 
