@@ -13,8 +13,13 @@
       </select>
 
     <div class="form-group">
+      <label for="winner_number">Retweet number, 0 is random</label>
+      <textarea class="form-control" name="winner_number" rows="0" placeholder="0"></textarea>
+    </div>
+
+    <div class="form-group">
       <label for="message">Message</label>
-      <textarea class="form-control" name="message" rows="3"></textarea>
+      <textarea class="form-control" name="message" rows="3" placeholder="First person to retweet wins a 10% discount!"></textarea>
     </div>
 
       <button class="btn btn-primary" href="#" role="button" type="submit" onclick="getReward()">Submit</button>
@@ -28,11 +33,6 @@
       var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
       console.log(ids)
     }
-    function getReward(){
-      var reward_id = document.getElementById("reward_id");
-      var temp = reward_id.options[reward_id.selectedIndex].value;
-      console.log(temp);
-    } 
   </script>
 
 <%= erb :footer %>
