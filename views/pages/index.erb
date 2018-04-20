@@ -31,12 +31,19 @@
     <% @special_conditions.each do |special_condition| %>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <img class="rounded-circle mr-3 d-inline" src="/img/food-collection-8-006.jpg" width="50px">
+          <!-- <img class="rounded-circle mr-3 d-inline" src="/img/food-collection-8-006.jpg" width="50px"> -->
           <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
         </li>
         <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
         <li class="list-group-item">
-          <h5 class="card-title mb-0 d-inline"><%= display_currency(item.price) %> <%=item.name%></h5>
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            </div>
+            <div>
+              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+            </div>
+          </div>
         </li>
         <% end %>
         <%= '<li class="list-group-item">No items in this category, sorry</li>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
