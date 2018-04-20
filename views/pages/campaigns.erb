@@ -5,9 +5,9 @@
   <form class="campaignform">
     <div class="form-group">
       <label for="prize">Select a prize</label>
-      <select class="form-control" id="prize">
+      <select class="form-control" name="reward" id="reward_id">
         <% (CampaignType.all).each do |campaign_type| %>
-          <option><%=campaign_type.type_name%></option>
+          <option for="<%=campaign_type.id%>" value="<%=campaign_type.id%>"><%=campaign_type.type_name%></option>
         
         <% end %>
       </select>
@@ -17,7 +17,7 @@
       <textarea class="form-control" name="message" rows="3"></textarea>
     </div>
 
-      <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
+      <button class="btn btn-primary" href="#" role="button" type="submit" onclick="getReward()">Submit</button>
 
     <button class="btn btn-primary" onclick="getRetweets()">Close Campaign</button>
   </form>
@@ -28,6 +28,11 @@
       var ids = <%= $client.retweeters_ids(972108300593631233, options = {}).to_json %>;
       console.log(ids)
     }
+    function getReward(){
+      var reward_id = document.getElementById("reward_id");
+      var temp = reward_id.options[reward_id.selectedIndex].value;
+      console.log(temp);
+    } 
   </script>
 
 <%= erb :footer %>
