@@ -12,8 +12,8 @@ special_conditions = [
   {name: 'Vegan'},
   {name: 'Vegetarian'},
   {name: 'Gluten free'},
-  {name: 'Nut alergy'},
-  {name: 'Dairy alergy'},
+  {name: 'Nut allergy'},
+  {name: 'Dairy allergy'},
 ]
 
 user_special_conditions = [
@@ -24,34 +24,35 @@ user_special_conditions = [
 
 order_states = [
   {name: 'Preparing'},
+  {name: 'Ready'},
   {name: 'Complete'},
 ]
 
 items = [
-  {name: 'Pork pie', item_type_id: 1, price: 10.0, special_condition_id: 1},
-  {name: 'Lamb shank pie', item_type_id: 1, price: 10.0, special_condition_id: 1},
-  {name: 'Mash', item_type_id: 2, price: 2.0},
-  {name: 'Gravy', item_type_id: 2, price: 2.0},
-  {name: 'Coke', item_type_id: 3, price: 1.0},
-  {name: 'Strawberry milkshake', item_type_id: 4, price: 3.5},
-  {name: 'Cider', item_type_id: 5, price: 5.7},
-  {name: 'Sea bass puff pie', item_type_id: 1, price: 10.5, special_condition_id: 1},
-  {name: 'Lemon Meringue pie', item_type_id: 1, price: 10.0, special_condition_id: 2},
-  {name: 'Kale, Chestnut and Mushroom pie', item_type_id: 1, price: 10.5, special_condition_id: 3},
-  {name: 'Venison & Bacon pie', item_type_id: 1, price: 10.0, special_condition_id: 1},
-  {name: 'Pineapple pie', item_type_id: 1, price: 10.5, special_condition_id: 3},
-  {name: 'Apple pie', item_type_id: 1, price: 10.5, special_condition_id: 3},
-  {name: 'Feta Spinach pie', item_type_id: 1, price: 10.5, special_condition_id: 3},
-  {name: 'Mushroom Asparagus pie', item_type_id: 1, price: 10.5, special_condition_id: 3},
-  {name: 'Chicken & Leek pie', item_type_id: 1, price: 10.5, special_condition_id: 1},
-  {name: 'Coleslaw', item_type_id: 2, price: 2.0},
-  {name: 'Chips/Fries', item_type_id: 2, price: 2.0},
-  {name: 'Mac n Cheese', item_type_id: 2, price: 2.0},
-  {name: 'Diet coke', item_type_id: 3, price: 1.0},
-  {name: 'Fanta', item_type_id: 3, price: 1.0},
-  {name: 'Vanilla milkshake', item_type_id: 4, price: 3.5},
-  {name: 'Chocolate milkshake', item_type_id: 4, price: 3.5},
-  {name: 'Lager', item_type_id: 5, price: 5.7}
+  {name: 'Pork pie', item_type_id: 1, price: 10.0, special_condition_id: 1,path: 'pork.jpg'},
+  {name: 'Lamb shank pie', item_type_id: 1, price: 10.0, special_condition_id: 1, path: 'lamb-shank.jpg'},
+  {name: 'Mash', item_type_id: 2, price: 2.0,path:'mash.jpg'},
+  {name: 'Gravy', item_type_id: 2, price: 2.0,path:'gravy.jpg'},
+  {name: 'Coke', item_type_id: 3, price: 1.0,path:'coke.jpg'},
+  {name: 'Strawberry milkshake', item_type_id: 4, price: 3.5,path:'strawberry.jpg'},
+  {name: 'Cider', item_type_id: 5, price: 5.7,path:'cider.jpg'},
+  {name: 'Sea bass puff pie', item_type_id: 1, price: 10.5, special_condition_id: 1,path:'sea-bass-puff.jpg'},
+  {name: 'Lemon Meringue pie', item_type_id: 1, price: 10.0, special_condition_id: 2,path:'lemon-meringue.jpg'},
+  {name: 'Kale, Chestnut and Mushroom pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'kale-chestnut-mushroom.jpg'},
+  {name: 'Venison & Bacon pie', item_type_id: 1, price: 10.0, special_condition_id: 1,path:'venison-bacon.jpg'},
+  {name: 'Pineapple pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'pineapple.jpg'},
+  {name: 'Apple pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'apple.jpg'},
+  {name: 'Feta Spinach pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'feta-spinach.jpg'},
+  {name: 'Mushroom Asparagus pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'mushroom-asparagus.jpg'},
+  {name: 'Chicken & Leek pie', item_type_id: 1, price: 10.5, special_condition_id: 1,path:'chicken-leek.jpg'},
+  {name: 'Coleslaw', item_type_id: 2, price: 2.0,path:'coleslaw'},
+  {name: 'Chips/Fries', item_type_id: 2, price: 2.0,path:'fries.jpg'},
+  {name: 'Mac n Cheese', item_type_id: 2, price: 2.0,path:'mac-n-cheese.jpg'},
+  {name: 'Diet coke', item_type_id: 3, price: 1.0,path:'diet-coke.jpg'},
+  {name: 'Fanta', item_type_id: 3, price: 1.0,path:'fanta.jpg'},
+  {name: 'Vanilla milkshake', item_type_id: 4, price: 3.5,path:'vanilla.jpg'},
+  {name: 'Chocolate milkshake', item_type_id: 4, price: 3.5,path:'chocolate.jpg'},
+  {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'}
 ]
 
 item_types = [
@@ -67,6 +68,14 @@ account_types = [
   {name: 'Order handler'},
   {name: 'Admin'}
 ]
+
+campaign_types = [
+  {type_name: '10% Discount', percentage_reduced: 10},
+  {type_name: '25% Discount', percentage_reduced: 25},
+  {type_name: '50% Discount', percentage_reduced: 50},
+  {type_name: 'Free item', percentage_reduced: 100},
+  {type_name: '2-4-1'}
+  ]
 
 users.each do |u|
   User.create(u)
@@ -94,4 +103,8 @@ end
 
 user_special_conditions.each do |u|
   UserSpecialCondition.create(u)
+end
+
+campaign_types.each do |u|
+  CampaignType.create(u)
 end

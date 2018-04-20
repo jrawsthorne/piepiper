@@ -9,6 +9,7 @@
         <title><%= @title %> - Pie Piper</title>
     </head>
     <body>
+      <% # show the nav bar specific to the user account type %>
       <% if(authenticated?) %>
         <% account_type = get_account_type_from_session %>
         <% if(account_type == 1) %>
@@ -21,4 +22,5 @@
       <% else %>
         <%= erb :'./nav/nav' %>
       <% end %>
+      <% # create a valid css class for each page to target individual pages with custom styles %>
       <main class="container <%= @title.delete(' ') %>">

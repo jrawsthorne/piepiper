@@ -1,3 +1,4 @@
+
 html {
   position: relative;
   min-height: 100%;
@@ -9,21 +10,11 @@ body {
   margin-bottom: 60px;
 }
 
-
 nav .logo {
   font-family: "Arizonia";
   font-size: 50px;
-  transition: opacity .3s ease;
-  display: inline-block;
-  display: flex;
-  align-items: center;
+  transition: opacity .3s ease
 }
-
-.fix {
-  margin-bottom: 0px;
-    display: inline-block;
-}
-
 
 nav .logo:hover {
     opacity: 0.65;
@@ -44,4 +35,10 @@ main {
 
 #submit_order:focus {
   box-shadow: none;
+}
+
+#map {
+  height: 100%;
+  height: 500px;
+  width:460px;
 }

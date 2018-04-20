@@ -9,9 +9,6 @@ class User < ActiveRecord::Base
   def get_twitter_user
     return $client.user(twitter_id.to_i) if !twitter_id.nil?
   end
-  def get_specials
-    return "hi"
-  end
   def password
     @password ||= Password.new(password_hash)
   end
