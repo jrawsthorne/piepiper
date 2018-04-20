@@ -1,9 +1,9 @@
 <%= erb :header %>
-<% users = User.all %>
-<p>Users</p>
-<% # show error if there are no users in the database %>
-<% if(!User.exists?) %>
-<p>Sorry, no users exist</p>
+<% campaigns = Campaign.all %>
+<p>Campaigns</p>
+<% # show error if there are no campaign in the database %>
+<% if(!Campaign.exists?) %>
+<p>Sorry, no campaigns exist</p>
 <% else %>
     <div class="table-responsive mb-3">
       <table class="table">
@@ -17,11 +17,11 @@
       </thead>
       <tbody>
         <% # iterate through all the users and display their details %>
-        <% users.each do |user| %>
+        <% users.each do |campaign| %>
         <tr>
-          <th scope="row"><a href="/user/<%= user.id %>"><%= user.id %></a></th>
-          <td><%= user.fullname %></td>
-          <td><%= user.username %></td>
+          <th scope="row"><a href="/pages/<%= campaign.id %>"><%= campaign.id %></a></th>
+          <td><%= campaign.campaign_type %></td>
+          <td><%= campaign.username %></td>
           <% twitter_user = user.get_twitter_user %>
           <% # display their twitter screen name if the user has a twitter id associated with them %>
           <td><a target="_blank" href="<%= twitter_user.uri if twitter_user%>"><%= twitter_user.screen_name if twitter_user %></a></td>
