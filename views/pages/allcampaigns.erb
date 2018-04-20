@@ -13,18 +13,19 @@
           <th scope="col">Campaign Type</th>
           <th scope="col">Tweet</th>
           <th scope="col">Winner</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% # iterate through all the users and display their details %>
-        <% users.each do |campaign| %>
+        <% campaigns.each do |campaign| %>
         <tr>
-          <th scope="row"><a href="/pages/<%= campaign.id %>"><%= campaign.id %></a></th>
-          <td><%= campaign.campaign_type %></td>
-          <td><%= campaign.username %></td>
-          <% twitter_user = user.get_twitter_user %>
-          <% # display their twitter screen name if the user has a twitter id associated with them %>
-          <td><a target="_blank" href="<%= twitter_user.uri if twitter_user%>"><%= twitter_user.screen_name if twitter_user %></a></td>
+          <th scope="row"><%= campaign.id %></th>
+          <td><%= campaign.campaign_type.type_name %></td>
+          <% tweet = campaign.get_tweet %>
+          <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
+          <td><%= campaign.winner_number %></td>
+          <td><button class="btn btn-primary" onclick="getRetweets()">Close Campaign</button></td>
         </tr>
         <% end %>
       </tbody>

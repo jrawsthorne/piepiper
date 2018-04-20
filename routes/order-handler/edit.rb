@@ -17,7 +17,7 @@ class PiePiper < Sinatra::Base
 
   get '/edit-order/:order_id' do
     authenticate!
-    @js = 'forms.js'
+    @js = ['/scripts/forms.js']
     @title = "Edit order"
     erb :'/orders/edit-order'
   end

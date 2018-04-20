@@ -3,54 +3,52 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
-      <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>-tab" data-toggle="tab" href="#menu-<%=item_type.name%>" role="tab"><%= item_type.name %></a>
+      <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>-tab" data-toggle="tab" href="#menu-<%=item_type.id%>" role="tab"><%= item_type.name %></a>
     <% end %>
-    <% @special_conditions.each do |special_condition| %>
-      <a class="nav-item nav-link" id="menu-<%=special_condition.name%>-tab" data-toggle="tab" href="#menu-<%=special_condition.name%>" role="tab"><%= special_condition.name %></a>
-    <% end %>
+    <a class="nav-item nav-link" data-toggle="tab" href="#special_conditions" role="tab">Special Conditions</a>
+    </div>
   </div>
 </nav>
 <div class="tab-content mt-3" id="nav-tabContent">
   <% @item_types.each_with_index do |item_type,i| %>
-  <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.name%>" role="tabpanel">
-    <div class="row menu">
+  <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
+    <ul class="list-group list-group-flush">
       <% @items.select{|item| item.item_type_id == item_type.id}.each do |item| %>
-      <div class="frame"  class="col-lg-4 col-md-6">
-        <div  class="card mb-3">
-          <img src="/img/Menu/<%= item.path %>">
-          <div class="text" class="card-body">
-            <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%></h5>
-              <% extraclass = '' %>
-              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-            <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
-            <p class="card-text"></p>
-            <p class="card-text"><small class="text-muted"></small></p>
+        <li class="list-group-item">
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            </div>
+            <div>
+              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+            </div>
           </div>
-        </div>
-      </div>
+        </li>
       <% end %>
-    </div>
   </div>
   <% end %>
-  <% @special_conditions.each do |special_condition| %>
-  <div class="tab-pane show" id="menu-<%=special_condition.name%>" role="tabpanel">
-    <div class="row menu">
-      <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
-      <div class="frame" class="col-lg-4 col-md-6">
-        <div class="card mb-3">
-          <img src="/img/food-collection-8-006.jpg">
-          <div class="text" class="card-body">
-            <h5 class="card-title mb-0"><%=display_currency(item.price)%> <%=item.name%></h5>
-            <span class="badge badge-success"><%=special_condition.name%></span>
-            <p class="card-text"></p>
-            <p class="card-text"><small class="text-muted"></small></p>
+  <div class="tab-pane show" id="special_conditions" role="tabpanel">
+    <% @special_conditions.each do |special_condition| %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <!-- <img class="rounded-circle mr-3 d-inline" src="/img/food-collection-8-006.jpg" width="50px"> -->
+          <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
+        </li>
+        <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
+        <li class="list-group-item">
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            </div>
+            <div>
+              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+            </div>
           </div>
-        </div>
-      </div>
-      <% end %>
-      <%= '<div height="200" width="200" class="col-lg-4 col-md-6"><p>No items in this category, sorry</p></div>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
-    </div>
+        </li>
+        <% end %>
+        <%= '<li class="list-group-item">No items in this category, sorry</li>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
+      </ul>
+    <% end %>
   </div>
-  <% end %>
 </div>
 <%= erb :footer %>

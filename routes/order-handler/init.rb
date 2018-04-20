@@ -5,7 +5,7 @@ require_relative 'delete'
 class PiePiper < Sinatra::Base
   get '/orders' do
     order_handler!
-    @js = 'orders.js'
+    @js = ['/scripts/orders.js']
     @title = "Orders"
     erb :'orders/orders'
   end

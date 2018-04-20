@@ -8,7 +8,7 @@
       <select style="height:45px" class="form-control" name="reward" id="reward_id">
         <% (CampaignType.all).each do |campaign_type| %>
           <option for="<%=campaign_type.id%>" value="<%=campaign_type.id%>"><%=campaign_type.type_name%></option>
-        
+
         <% end %>
       </select>
 
@@ -24,7 +24,7 @@
 
       <button class="btn btn-primary" href="#" role="button" type="submit" onclick="getReward()">Submit</button>
 
-    <button class="btn btn-primary" onclick="getRetweets()">Close Campaign</button>
+    
   </form>
 
   <script>
