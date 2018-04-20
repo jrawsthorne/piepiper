@@ -5,7 +5,7 @@
   <form class="campaignform">
     <div class="form-group">
       <label for="prize">Select a prize</label>
-      <select class="form-control" name="reward" id="reward_id">
+      <select style="height:45px" class="form-control" name="reward" id="reward_id">
         <% (CampaignType.all).each do |campaign_type| %>
           <option for="<%=campaign_type.id%>" value="<%=campaign_type.id%>"><%=campaign_type.type_name%></option>
         

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418122022) do
+ActiveRecord::Schema.define(version: 20180420113458) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180418122022) do
     t.datetime "updated_at"
     t.integer "item_type_id"
     t.integer "special_condition_id"
+    t.string "path"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["special_condition_id"], name: "index_items_on_special_condition_id"
   end
