@@ -20,10 +20,25 @@ class PiePiper < Sinatra::Base
     erb :'/user/login'
   end
 
-  post '/login' do  
+  post '/login' do
     user = User.find_by_username(params[:username])
     if !user.nil? && user.password == params[:password]
       session[:user_id] = user.id
+      Pony.mail({
+        :to => 'jake@jakerawsthorne.co.uk',
+        :from => 'no-reply@pie-piper.me',
+        :subject => 'Logged in',
+        :body => 'Thanks for loggin in '+user.fullname,
+        :via => :smtp,
+        :via_options => {
+          :address              => 'smtp.zoho.eu',
+          :port                 => '587',
+          :user_name            => 'no-reply@pie-piper.me',
+          :password             => 'sb3I5S7Cj9*5',
+          :authentication       => :plain,
+          :enable_starttls_auto => true,
+        }
+      })
       redirect '/'
     else
       flash[:error] = "Incorrect credentials"
@@ -38,7 +53,7 @@ class PiePiper < Sinatra::Base
 
   get '/account' do
     authenticate!
-    @js ='address.js'
+    @js =['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     @title = "Account Settings"
     @user = get_user_from_session
     @twitter_user = $client.user(@user.twitter_id.to_i) if @user.twitter_id
