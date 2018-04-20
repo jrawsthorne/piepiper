@@ -45,7 +45,7 @@ items = [
   {name: 'Feta Spinach pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'feta-spinach.jpg'},
   {name: 'Mushroom Asparagus pie', item_type_id: 1, price: 10.5, special_condition_id: 3,path:'mushroom-asparagus.jpg'},
   {name: 'Chicken & Leek pie', item_type_id: 1, price: 10.5, special_condition_id: 1,path:'chicken-leek.jpg'},
-  {name: 'Coleslaw', item_type_id: 2, price: 2.0,path:'coleslaw'},
+  {name: 'Coleslaw', item_type_id: 2, price: 2.0,path:'coleslaw.jpg'},
   {name: 'Chips/Fries', item_type_id: 2, price: 2.0,path:'fries.jpg'},
   {name: 'Mac n Cheese', item_type_id: 2, price: 2.0,path:'mac-n-cheese.jpg'},
   {name: 'Diet coke', item_type_id: 3, price: 1.0,path:'diet-coke.jpg'},
