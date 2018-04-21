@@ -1,5 +1,4 @@
 require 'prawn'
-require 'prawn-table'
 
 class ItemType < ActiveRecord::Base
 end
