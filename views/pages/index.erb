@@ -35,7 +35,7 @@
           <!-- <img class="rounded-circle mr-3 d-inline" src="/img/food-collection-8-006.jpg" width="50px"> -->
           <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
         </li>
-        <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
+        <% @items.order(:price).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-3">
