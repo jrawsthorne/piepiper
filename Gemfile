@@ -22,3 +22,4 @@ group :development, :test do
 end
 gem 'bcrypt' 
 gem 'pony'
+gem 'prawn'
