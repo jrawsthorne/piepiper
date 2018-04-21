@@ -41,7 +41,13 @@
             <% end %>
           </td>
           <td><%= user.address %></td>
-          <td><%= user.account_type.name %></td>
+          <td>
+            <select>
+              <option value="user"    <%= ("selected" if user.account_type.name == 'User' ) %> >User</option>
+              <option value="handler" <%= ("selected" if user.account_type.name == 'Order handler' ) %> >Order Handler</option>
+              <option value="admin"   <%= ("selected" if user.account_type.name == 'Admin' ) %> >Admin</option>
+            </select>
+          </td>
         </tr>
         <% end %>
       </tbody>
