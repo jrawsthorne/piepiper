@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420113458) do
+ActiveRecord::Schema.define(version: 20180421141426) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(version: 20180420113458) do
     t.string "path"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["special_condition_id"], name: "index_items_on_special_condition_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "order_items", force: :cascade do |t|
