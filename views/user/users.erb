@@ -7,6 +7,7 @@
 <p>Sorry, no users exist</p>
 <% else %>
     <div class="table-responsive mb-3">
+      <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <table class="table">
       <thead>
         <tr>
@@ -35,7 +36,7 @@
             N/A
             <% else %>
               <% # otherwise iterate through them and show the name of the requirement %>
-              <% user.user_special_conditions.each do |user_special_condition| %>  
+              <% user.user_special_conditions.each do |user_special_condition| %>
                 <p><%= user_special_condition.special_condition.name %></p>
               <% end %>
             <% end %>
@@ -43,15 +44,20 @@
           <td><%= user.address %></td>
           <td>
             <select>
-              <option value="user"    <%= ("selected" if user.account_type.name == 'User' ) %> >User</option>
-              <option value="handler" <%= ("selected" if user.account_type.name == 'Order handler' ) %> >Order Handler</option>
-              <option value="admin"   <%= ("selected" if user.account_type.name == 'Admin' ) %> >Admin</option>
+              <% AccountType.all.each do |type| %>
+                <option value=user.account_type.name    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
+              <% end %>
             </select>
           </td>
         </tr>
         <% end %>
       </tbody>
       </table>
+
+      <button type="submit" class="btn btn-primary">Submit Changes</button>
+      <button type="reset" class="btn btn-danger">Reset</button>
+
+    </form>
     </div>
 <% end %>
 <%= erb :footer %>
