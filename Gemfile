@@ -23,3 +23,4 @@ end
 gem 'bcrypt' 
 gem 'pony'
 gem 'prawn'
+gem 'prawn-table'
