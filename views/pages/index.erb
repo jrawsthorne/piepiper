@@ -17,8 +17,8 @@
 
         <li class="list-group-item">
           <div class="d-flex align-items-center">
-            <div class="mr-3">
-              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            <div class="mr-4">
+              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
             </div>
             <div>
               <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
@@ -38,8 +38,8 @@
         <% @items.order(:price).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
-            <div class="mr-3">
-              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            <div class="mr-4">
+              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
             </div>
             <div>
               <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
