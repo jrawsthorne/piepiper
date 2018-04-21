@@ -1,94 +1,94 @@
 <%= erb :header %>
 <div class="row">
-  <div class="mb-3 col-lg-5 col-md-12">
-    <p>Account Settings</p>
-    <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="username">Username</label>
-          <input name="username" readonly type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="lastname">Last Name</label>
-          <input name="firstname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input name="email" type="email" class="form-control" id="email" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="" placeholder="<%=@user.postcode%>">
-      </div>
-      <% # display their twitter screen name if the user has a twitter id associated with them %>
-      <% if (@twitter_user) %>
-      <div class="form-group">
-        <label for="twitterhandle">Twitter Handle</label>
-        <input disabled type="text" class="form-control" id="twitterhandle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
-      </div>
-      <% end %>
-      <div class="form-group">
-        <label for="dietaryrequirements">Dietary Requirements</label>
-        <% # iterate through all dietary requirements and check the box if the user has selected it %>
-        <% special_condition_ids = @user.user_special_conditions.pluck(:special_condition_id) %>
-          <% @special_conditions.each do |special_condition| %>
-            <div class="form-check">
-              <input <%= "checked" if (special_condition_ids.include?(special_condition.id)) %> class="form-check-input" type="checkbox" value="<%=special_condition.id%>" id="<%=special_condition.id%>">
-              <label class="form-check-label" for="defaultCheck1">
-                <%=special_condition.name%>
-              </label>
-            </div>
-          <% end %>
-      </div>
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="reset" class="btn btn-danger">Reset</button>
-    </div>
-  </form>
+ <div class="mb-3 col-lg-5 col-md-12">
+   <p>Account Settings</p>
+   <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+     <div class="form-row">
+       <div class="form-group col-md-6">
+         <label for="username">Username</label>
+         <input name="username" readonly type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>">
+       </div>
+       <div class="form-group col-md-6">
+         <label for="lastname">Last Name</label>
+         <input name="firstname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>">
+       </div>
+     </div>
+     <div class="form-group">
+       <label for="email">Email</label>
+       <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+     </div>
+     <div class="form-group">
+       <label for="address">Address</label>
+       <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="" placeholder="<%=@user.postcode%>">
+     </div>
+     <% # display their twitter screen name if the user has a twitter id associated with them %>
+     <% if (@twitter_user) %>
+     <div class="form-group">
+       <label for="twitterhandle">Twitter Handle</label>
+       <input disabled type="text" class="form-control" id="twitterhandle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
+     </div>
+     <% end %>
+     <div class="form-group">
+       <label for="dietaryrequirements">Dietary Requirements</label>
+       <% # iterate through all dietary requirements and check the box if the user has selected it %>
+       <% special_condition_ids = @user.user_special_conditions.pluck(:special_condition_id) %>
+         <% @special_conditions.each do |special_condition| %>
+           <div class="form-check">
+             <input <%= "checked" if (special_condition_ids.include?(special_condition.id)) %> class="form-check-input" type="checkbox" value="<%=special_condition.id%>" id="<%=special_condition.id%>">
+             <label class="form-check-label" for="defaultCheck1">
+               <%=special_condition.name%>
+             </label>
+           </div>
+         <% end %>
+     </div>
+     <button type="submit" class="btn btn-primary">Save</button>
+     <button type="reset" class="btn btn-danger">Reset</button>
+   </div>
+ </form>
 </div>
 <div class="modal-opener-btn">
 <div class="modal fade" id="map_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="mapModalLable">Address</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="mapModalLable">Address</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <div class="form-group">
 
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value="" placeholder="">
-          </div>
+         <div class="form-group">
+           <label for="address">Address</label>
+           <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value="" placeholder="">
+         </div>
 
-          <div class="form-group">
-            <label for="house">House Number/Name</label>
-            <input type="text" class="form-control" id="house" placeholder="House Name/Number">
-          </div>
-          <div class="form-group">
-            <label for="street_address">Street Name</label>
-            <input type="text" class="form-control" id="street_address" placeholder="Street Name">
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-            <label for="postal_code">Post Code</label>
-            <input type="text" class="form-control" id="postal_code" placeholder="Postcode">
-            </div>
-          </div>
+         <div class="form-group">
+           <label for="house">House Number/Name</label>
+           <input type="text" class="form-control" id="street_number" placeholder="House Name/Number">
+         </div>
+         <div class="form-group">
+           <label for="street_address">Street Name</label>
+           <input type="text" class="form-control" id="route" placeholder="Street Name">
+         </div>
+         <div class="form-row">
+           <div class="form-group col-md-6">
+           <label for="postal_code">Post Code</label>
+           <input type="text" class="form-control" id="postal_code" placeholder="Postcode">
+           </div>
+         </div>
 
-        </div>
-        <div id="map"></div>
-        <p id= "address_checker"> Sorry, we do not deliver to this address. </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save" disabled>Save changes</button>
-      </div>
-      </div>
-    </div>
-  </div>
+       </div>
+       <div id="map"></div>
+       <p id= "address_checker"> Sorry, we do not deliver to this address. </p>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button type="button" class="btn btn-primary" id="save" disabled>Save changes</button>
+     </div>
+     </div>
+   </div>
+ </div>
 </div>
 <%= erb :footer %>

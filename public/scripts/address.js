@@ -7,7 +7,8 @@ $('.modal-opener-btn').one('click', function(){
 function initialize() {
   initMap();
   initAutocomplete();
-  initCircle();
+  initCircleShef();
+
 }
 
   var map, marker;
@@ -19,7 +20,7 @@ function initialize() {
       });
     }
 
-  function initCircle() {
+  function initCircleShef() {
   // Define the circle
 circle = new google.maps.Circle({
    center: new google.maps.LatLng( 53.383299, -1.482869),
@@ -34,14 +35,11 @@ circle = new google.maps.Circle({
     strokeWeight: .2
     });
   }
-
-
   var placeSearch, autocomplete;
   var componentForm = {
-    postal_code: 'short_name',
-    street_number: 'short_name',
+    street_number: 'long_name',
     route: 'long_name',
-    administrative_area_level_2: 'long_name',
+    postal_code: 'short_name'
   };
 
   function initAutocomplete() {
