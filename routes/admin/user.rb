@@ -17,5 +17,9 @@ class PiePiper < Sinatra::Base
     erb :'/user/users'
   end
 
+  post '/users' do
+    #params[]
+    redirect '/'
+  end
 
 end
