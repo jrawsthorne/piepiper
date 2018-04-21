@@ -34,7 +34,7 @@
             N/A
             <% else %>
               <% # otherwise iterate through them and show the name of the requirement %>
-              <% user.user_special_conditions.each do |user_special_condition| %>  
+              <% user.user_special_conditions.each do |user_special_condition| %>
                 <p><%= user_special_condition.special_condition.name %></p>
               <% end %>
             <% end %>

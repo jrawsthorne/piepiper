@@ -43,7 +43,7 @@
           </td>
           <td><%= user.address %></td>
           <td>
-            <select>
+            <select id='<%=user.id%>AccountType'>
               <% AccountType.all.each do |type| %>
                 <option value=user.account_type.name    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
               <% end %>

@@ -18,7 +18,8 @@ class PiePiper < Sinatra::Base
   end
 
   post '/users' do
-    #params[]
+    puts"---------------------------------------------"
+    puts params
     redirect '/'
   end
 
