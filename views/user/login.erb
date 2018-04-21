@@ -1,5 +1,5 @@
 <%= erb :header %>
-<form class="form-signin" method="post" action="/login">
+<form class="form-signin" id="login" method="post" action="/login">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <% # show an error if there is one present %>
     <%= display_error(flash[:error]) if flash[:error] %>
