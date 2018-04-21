@@ -8,21 +8,21 @@ class PiePiper < Sinatra::Base
     if(User.exists?(twitter_id: auth.uid))
       user = User.find_by(twitter_id: auth.uid)
       auth ? session[:user_id] = user.id : halt(401,'Not Authorized')
-      Pony.mail({
-        :to => 'jake@jakerawsthorne.co.uk',
-        :from => 'no-reply@pie-piper.me',
-        :subject => 'Logged in',
-        :body => 'Thanks for loggin in '+user.fullname,
-        :via => :smtp,
-        :via_options => {
-          :address              => 'smtp.zoho.eu', 
-          :port                 => '587',                 
-          :user_name            => 'no-reply@pie-piper.me',
-          :password             => 'sb3I5S7Cj9*5',         
-          :authentication       => :plain,
-          :enable_starttls_auto => true,
-        }
-      })
+      #Pony.mail({
+      #  :to => 'jake@jakerawsthorne.co.uk',
+      #  :from => 'no-reply@pie-piper.me',
+      #  :subject => 'Logged in',
+      #  :body => 'Thanks for loggin in '+user.fullname,
+      #  :via => :smtp,
+      #  :via_options => {
+      #    :address              => 'smtp.zoho.eu', 
+      #    :port                 => '587',                 
+      #    :user_name            => 'no-reply@pie-piper.me',
+      #    :password             => 'sb3I5S7Cj9*5',         
+      #    :authentication       => :plain,
+      #    :enable_starttls_auto => true,
+      #  }
+      #})
       redirect '/'
     else
       flash[:twitter_id] = auth.uid
