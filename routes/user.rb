@@ -17,7 +17,7 @@ class PiePiper < Sinatra::Base
       flash[:error] = "You're already signed in"
     end
     @title = "Login"
-    @js = ['/scripts/login.js']
+    @js = ['/scripts/login.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU']
     erb :'/user/login'
   end
 
