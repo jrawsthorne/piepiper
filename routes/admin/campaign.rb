@@ -1,6 +1,6 @@
 class PiePiper < Sinatra::Base
 
-get '/campaigns' do
+get '/campaigns/new' do
 	admin!
 	@title = "Campaigns"
 	erb :'/pages/campaigns'
@@ -12,13 +12,13 @@ end
 # 	erb :'/pages/singlecampaign'
 # end
 
-get '/allcampaigns' do
+get '/campaigns/all' do
 	admin!
 	@title = "AllCampaigns"
 	erb :'/pages/allcampaigns'
 end
 
-post '/campaigns' do
+post '/campaigns/new' do
 	if(authenticated?)
 		 tweet=$client.update(params[:message])
 		 reward_type = params[:reward]
@@ -35,7 +35,7 @@ post '/campaigns' do
 	end
 end
 
-post '/allcampaigns' do
+post '/campaigns/all' do
     campaign = Campaign.find(params[:campaign_id])
     ids = campaign.get_retweet_ids
     return ids.to_json
