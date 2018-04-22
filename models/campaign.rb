@@ -10,8 +10,13 @@ class Campaign < ActiveRecord::Base
 		retweet_ids.each do |u|
 			ids.push(u)
 		end
-	return ids
-end 
+		return ids
+	end
+
+	def get_winner_number
+		win_num = winner_number
+		return win_num
+	end
 
 end
 
