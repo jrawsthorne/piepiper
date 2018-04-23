@@ -6,4 +6,4 @@ Feature: regular pages
   
   Scenario: About page
     Given I am on the about page
-    Then I should see "About page"
+    Then I should see "We are Pie Piper"
