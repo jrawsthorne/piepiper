@@ -1,8 +1,7 @@
 <%= erb :header %>
-<% campaigns = Campaign.all %>
 <p>Campaigns</p>
 <% # show error if there are no campaign in the database %>
-<% if(!Campaign.exists?) %>
+<% if(!@campaigns.exists?) %>
 <p>Sorry, no campaigns exist</p>
 <% else %>
     <div class="table-responsive mb-3">
@@ -19,11 +18,13 @@
       </thead>
       <tbody>
         <% # iterate through all the users and display their details %>
-        <% campaigns.each do |campaign| %>
+        <% 
+          @campaigns.each do |campaign|
+          tweet = campaign.get_tweet
+        %>
         <tr>
           <th scope="row"><%= campaign.id %></th>
           <td><%= campaign.campaign_type.type_name %></td>
-          <% tweet = campaign.get_tweet %>
           <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
           <td><%= campaign.get_retweet_ids.length %></td>
           <% if campaign.winner_number == 0 %>

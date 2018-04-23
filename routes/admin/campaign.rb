@@ -3,6 +3,7 @@ class PiePiper < Sinatra::Base
 get '/campaigns/new' do
 	admin!
 	@title = "Campaigns"
+	@campaign_types = CampaignType.all
 	erb :'/pages/campaigns'
 end
 
@@ -14,7 +15,8 @@ end
 
 get '/campaigns/all' do
 	admin!
-	@title = "AllCampaigns"
+	@title = "All Campaigns"
+	@campaigns = Campaign.all
 	erb :'/pages/allcampaigns'
 end
 
