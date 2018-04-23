@@ -14,10 +14,11 @@ class PiePiper < Sinatra::Base
 
   get '/login' do
     if(authenticated?)
-      flash[:error] = "You're already signed in"
+      redirect '/account'
     end
     @title = "Login"
     @js = ['/scripts/login.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU']
+    @error = flash[:error]
     erb :'/user/login'
   end
 
@@ -46,12 +47,17 @@ class PiePiper < Sinatra::Base
       redirect '/'
     else
       flash[:error] = "Incorrect credentials"
-      redirect('/login')
+      redirect '/login'
     end
   end
 
   get '/signup' do
     @title = "Sign up"
+    # get the twitter user from the session if the session exists
+    @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
+    @special_conditions = SpecialCondition.all
+    # redirect the user to twitter login if there isn't a twitter id in the session
+    redirect('/auth/twitter') if(!@twitter_user)
     erb :'/user/signup'
   end
 
