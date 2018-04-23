@@ -1,5 +1,5 @@
 <%= erb :header %>
-<h3 class="mb-3">Food menu <button type="button" class="btn btn-outline-primary">Download PDF</button> <button type="button" class="btn btn-outline-primary"><img scr="img/british-pound.svg" />Cash Only</button></h3>
+<h3 class="mb-3">Food menu <button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
@@ -13,14 +13,17 @@
   <% @item_types.each_with_index do |item_type,i| %>
   <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
     <ul class="list-group list-group-flush">
-      <% @items.select{|item| item.item_type_id == item_type.id}.each do |item| %>
+      <% @items.order(:price).select{|item| item.item_type_id == item_type.id}.each do |item| %>
+
         <li class="list-group-item">
           <div class="d-flex align-items-center">
-            <div class="mr-3">
-              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            <div class="mr-4">
+              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
             </div>
             <div>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+              <% extraclass = '' %>
+              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %> </h5>
             </div>
           </div>
         </li>
@@ -31,17 +34,18 @@
     <% @special_conditions.each do |special_condition| %>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <!-- <img class="rounded-circle mr-3 d-inline" src="/img/food-collection-8-006.jpg" width="50px"> -->
           <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
         </li>
-        <% @items.select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
+        <% @items.order(:price).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
-            <div class="mr-3">
-              <img class="rounded-circle mr-3" src="/img/Menu/<%= item.path %>" width="100px">
+            <div class="mr-4">
+              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
             </div>
             <div>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+              <% extraclass = '' %>
+              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
             </div>
           </div>
         </li>

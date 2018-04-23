@@ -76,6 +76,11 @@ campaign_types = [
   {type_name: 'Free item', percentage_reduced: 100},
   {type_name: '2-4-1'}
   ]
+  
+locations = [
+  {name: "Sheffield"},
+  {name: "Leeds"}
+]
 
 users.each do |u|
   User.create(u)
@@ -107,4 +112,8 @@ end
 
 campaign_types.each do |u|
   CampaignType.create(u)
+end
+
+locations.each do |u|
+  Location.create(u)
 end

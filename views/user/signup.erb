@@ -1,8 +1,3 @@
-<% # get the twitter user from the session if the session exists %>
-<% twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id] %>
-<% if (twitter_user) %>
-<% # set the one time session again if a twitter user is found from the session %>
-<% flash[:twitter_id] = flash[:twitter_id] %>
 <%= erb :header %>
 <div class="row">
   <div class="mb-3 col-lg-5 col-md-12">
@@ -21,7 +16,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="passwordconf">Confirm Password:</label>
-        <input name="passwordconf" type="text" class="form-control" id="passwordconf" placeholder="Confirm Passoword">
+        <input name="passwordconf" type="text" class="form-control" id="passwordconf" placeholder="Confirm Password">
       </div>
     </div>
       <div class="form-row">
@@ -59,12 +54,12 @@
 
       <div class="form-group">
         <label for="twitter_handle">Twitter Handle</label>
-        <input name="twitter_handle" type="text" readonly class="form-control" id="twitter_handle" value="<%=twitter_user.screen_name%>" placeholder="<%=twitter_user.screen_name%>">
+        <input name="twitter_handle" type="text" readonly class="form-control" id="twitter_handle" value="<%=@twitter_user.screen_name%>" placeholder="<%=@twitter_user.screen_name%>">
       </div>
 
       <div class="form-group">
         <% # iterate through the dietary requirements and show the name of the requirement %>
-        <% (SpecialCondition.all).each do |special_condition| %>
+        <% (@special_conditions).each do |special_condition| %>
         <% if(special_condition.id != 1)%>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="diet[]" value="<%=special_condition.id%>" id="<%=special_condition.name%>">
@@ -80,7 +75,3 @@
   </div>
 </div>
 <%= erb :footer %>
-<% else %>
-  <% # redirect the user to twitter login if there isn't a twitter id in the session %>
-  <% redirect('/auth/twitter') %>
-<% end %>

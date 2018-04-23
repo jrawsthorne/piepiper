@@ -1,12 +1,11 @@
 <%= erb :header %>
-<% # get all users from database %>
-<% users = User.all %>
 <p>Users</p>
 <% # show error if there are no users in the database %>
-<% if(!User.exists?) %>
-<p>Sorry, no users exist</p>
+<% if(!@users.exists?) %>
+  <p>Sorry, no users exist</p>
 <% else %>
     <div class="table-responsive mb-3">
+      <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <table class="table">
       <thead>
         <tr>
@@ -21,7 +20,7 @@
       </thead>
       <tbody>
         <% # iterate through all the users and display their details %>
-        <% users.each do |user| %>
+        <% @users.each do |user| %>
         <tr>
           <th scope="row"><a href="/user/<%= user.id %>"><%= user.id %></a></th>
           <td><%= user.fullname %></td>
@@ -35,17 +34,28 @@
             N/A
             <% else %>
               <% # otherwise iterate through them and show the name of the requirement %>
-              <% user.user_special_conditions.each do |user_special_condition| %>  
+              <% user.user_special_conditions.each do |user_special_condition| %>
                 <p><%= user_special_condition.special_condition.name %></p>
               <% end %>
             <% end %>
           </td>
           <td><%= user.address %></td>
-          <td><%= user.account_type.name %></td>
+          <td>
+            <select data-user="<%=user.username%>">
+              <% AccountType.all.each do |type| %>
+                <option value="<%=type.id%>"    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
+              <% end %>
+            </select>
+          </td>
         </tr>
         <% end %>
       </tbody>
       </table>
+
+      <button type="submit" class="btn btn-primary">Submit Changes</button>
+      <button type="reset" class="btn btn-danger">Reset</button>
+
+    </form>
     </div>
 <% end %>
 <%= erb :footer %>

@@ -5,6 +5,7 @@
     tweet.in_reply_to_status_id.nil?
   end
 %>
+<h1><%=Location.find(session[:location_id]).name%></h1>
 <div class="row">
   <%= display_success("New order \##{flash[:new_order]} added successfully") if(flash[:new_order]) %>
   <%= display_success("Order \##{flash[:delete_order]} deleted successfully") if(flash[:delete_order]) %>

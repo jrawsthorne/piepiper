@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :account_type
   has_many :user_special_conditions
   has_many :orders
+  has_many :user_campaigns
   def fullname
     [firstname, lastname].join(' ')
   end
@@ -15,6 +16,9 @@ class User < ActiveRecord::Base
   def password=(new_password)
     @password = Password.create(new_password)
     self.password_hash = @password
+  end
+  def get_id
+    return id
   end
 end
 
