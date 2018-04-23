@@ -29,7 +29,7 @@ post '/campaigns/new' do
 		 	u.winner_number = winner_number
 		 end
 		 campaign.save
-
+		 redirect('/campaigns/all')
 	else
 		redirect('/')
 	end
@@ -39,7 +39,7 @@ post '/campaigns/all' do
     campaign = Campaign.find(params[:campaign_id])
     ids = campaign.get_retweet_ids
     winner_number = campaign.get_winner_number
-    
+
     #the winner_index is randomly selected
     if winner_number == 0
     	winner_index = Random.rand(ids.length)
