@@ -2,4 +2,10 @@ Feature: food_menu
   
   Scenario: Logged out food menu
     Given I am on the homepage
-    Then I should see "Pies"
+    Then I should see "Pork pie"
+    
+  Scenario: Sides
+    Given I am on the home page
+    When I follow "Sides" within "body"
+    Then I should see "Mash"
+    

@@ -32,7 +32,7 @@ Feature: login
     Then I should be on the login page
     Then I should see "Incorrect credentials"
     
-  Scenario: Correct credentials
+  Scenario: Correct admin credentials
     Given I am on the login page
     When I fill in "username" with "admin"
     When I fill in "password" with "admin"
