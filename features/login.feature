@@ -32,3 +32,14 @@ Feature: login
     Then I should be on the login page
     Then I should see "Incorrect credentials"
     
+  Scenario: Correct credentials
+    Given I am on the login page
+    When I fill in "username" with "admin"
+    When I fill in "password" with "admin"
+    When I press "Login" within "form"
+    Then I should be on the home page
+    Then I should see "Users"
+    Then I should see "Orders"
+    Then I should see "All Campaigns"
+    Then I should see "New Campaigns"
+    
