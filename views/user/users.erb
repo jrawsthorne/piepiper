@@ -41,9 +41,9 @@
           </td>
           <td><%= user.address %></td>
           <td>
-            <select id='<%=user.id%>AccountType'>
+            <select data-user="<%=user.username%>">
               <% AccountType.all.each do |type| %>
-                <option value=user.account_type.name    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                <option value="<%=type.id%>"    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
               <% end %>
             </select>
           </td>
