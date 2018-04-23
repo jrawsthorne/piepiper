@@ -49,7 +49,13 @@ post '/campaigns/all' do
     	winner_index = winner_number - 1
     end
     winner = ids[winner_index]
-    return winner.to_json
+    winner_account = User.where(twitter_id: winner)
+
+    users_campaigns = UsersCampaigns.new do |u|
+    	u.user_id = winner_account[0].get_id
+    	u.campaigns_id = campaign.get_id
+    end
+    users_campaigns.save
 end
 
 

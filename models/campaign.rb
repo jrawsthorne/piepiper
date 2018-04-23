@@ -17,8 +17,16 @@ class Campaign < ActiveRecord::Base
 		win_num = winner_number
 		return win_num
 	end
-
+	def get_id
+		return id
+	end
 end
 
 class CampaignType < ActiveRecord::Base
 end
+
+class UsersCampaigns < ActiveRecord::Base
+	belongs_to :user
+	belongs_to :campaign
+end
+
