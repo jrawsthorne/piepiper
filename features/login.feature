@@ -24,5 +24,11 @@ Feature: login
     Then I should be on the login page
     Then I should see "Incorrect credentials"
     
-  
+  Scenario: Blank password
+    Given I am on the login page
+    When I fill in "username" with "admin"
+    When I fill in "password" with ""
+    When I press "Login" within "form"
+    Then I should be on the login page
+    Then I should see "Incorrect credentials"
     
