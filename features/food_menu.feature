@@ -9,3 +9,9 @@ Feature: food_menu
     When I follow "Sides" within "body"
     Then I should see "Mash"
     
+  Scenario: Soft drinks
+    Given I am on the home page
+    When I follow "Soft drinks" within "body"
+    Then I should see "Coke"  
+    
+  
