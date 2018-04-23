@@ -10,12 +10,15 @@ If error occurs with bcrypt:
 ```bash
 gem uninstall bcrypt
 gem install bcrypt --platform=ruby
+```
 
+Development
+```bash
 bundle exec rake
 rackup -p 4567
 ```
 
-To deploy
+Deploy
 ```bash
 bundle exec rake deploy
 ```
