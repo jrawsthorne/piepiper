@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421180133) do
+ActiveRecord::Schema.define(version: 20180422170658) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20180421180133) do
     t.integer "winner_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "item_locations", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "item_id"
+    t.integer "locations_id"
+    t.index ["item_id"], name: "index_item_locations_on_item_id"
+    t.index ["locations_id"], name: "index_item_locations_on_locations_id"
   end
 
   create_table "item_types", force: :cascade do |t|
