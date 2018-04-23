@@ -58,6 +58,8 @@ post '/campaigns/all' do
     	u.campaigns_id = campaign.get_id
     end
     users_campaigns.save
+
+    redirect('/campaigns/all')
 end
 
 
