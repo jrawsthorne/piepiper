@@ -33,6 +33,7 @@ class PiePiper < Sinatra::Base
 
   get '/signup' do
     @title = "Sign up"
+    @js =['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     erb :'/user/signup'
   end
 

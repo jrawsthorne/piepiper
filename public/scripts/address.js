@@ -1,7 +1,7 @@
 $(function () {
     $('#address_checker').hide();
  });
-$('.modal-opener-btn').one('click', function(){
+$('.modal-opener-btn').on('click', function(){
   initialize();
   });
 function initialize() {
@@ -9,8 +9,18 @@ function initialize() {
   initAutocomplete();
   initCircleShef();
 
+
+$('#save').on('click', function(){
+  $("#address").val($("#street_number").val() + " " + $("#route").val() + ", " + $("#postal_code").val())
+  });
+
 }
 
+$("#address").keypress(function(e) {
+  e.preventDefault();
+  $("#map_modal").modal('show')
+  return false;
+});
   var map, marker;
   function initMap() {
 
@@ -78,6 +88,7 @@ circle = new google.maps.Circle({
     })
   if (!circle.getBounds().contains(marker.getPosition())) {
       $("#address_checker").show();
+      $("#save").attr("disabled", true);
   }  else {
     $('#save').removeAttr('disabled');
     $("#address_checker").hide();
