@@ -15,3 +15,9 @@ bundle exec rake
 
 rackup -p 4567
 ```
+
+```
+to make a new migration command is:
+	rake db:create_migration NAME=<file name>
+
+```

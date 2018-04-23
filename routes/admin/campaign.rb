@@ -1,6 +1,6 @@
 class PiePiper < Sinatra::Base
 
-get '/campaigns' do
+get '/campaigns/new' do
 	admin!
 	@title = "Campaigns"
 	erb :'/pages/campaigns'
@@ -12,13 +12,13 @@ end
 # 	erb :'/pages/singlecampaign'
 # end
 
-get '/allcampaigns' do
+get '/campaigns/all' do
 	admin!
 	@title = "AllCampaigns"
 	erb :'/pages/allcampaigns'
 end
 
-post '/campaigns' do
+post '/campaigns/new' do
 	if(authenticated?)
 		 tweet=$client.update(params[:message])
 		 reward_type = params[:reward]
@@ -35,10 +35,21 @@ post '/campaigns' do
 	end
 end
 
-post '/allcampaigns' do
+post '/campaigns/all' do
     campaign = Campaign.find(params[:campaign_id])
     ids = campaign.get_retweet_ids
-    return ids.to_json
+    winner_number = campaign.get_winner_number
+    
+    #the winner_index is randomly selected
+    if winner_number == 0
+    	winner_index = Random.rand(ids.length)
+    elsif ids.length < winner_number
+    	winner_index = ids.length - 1
+    else
+    	winner_index = winner_number - 1
+    end
+    winner = ids[winner_index]
+    return winner.to_json
 end
 
 
