@@ -14,4 +14,17 @@ Feature: food_menu
     When I follow "Soft drinks" within "body"
     Then I should see "Coke"  
     
-  
+  Scenario: Milkshakes
+    Given I am on the home page
+    When I follow "Milkshakes" within "body"
+    Then I should see "Strawberry milkshake"
+    
+  Scenario: Alcohol
+    Given I am on the home page
+    When I follow "Alcohol" within "body"
+    Then I should see "Lager"
+    
+  Scenario: Special Conditions
+    Given I am on the home page
+    When I follow "Special Conditions" within "body"
+    Then I should see "Gluten free"
