@@ -23,40 +23,39 @@ class PiePiper < Sinatra::Base
   end
 
   post '/login' do
-#<<<<<<< HEAD
     if(session[:location_id] === nil)
       session[:location_id] = Location.first.id
     end
-  end
-# =======
-# >>>>>>> Address_Rework
-#     user = User.find_by_username(params[:username])
-#     if !user.nil? && user.password == params[:password]
-#       session[:user_id] = user.id
-#       #Pony.mail({
-#       #  :to => 'jake@jakerawsthorne.co.uk',
-#       #  :from => 'no-reply@pie-piper.me',
-#       #  :subject => 'Logged in',
-#       #  :body => 'Thanks for loggin in '+user.fullname,
-#       #  :via => :smtp,
-#       #  :via_options => {
-#       #    :address              => 'smtp.zoho.eu',
-#       #    :port                 => '587',
-#       #    :user_name            => 'no-reply@pie-piper.me',
-#       #    :password             => 'sb3I5S7Cj9*5',
-#       #    :authentication       => :plain,
-#       #    :enable_starttls_auto => true,
-#       #  }
-#       #})
-#       redirect '/'
-#     else
-#       flash[:error] = "Incorrect credentials"
-#       redirect '/login'
-#     end
-#   end
+
+
+    user = User.find_by_username(params[:username])
+    if !user.nil? && user.password == params[:password]
+      session[:user_id] = user.id
+      #Pony.mail({
+      #  :to => 'jake@jakerawsthorne.co.uk',
+      #  :from => 'no-reply@pie-piper.me',
+      #  :subject => 'Logged in',
+      #  :body => 'Thanks for loggin in '+user.fullname,
+      #  :via => :smtp,
+      #  :via_options => {
+      #    :address              => 'smtp.zoho.eu',
+      #    :port                 => '587',
+      #    :user_name            => 'no-reply@pie-piper.me',
+      #    :password             => 'sb3I5S7Cj9*5',
+      #    :authentication       => :plain,
+      #    :enable_starttls_auto => true,
+      #  }
+      #})
+      redirect '/'
+    else
+      flash[:error] = "Incorrect credentials"
+      redirect '/login'
+    end
+end
 
   get '/signup' do
     @title = "Sign up"
+    @js =['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     # get the twitter user from the session if the session exists
     @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
     @special_conditions = SpecialCondition.all
