@@ -1,6 +1,8 @@
 require './app'
 require 'sinatra/activerecord/rake'
 require 'rake/testtask'
+require 'cucumber'
+require 'cucumber/rake/task'
 task :default => ["db"]
 desc "Creates database"
 task :db do
@@ -18,4 +20,7 @@ task :deploy do
 end
 Rake::TestTask.new do |t|
   t.pattern = "test/*_test.rb"
+end
+Cucumber::Rake::Task.new(:'test:features') do |t|
+  t.cucumber_opts = "features --format pretty"
 end
