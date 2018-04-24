@@ -27,8 +27,6 @@ class PiePiper < Sinatra::Base
     if(session[:location_id] === nil)
       session[:location_id] = Location.first.id
     end
-    user = User.find_by_username(params[:username])
-    if !user.nil? && user.password == params[:password]
 # =======
 # >>>>>>> Address_Rework
 #     user = User.find_by_username(params[:username])
