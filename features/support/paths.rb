@@ -28,6 +28,9 @@ module NavigationHelpers
       
     when /the users page/
       '/users'
+        
+    when /the individual_users page/
+      '/user/1'    
       
     when /the logout page/
       '/logout'
