@@ -8,6 +8,7 @@ function initialize() {
   initMap();
   initAutocomplete();
   initCircleShef();
+  initCircleLeeds();
 
 
 $('#save').on('click', function(){
@@ -26,14 +27,14 @@ $("#address").keypress(function(e) {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 53.383299, lng: -1.482869},
-        zoom: 13
+        zoom: 12
       });
     }
 
   function initCircleShef() {
   // Define the circle
-circle = new google.maps.Circle({
-   center: new google.maps.LatLng( 53.383299, -1.482869),
+    circleShef = new google.maps.Circle({
+    center: new google.maps.LatLng( 53.383299, -1.482869),
     map: map,
     clickable: false,
     // metres
@@ -45,6 +46,24 @@ circle = new google.maps.Circle({
     strokeWeight: .2
     });
   }
+
+  function initCircleLeeds() {
+  // Define the circle
+    circleLeeds = new google.maps.Circle({
+    center: new google.maps.LatLng( 53.7942, -1.5476),
+    map: map,
+    clickable: false,
+    // metres
+    radius: 3218.69,
+    fillColor: '#FF0000',
+    fillOpacity: .1,
+    strokeColor: '#FF0000',
+    strokeOpacity: .4,
+    strokeWeight: .2
+    });
+  }
+
+
   var placeSearch, autocomplete;
   var componentForm = {
     street_number: 'long_name',
@@ -74,7 +93,7 @@ circle = new google.maps.Circle({
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(13);
+      map.setZoom(12);
     }
     if (!marker) {
       marker = new google.maps.Marker;({
@@ -86,7 +105,7 @@ circle = new google.maps.Circle({
       position: place.geometry.location,
       map: map,
     })
-  if (!circle.getBounds().contains(marker.getPosition())) {
+  if (!circleShef.getBounds().contains(marker.getPosition()) && !circleLeeds.getBounds().contains(marker.getPosition())) {
       $("#address_checker").show();
       $("#save").attr("disabled", true);
   }  else {
