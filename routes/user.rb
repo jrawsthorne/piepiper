@@ -23,10 +23,11 @@ class PiePiper < Sinatra::Base
   end
 
   post '/login' do
-# <<<<<<< HEAD
+#<<<<<<< HEAD
     if(session[:location_id] === nil)
       session[:location_id] = Location.first.id
     end
+  end
 # =======
 # >>>>>>> Address_Rework
 #     user = User.find_by_username(params[:username])
