@@ -23,33 +23,38 @@ class PiePiper < Sinatra::Base
   end
 
   post '/login' do
+# <<<<<<< HEAD
     if(session[:location_id] === nil)
       session[:location_id] = Location.first.id
     end
     user = User.find_by_username(params[:username])
     if !user.nil? && user.password == params[:password]
-      session[:user_id] = user.id
-      #Pony.mail({
-      #  :to => 'jake@jakerawsthorne.co.uk',
-      #  :from => 'no-reply@pie-piper.me',
-      #  :subject => 'Logged in',
-      #  :body => 'Thanks for loggin in '+user.fullname,
-      #  :via => :smtp,
-      #  :via_options => {
-      #    :address              => 'smtp.zoho.eu',
-      #    :port                 => '587',
-      #    :user_name            => 'no-reply@pie-piper.me',
-      #    :password             => 'sb3I5S7Cj9*5',
-      #    :authentication       => :plain,
-      #    :enable_starttls_auto => true,
-      #  }
-      #})
-      redirect '/'
-    else
-      flash[:error] = "Incorrect credentials"
-      redirect '/login'
-    end
-  end
+# =======
+# >>>>>>> Address_Rework
+#     user = User.find_by_username(params[:username])
+#     if !user.nil? && user.password == params[:password]
+#       session[:user_id] = user.id
+#       #Pony.mail({
+#       #  :to => 'jake@jakerawsthorne.co.uk',
+#       #  :from => 'no-reply@pie-piper.me',
+#       #  :subject => 'Logged in',
+#       #  :body => 'Thanks for loggin in '+user.fullname,
+#       #  :via => :smtp,
+#       #  :via_options => {
+#       #    :address              => 'smtp.zoho.eu',
+#       #    :port                 => '587',
+#       #    :user_name            => 'no-reply@pie-piper.me',
+#       #    :password             => 'sb3I5S7Cj9*5',
+#       #    :authentication       => :plain,
+#       #    :enable_starttls_auto => true,
+#       #  }
+#       #})
+#       redirect '/'
+#     else
+#       flash[:error] = "Incorrect credentials"
+#       redirect '/login'
+#     end
+#   end
 
   get '/signup' do
     @title = "Sign up"
@@ -76,7 +81,7 @@ class PiePiper < Sinatra::Base
     session[:location_id] = nil
     redirect '/'
   end
-  
+
   post '/set-location' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]

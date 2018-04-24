@@ -14,7 +14,9 @@
           <th scope="col">Username</th>
           <th scope="col">Twitter Profile</th>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">Address</th>
+          <th scope="col">House Number/Name</th>
+          <th scope="col">Street Name</th>
+          <th scope="col">Postcode</th>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
@@ -39,14 +41,10 @@
               <% end %>
             <% end %>
           </td>
-          <td><%= user.address %></td>
-          <td>
-            <select data-user="<%=user.username%>">
-              <% AccountType.all.each do |type| %>
-                <option value="<%=type.id%>"    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
-              <% end %>
-            </select>
-          </td>
+          <td><%= user.house %></td>
+          <td><%= user.street %></td>
+          <td><%= user.postcode %></td>
+          <td><%= user.account_type.name %></td>
         </tr>
         <% end %>
       </tbody>

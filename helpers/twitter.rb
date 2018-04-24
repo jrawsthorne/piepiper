@@ -1,7 +1,7 @@
 def new_user(
-  username, forename, surname, email, 
-  address_line_1,  address_line_2, postcode, 
-  city_region, twitter_handle, dietary_preferences)
+  username, forename, surname, email,
+  house, street, postcode,
+  twitter_handle, dietary_preferences)
 
   user = User.new do |u|
     u.username = username.to_s
@@ -9,25 +9,23 @@ def new_user(
     u.lastname = surname.to_s
     u.password = "password"
     u.twitter_id = flash[:twitter_id].to_s
-    u.address = address_line_1.to_s
-    #u.address_line_2 = address_line_2.to_s
-    #u.city_region = city_region.to_s
-    #u.postcode = postcode.to_s
+    u.house = house.to_s
+    u.street = street.to_s
+    u.postcode = postcode.to_s
     u.account_type_id = 1
   end
   user.save
 
   session[:user_id] = user.id
-  puts( 
+  puts(
     session[:user_id].to_s+"____________",
     username,
     forename,
     surname,
     email,
-    address_line_1,
-    address_line_2,
+    house,
+    street,
     postcode,
-    city_region,
     flash[:twitter_id],
     dietary_preferences )
 
