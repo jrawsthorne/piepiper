@@ -1,10 +1,11 @@
 users = [
-  {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', address: 'S10 3AU', account_type_id: 1},
-  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', address: 'S10 3AU', account_type_id: 1},
-  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', address: 'S10 3AU', account_type_id: 1},
+  {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', postcode: 'S10 3AU', account_type_id: 1},
+  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', postcode: 'S10 3AU', account_type_id: 1},
+  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', postcode: 'S10 3AU', account_type_id: 1},
   {username: 'admin', firstname: 'Admin', lastname: 'User', password: 'admin', account_type_id: 3},
   {username: 'user', firstname: 'Regular', lastname: 'User', password: 'user', account_type_id: 1},
-  {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2}
+  {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2},
+  {username: 'seth', firstname: 'Seth', lastname: 'Faulkner', password: 'asd', twitter_id: '965555302560075776', postcode: 'S3 7HD', account_type_id: 1}
 ]
 
 special_conditions = [
@@ -52,7 +53,8 @@ items = [
   {name: 'Fanta', item_type_id: 3, price: 1.0,path:'fanta.jpg'},
   {name: 'Vanilla milkshake', item_type_id: 4, price: 3.5,path:'vanilla.jpg'},
   {name: 'Chocolate milkshake', item_type_id: 4, price: 3.5,path:'chocolate.jpg'},
-  {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'}
+  {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'},
+  {name: 'Special Lamb HotPot Pie', item_type_id: 1, price: 12, special_condition_id: 1, path:'lamb-hotpot.jpg'}
 ]
 
 item_types = [
@@ -76,12 +78,15 @@ campaign_types = [
   {type_name: 'Free item', percentage_reduced: 100},
   {type_name: '2-4-1'}
   ]
-  
+
 locations = [
   {name: "Sheffield"},
   {name: "Leeds"}
 ]
 
+item_locations = [
+  {item_id: 25, location_id: 2}
+  ]
 users.each do |u|
   User.create(u)
 end
@@ -116,4 +121,8 @@ end
 
 locations.each do |u|
   Location.create(u)
+end
+
+item_locations.each do |u|
+  ItemLocation.create(u)
 end

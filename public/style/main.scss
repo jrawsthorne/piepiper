@@ -13,7 +13,7 @@ body {
 nav .logo {
   font-family: "Arizonia";
   font-size: 50px;
-  transition: opacity .3s ease
+  transition: opacity .3s ease;
 }
 
 nav .logo:hover {
@@ -41,4 +41,19 @@ main {
   height: 100%;
   height: 500px;
   width:460px;
+}
+
+.badge {
+  margin: 15px;
+}
+
+#fb-wrap{
+  background-color: #foo;
+}
+#facebook-share{
+  opacity: 0;
+}
+
+.indexx{
+  text-align: center;
 }

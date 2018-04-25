@@ -13,6 +13,16 @@ class PiePiper < Sinatra::Base
     redirect '/orders'
   end
 
+  get '/delete-item/:item_id' do
+    admin!
+    item_id = params[:item_id]
+    if(Item.exists?(item_id))
+      item = Item.find(item_id)
+      item.destroy
+    end
+    redirect '/'
+  end
+
   get '/delete-order' do
     order_handler!
     redirect '/orders'

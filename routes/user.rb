@@ -4,6 +4,8 @@ class PiePiper < Sinatra::Base
     @item_types = ItemType.all
     @special_conditions = SpecialCondition.all
     @items = Item.all
+    @item_locations = ItemLocation.all
+    @isAdmin = get_account_type_from_session == 3
     erb :'/pages/index'
   end
 
@@ -54,10 +56,12 @@ class PiePiper < Sinatra::Base
   get '/signup' do
     @title = "Sign up"
     # get the twitter user from the session if the session exists
+    @js = ['/scripts/address.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
     @special_conditions = SpecialCondition.all
     # redirect the user to twitter login if there isn't a twitter id in the session
     redirect('/auth/twitter') if(!@twitter_user)
+    flash[:twitter_id] = flash[:twitter_id]
     erb :'/user/signup'
   end
 
@@ -71,12 +75,31 @@ class PiePiper < Sinatra::Base
     erb :'/user/account'
   end
 
+  post '/account' do
+    authenticate!
+    if params[:diet].nil?
+      diet = [1]
+    else
+      diet = params[:diet]
+    end
+    update_user(
+      params[:firstname],
+      params[:surname],
+      params[:email],
+      params[:house],
+      params[:street],
+      params[:postcode],
+      diet
+          )
+      redirect('/account')
+  end
+
   get '/logout' do
     session[:user_id] = nil
     session[:location_id] = nil
     redirect '/'
   end
-  
+
   post '/set-location' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]

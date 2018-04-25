@@ -1,20 +1,20 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.1.5)
-      activesupport (= 5.1.5)
-    activerecord (5.1.5)
-      activemodel (= 5.1.5)
-      activesupport (= 5.1.5)
-      arel (~> 8.0)
-    activesupport (5.1.5)
+    activemodel (5.2.0)
+      activesupport (= 5.2.0)
+    activerecord (5.2.0)
+      activemodel (= 5.2.0)
+      activesupport (= 5.2.0)
+      arel (>= 9.0)
+    activesupport (5.2.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    arel (8.0.0)
+    arel (9.0.0)
     backports (3.11.1)
     bcrypt (3.1.11)
     bcrypt (3.1.11-x64-mingw32)
@@ -63,7 +63,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.0.0)
     http_parser.rb (0.6.0)
-    i18n (0.9.5)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
     mail (2.7.0)
@@ -184,7 +184,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  activerecord
+  activerecord (~> 5.2.0)
   bcrypt
   bundler
   capybara

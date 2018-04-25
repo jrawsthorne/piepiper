@@ -59,6 +59,11 @@ $(function (){
   $("#menu-items").on('keyup keydown change click', "input, .dropdown-item", function() {
     inputChange(this)
   })
+    
+   $(".change_order_state").on('change', function() {
+       console.log("Change")
+    inputChange(this)
+  })
 
   $("#menu-items").on('click', ".remove-item", function() {
     $(this).closest(".list-group-item").remove()

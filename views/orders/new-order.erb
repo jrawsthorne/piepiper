@@ -9,6 +9,9 @@
     <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.where(tweet_id: tweet_id).pluck(:id).join.to_s+'">View it here</a>') %>
   <% else %>
   <%
+    
+    
+    
     tweet = $client.status(tweet_id, tweet_mode: "extended")
     if tweet.truncated? && tweet.attrs[:extended_tweet]
       tweet_text = tweet.attrs[:extended_tweet][:full_text]
@@ -131,7 +134,16 @@
                     </ul>
                   <% end %>
                 </p>
-                <p class="mb-1">Address: <%= user.address %></p>
+                <p class="mb-1">Postcode: <%= user.postcode %></p>
+                <%# Shows the user's current rewards to the screen %>
+                <p>User's Rewards:
+                  <% user.user_campaigns.each do |reward| %> 
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                      <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                    </div>
+                  <% end %> 
+                </p>
                 </div>
               </div>
             </li>

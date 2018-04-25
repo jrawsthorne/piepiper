@@ -14,12 +14,14 @@
     <ul class="list-group">
       <%  
         tweets.each do |tweet|
-        if(!Order.exists?(tweet_id: tweet.id))
+        hashtag = tweet.hashtags[0].text if (!tweet.hashtags.empty?)
+        if(!Order.exists?(tweet_id: tweet.id) && hashtag == "order" )
           if tweet.truncated? && tweet.attrs[:extended_tweet]
             tweet_text = tweet.attrs[:extended_tweet][:full_text]
           else
             tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
           end
+        
         user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
       %>
         <li class='list-group-item'>
@@ -56,6 +58,7 @@
       <% 
         if(Order.exists?)
         Order.all.each do |order|
+        if(order.order_state_id != 3)
         tweet = order.get_tweet
       %>
       <div class="card mb-3">
@@ -83,6 +86,7 @@
       </div>
       </div>
       <% 
+        end
         end
         end
       %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423140621) do
+ActiveRecord::Schema.define(version: 2018_04_25_105459) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -29,15 +29,16 @@ ActiveRecord::Schema.define(version: 20180423140621) do
     t.integer "winner_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "closed"
   end
 
   create_table "item_locations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "item_id"
-    t.integer "locations_id"
+    t.integer "location_id"
     t.index ["item_id"], name: "index_item_locations_on_item_id"
-    t.index ["locations_id"], name: "index_item_locations_on_locations_id"
+    t.index ["location_id"], name: "index_item_locations_on_location_id"
   end
 
   create_table "item_types", force: :cascade do |t|
@@ -97,6 +98,15 @@ ActiveRecord::Schema.define(version: 20180423140621) do
     t.datetime "updated_at"
   end
 
+  create_table "user_campaigns", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "campaign_id"
+    t.index ["campaign_id"], name: "index_user_campaigns_on_campaign_id"
+    t.index ["user_id"], name: "index_user_campaigns_on_user_id"
+  end
+
   create_table "user_special_conditions", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -112,21 +122,15 @@ ActiveRecord::Schema.define(version: 20180423140621) do
     t.string "lastname"
     t.string "password_hash"
     t.string "twitter_id"
-    t.string "address"
+    t.string "house"
+    t.string "street"
+    t.string "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "email"
     t.integer "account_type_id"
     t.integer "location_id"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"
-  end
-
-  create_table "users_campaigns", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "user_id"
-    t.integer "campaigns_id"
-    t.index ["campaigns_id"], name: "index_users_campaigns_on_campaigns_id"
-    t.index ["user_id"], name: "index_users_campaigns_on_user_id"
   end
 
 end

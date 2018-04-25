@@ -41,7 +41,16 @@
                     </ul>
                   <% end %>
                 </p>
-                <p class="mb-1">Address: <%= @user.address %></p>
+                <p class="mb-1">Postcode: <%= @user.postcode %></p>
+                <p>User's Rewards:
+                  <% @user.user_campaigns.each do |reward| %> 
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                      <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                    </div>
+                  <% end %> 
+                </p>
+
               </div>
             </div>
           </li>
@@ -80,6 +89,11 @@
             <% end %>
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
             <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(@order.total_price) %></li>
+              <li class="list-group-item"><select name="order_state" class="change_order_state">
+              <% OrderState.all.each do |type| %>
+                <option value="<%=type.id%>"    <%= ("selected" if @order.order_state_id == type.id ) %> > <%=type.name%> </option>
+              <% end %>
+            </select></li>
           </div>
         </ul>
         <div class="card-footer border-top-0">

@@ -12,8 +12,10 @@ end
 class Item < ActiveRecord::Base
   belongs_to :special_condition
   belongs_to :item_type
-  has_many :locations, through: :item_locations
   has_many :item_locations
+  has_many :locations, through: :item_locations
+  
+
 
   def self.write_to_pdf
     table_data = []

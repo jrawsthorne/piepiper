@@ -22,3 +22,14 @@ Deploy
 ```bash
 bundle exec rake deploy
 ```
+
+## Testing
+
+Minitest
+```bash
+bundle exec rake test
+```
+Cucumber
+```bash
+bundle exec rake test:features
+```
