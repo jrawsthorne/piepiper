@@ -1,5 +1,5 @@
 <%= erb :header %>
-<h3 class="mb-3">Food menu <button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
+<h3 class="mb-3">Food menu <a href="/tablepdf"><button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
