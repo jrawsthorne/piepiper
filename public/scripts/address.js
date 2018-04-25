@@ -68,7 +68,11 @@ $("#address").keypress(function(e) {
   var componentForm = {
     street_number: 'long_name',
     route: 'long_name',
+<<<<<<< HEAD
+
+=======
     postal_code: 'short_name'
+>>>>>>> Address_Rework
   };
 
   function initAutocomplete() {
