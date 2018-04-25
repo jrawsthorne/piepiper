@@ -1,5 +1,8 @@
 <%= erb :header %>
-<h3 class="mb-3">Food menu <a href="/tablepdf"><button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
+<h3 class="mb-3">Food menu 
+  <a href="/tablepdf" class="btn btn-outline-primary">Download PDF</a> 
+  <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button>
+</h3>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
@@ -30,8 +33,8 @@
                   </span>
                 <% end %>
                 <% if @isAdmin %>
-                  <a type="button" class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
-                  <a type="button" class="btn btn-outline-primary" href="/delete-item/<%=item.id%>">Delete</a>
+                  <a class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/delete-item/<%=item.id%>">Delete</a>
                 <% end %>
               </h5>
             </div>
@@ -61,6 +64,10 @@
                   <span class="badge badge-info '+extraclass+'">
                   <%=loc.location.name%>
                   </span>
+                <% end %>
+                <% if @isAdmin %>
+                  <a class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/delete-item/<%=item.id%>">Delete</a>
                 <% end %>
                 </h5>
             </div>
