@@ -17,28 +17,30 @@
         </tr>
       </thead>
       <tbody>
-        <% # iterate through all the users and display their details %>
+        <% # iterate through all the campaigns and show its details %>
         <% 
           @campaigns.each do |campaign|
           tweet = campaign.get_tweet
         %>
-        <tr>
-          <th scope="row"><%= campaign.id %></th>
-          <td><%= campaign.campaign_type.type_name %></td>
-          <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
-          <td><%= campaign.get_retweet_ids.length %></td>
-          <% if campaign.winner_number == 0 %>
-            <td>Random</td>
-          <% else %>            
-            <td><%= campaign.winner_number %></td>
+          <% if campaign.closed == false %>
+            <tr>
+              <th scope="row"><%= campaign.id %></th>
+              <td><%= campaign.campaign_type.type_name %></td>
+              <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
+              <td><%= campaign.get_retweet_ids.length %></td>
+              <% if campaign.winner_number == 0 %>
+                <td>Random</td>
+              <% else %>            
+                <td><%= campaign.winner_number %></td>
+              <% end %>
+              <td>
+                <form method="POST">
+                  <input type="hidden" name="campaign_id" value="<%=campaign.id%>">
+                  <button class="btn btn-primary" type="submit">Close Campaign</button>
+                </form>
+                </td>
+            </tr>
           <% end %>
-          <td>
-            <form method="POST">
-              <input type="hidden" name="campaign_id" value="<%=campaign.id%>">
-              <button class="btn btn-primary" type="submit">Close Campaign</button>
-            </form>
-            </td>
-        </tr>
         <% end %>
       </tbody>
       </table>

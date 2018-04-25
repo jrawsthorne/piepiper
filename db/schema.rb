@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423140621) do
+ActiveRecord::Schema.define(version: 20180425105459) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180423140621) do
     t.integer "winner_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "closed"
   end
 
   create_table "item_locations", force: :cascade do |t|
