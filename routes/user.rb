@@ -58,6 +58,7 @@ class PiePiper < Sinatra::Base
     @special_conditions = SpecialCondition.all
     # redirect the user to twitter login if there isn't a twitter id in the session
     redirect('/auth/twitter') if(!@twitter_user)
+    flash[:twitter_id] = flash[:twitter_id]
     erb :'/user/signup'
   end
 
