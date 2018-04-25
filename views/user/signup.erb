@@ -11,18 +11,18 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="password">Create Password:</label>
-        <input name="password" type="text" class="form-control" id="password" placeholder="Password">
+        <label for="password">Create Password</label>
+        <input name="password" type="password" class="form-control" id="password" placeholder="Password">
       </div>
       <div class="form-group col-md-6">
-        <label for="passwordconf">Confirm Password:</label>
-        <input name="passwordconf" type="text" class="form-control" id="passwordconf" placeholder="Confirm Password">
+        <label for="passwordconf">Confirm Password</label>
+        <input name="passwordconf" type="password" class="form-control" id="passwordconf" placeholder="Confirm Password">
       </div>
     </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="forename">First Name</label>
-          <input name="forename" type="text" class="form-control" id="forename" placeholder="First Name">
+          <label for="firstname">First Name</label>
+          <input name="firstname" type="text" class="form-control" id="forename" placeholder="First Name">
         </div>
         <div class="form-group col-md-6">
           <label for="surname">Last Name</label>
@@ -34,23 +34,10 @@
         <input name="email" type="email" class="form-control" id="email" placeholder="Email">
       </div>
       <div class="form-group">
-        <label for="address_line_1">Address Line 1</label>
-        <input name="address_line_1" type="text" class="form-control" id="address_line_1" placeholder="Address Line 1">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="" placeholder="Address">
       </div>
-      <div class="form-group">
-          <label for="address_line_2">Address Line 2</label>
-          <input name="address_line_2" type="text" class="form-control" id="address_line_2" placeholder="Address Line 2">
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-        <label for="postcode">Post Code</label>
-        <input name="postcode" type="text" class="form-control" id="postcode" placeholder="Postcode">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="city_region">City Region</label>
-        <input name="city_region" type="text" class="form-control" id="city_region" placeholder="City Region">
-      </div>
+
 
       <div class="form-group">
         <label for="twitter_handle">Twitter Handle</label>
@@ -67,11 +54,52 @@
           </div>
         <% end end %>
       </div>
-
         <button type="submit" class="btn btn-primary">Signup</button>
         <button type="reset" class="btn btn-danger">Reset</button>
       </div>
     </form>
   </div>
 </div>
+<div class="modal-opener-btn">
+<div class="modal fade" id="map_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mapModalLable">Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" onfocus="geolocate()" aria-expanded="false" aria-controls="addresstoggle" id="autocomplete" value=">" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="house">House Number/Name</label>
+            <input name="house" type="text" class="form-control" id="street_number" placeholder="House Number/Name">
+          </div>
+          <div class="form-group">
+            <label for="street_address">Street Name</label>
+            <input name="street" type="text" class="form-control" id="route" placeholder="Street Name">
+          </div>
+          <div class="form-group">
+            <label for="postal_code">Postcode</label>
+            <input name="postcode" type="text" class="form-control" id="postal_code" placeholder="Postcode">
+          </div>
+
+        </div>
+        <div id="map"></div>
+        <p id= "address_checker"> Sorry, we do not deliver to this address. </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save" disabled>Save changes</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= erb :footer %>

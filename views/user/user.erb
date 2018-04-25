@@ -35,7 +35,9 @@
               <% end %>
             <% end %>
           </td>
-          <td><%= @user.address %></td>
+          <td><%= @user.house %></td>
+          <td><%= @user.street %></td>
+           <td><%= @user.postcode %></td>
           <td>
             <select data-user="<%=@user.username%>">
               <% AccountType.all.each do |type| %>
