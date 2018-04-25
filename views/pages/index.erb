@@ -1,6 +1,6 @@
 <%= erb :header %>
 <div class="indexx">
-  <h2 class="mb-3">Food menu </h2>
+  <h2 class="mb-3">Food Menu</h2>
   <button type="button" class="btn btn-outline-primary">Download PDF</button>
   <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button>
 </div>
@@ -26,12 +26,16 @@
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
               <h5 class="card-title mb-0">
-                <%= display_currency(item.price) %> 
+                <%= display_currency(item.price) %>
                 <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
                 <% item.item_locations.each do |loc| %>
                   <span class="badge badge-info '+extraclass+'">
                   <%=loc.location.name%>
                   </span>
+                <% end %>
+                <% if @isAdmin %>
+                  <a type="button" class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
+                  <a type="button" class="btn btn-outline-primary" href="/delete-item/<%=item.id%>">Delete</a>
                 <% end %>
               </h5>
             </div>
