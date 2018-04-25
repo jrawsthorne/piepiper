@@ -1,5 +1,6 @@
 $(function () {
     $('#address_checker').hide();
+    $('#map').hide();
  });
 $('.modal-opener-btn').on('click', function(){
   initialize();
@@ -22,11 +23,26 @@ $("#address").keypress(function(e) {
   return false;
 });
 
+  function getLocation() {
+    if(navigator.geolocation) {
+      success = function(position) {
+        createMap(position.coords.latitude, position.coords.longitude);
+      };
+      error = function() { createMap( 53.383299,-1.482869); }
+
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+    else {
+      createMap( 53.383299, -1.482869);
+    }
+  }
+
   var map, marker;
-  function initMap() {
+  function initMap(lat,lng) {
       map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 53.383299, lng: -1.482869},
-      zoom: 12
+      center: new google.maps.LatLng(lat, lng),
+      zoom: 12,
+      scrollwheel: false
       });
     }
 
@@ -104,9 +120,12 @@ $("#address").keypress(function(e) {
     })
   if (!circleShef.getBounds().contains(marker.getPosition()) && !circleLeeds.getBounds().contains(marker.getPosition())) {
       $("#address_checker").show();
+      $("#map").show();
+      $('#save').attr('disabled',true);
   }  else {
     $('#save').removeAttr('disabled');
     $("#address_checker").hide();
+      $("#map").hide();
   }
 
      for (var component in componentForm) {
@@ -142,7 +161,3 @@ $("#address").keypress(function(e) {
       });
     }
   }
-
-  $("#map_modal").on("shown.bs.modal", function () {
-    google.maps.event.trigger(map, "resize");
-});
