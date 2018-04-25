@@ -7,7 +7,6 @@ $('.modal-opener-btn').on('click', function(){
 function initialize() {
   initMap();
   initAutocomplete();
-  initCircle();
   initCircleShef();
   initCircleLeeds();
 
