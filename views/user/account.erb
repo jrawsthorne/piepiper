@@ -2,29 +2,29 @@
 <div class="row">
   <div class="mb-3 col-lg-5 col-md-12">
     <p>Account Settings</p>
-    <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   required >
 
       <div class="form-group">
              <label for="username">Username</label>
-             <input name="username" readonly type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>">
+             <input name="username" readonly type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>"  required >
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="firstname">First Name</label>
-          <input name="firstname" type="text" class="form-control" id="firstname" value="<%=@user.firstname%>"placeholder="<%=@user.firstname%>">
+          <input name="firstname" type="text" class="form-control" id="firstname" value="<%=@user.firstname%>"placeholder="<%=@user.firstname%>"  required>
         </div>
         <div class="form-group col-md-6">
           <label for="surname">Last Name</label>
-          <input name="surname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>">
+          <input name="surname" type="text" class="form-control" id="lastname" value="<%=@user.lastname%>"placeholder="<%=@user.lastname%>"  required>
         </div>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input name="email" type="email" class="form-control" id="email" value="<%=@user.email%>" placeholder="Email">
+        <input name="email" type="email" class="form-control" id="email" value="<%=@user.email%>" placeholder="Email"  required>
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address">
+        <input type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address"  required>
       </div>
       <% # display their twitter screen name if the user has a twitter id associated with them %>
       <% if (@twitter_user) %>
@@ -67,15 +67,15 @@
               </div>
               <div class="form-group">
                 <label for="house">House Number/Name</label>
-                <input name="house" type="text" class="form-control" id="street_number" value="<%=@user.house%>" placeholder="House Number/Name">
+                <input name="house" type="text" class="form-control" id="street_number" value="<%=@user.house%>" placeholder="House Number/Name" required>
               </div>
               <div class="form-group">
                 <label for="street_address">Street Name</label>
-                <input name="street" type="text" class="form-control" id="route"value="<%=@user.street%>" placeholder="Street Name">
+                <input name="street" type="text" class="form-control" id="route"value="<%=@user.street%>" placeholder="Street Name" required>
               </div>
               <div class="form-group">
                 <label for="postal_code">Postcode</label>
-                <input name="postcode" type="text" class="form-control" id="postal_code" value="<%=@user.postcode%>" placeholder="Postcode">
+                <input name="postcode" type="text" class="form-control" id="postal_code" value="<%=@user.postcode%>" placeholder="Postcode" required>
               </div>
 
             </div>

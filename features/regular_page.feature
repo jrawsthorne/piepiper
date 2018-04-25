@@ -16,13 +16,22 @@ Feature: Regular pages
     Given I am on the login page
     Then I should see "Please sign in"
     
-  Scenario: Order page
+  Scenario: Order page through admin
     Given I am on the login page
     When I fill in "username" with "admin"
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I go to the orders page
     Then I should see "Incoming tweets"  
+    
+  Scenario: Order page through order handler
+    Given I am on the login page
+    When I fill in "username" with "order_handler"
+    When I fill in "password" with "order_handler"
+    When I press "Login" within "form"
+    Then I should see "Orders" within "body"
+    When I go to the orders page
+    Then I should see "Incoming tweets" 
     
   Scenario: New Campaigns page
     Given I am on the login page
