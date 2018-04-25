@@ -29,6 +29,7 @@ post '/campaigns/new' do
 		 	u.campaign_type_id = reward_type
 		 	u.tweet_id = tweet.id
 		 	u.winner_number = winner_number
+		 	u.closed = false
 		 end
 		 campaign.save
 		 redirect('/campaigns/all')
@@ -59,6 +60,7 @@ post '/campaigns/all' do
     end
     users_campaigns.save
 
+    campaign.update_attribute(:closed, true)
     redirect('/campaigns/all')
 end
 

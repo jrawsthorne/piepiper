@@ -20,6 +20,7 @@ class Campaign < ActiveRecord::Base
 	def get_id
 		return id
 	end
+
 end
 
 class CampaignType < ActiveRecord::Base
