@@ -1,4 +1,5 @@
 require 'prawn'
+require 'prawn/table'
 
 class ItemType < ActiveRecord::Base
 end
@@ -16,15 +17,16 @@ class Item < ActiveRecord::Base
   
 
 
-  def write_to_pdf
+  def self.write_to_pdf
     table_data = []
+    table_data << ["Name", "Price", "Type"]
     Item.all.each do |item|
       table_data << [item.name, item.price, item.item_type.name]
     end
-    Prawn::Document.new do |pdf|
+    Prawn::Document.generate "price_list.pdf" do |pdf|
       table = pdf.make_table(table_data)
+       table.row(0).font_style = :bold
       table.draw
-      pdf.render_file("price_list.pdf")
     end
   end
 end

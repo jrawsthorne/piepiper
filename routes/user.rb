@@ -114,6 +114,13 @@ class PiePiper < Sinatra::Base
       status 200
     end
   end
+    
+  get '/tablepdf' do
+    Item.write_to_pdf()
+    file = File.open('price_list.pdf')
+    send_file(file, :disposition => 'attachment', :filename => File.basename(file))
+    redirect '/'
+  end
 
   not_found do
     redirect '/'
