@@ -17,7 +17,6 @@
   <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
     <ul class="list-group list-group-flush">
       <% @items.order(:price).select{|item| item.item_type_id == item_type.id}.each do |item| %>
-
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-4">
@@ -26,7 +25,15 @@
             <div>
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %> </h5>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> 
+                <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                <% item.item_locations.each do |loc| %>
+                  <span class="badge badge-info '+extraclass+'">
+                  <%=loc.location.name%>
+                  </span>
+                <% end %>
+              </h5>
             </div>
           </div>
         </li>
@@ -48,7 +55,14 @@
             <div>
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                  <% item.item_locations.each do |loc| %>
+                  <span class="badge badge-info '+extraclass+'">
+                  <%=loc.location.name%>
+                  </span>
+                <% end %>
+                </h5>
             </div>
           </div>
         </li>
