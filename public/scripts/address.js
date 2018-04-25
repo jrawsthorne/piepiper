@@ -24,10 +24,9 @@ $("#address").keypress(function(e) {
 
   var map, marker;
   function initMap() {
-
       map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 53.383299, lng: -1.482869},
-        zoom: 12
+      center: {lat: 53.383299, lng: -1.482869},
+      zoom: 12
       });
     }
 
@@ -63,14 +62,11 @@ $("#address").keypress(function(e) {
     });
   }
 
-
-
   var placeSearch, autocomplete;
   var componentForm = {
     street_number: 'short_name',
     route: 'long_name',
     postal_code: 'short_name',
-
   };
 
   function initAutocomplete() {
