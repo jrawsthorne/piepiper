@@ -23,17 +23,12 @@ class PiePiper < Sinatra::Base
   end
 
   post '/login' do
-# <<<<<<< HEAD
     if(session[:location_id] === nil)
       session[:location_id] = Location.first.id
     end
     user = User.find_by_username(params[:username])
     if !user.nil? && user.password == params[:password]
-# =======
-# >>>>>>> Address_Rework
-#     user = User.find_by_username(params[:username])
-#     if !user.nil? && user.password == params[:password]
-#       session[:user_id] = user.id
+       session[:user_id] = user.id
 #       #Pony.mail({
 #       #  :to => 'jake@jakerawsthorne.co.uk',
 #       #  :from => 'no-reply@pie-piper.me',
@@ -49,12 +44,12 @@ class PiePiper < Sinatra::Base
 #       #    :enable_starttls_auto => true,
 #       #  }
 #       #})
-#       redirect '/'
-#     else
-#       flash[:error] = "Incorrect credentials"
-#       redirect '/login'
-#     end
-#   end
+       redirect '/'
+     else
+       flash[:error] = "Incorrect credentials"
+       redirect '/login'
+     end
+   end
 
   get '/signup' do
     @title = "Sign up"
