@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425105459) do
+ActiveRecord::Schema.define(version: 2018_04_25_105459) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -113,7 +113,9 @@ ActiveRecord::Schema.define(version: 20180425105459) do
     t.string "lastname"
     t.string "password_hash"
     t.string "twitter_id"
-    t.string "address"
+    t.string "house"
+    t.string "street"
+    t.string "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "account_type_id"

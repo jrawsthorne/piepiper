@@ -32,4 +32,10 @@ class PiePiper < Sinatra::Base
     redirect '/'
   end
 
+  get '/items' do
+    admin!
+    @title = "Items"
+    erb :'/pages/items'
+  end
+
 end
