@@ -1,10 +1,10 @@
 def new_user(
-  username, forename, surname, email,
+  username, firstname, surname, email,
   house, street, postcode, twitter_handle, dietary_preferences)
 
   user = User.new do |u|
     u.username = username.to_s
-    u.firstname = forename.to_s
+    u.firstname = firstname.to_s
     u.lastname = surname.to_s
     u.password = "password"
     u.twitter_id = flash[:twitter_id].to_s
@@ -19,7 +19,7 @@ def new_user(
   puts(
     session[:user_id].to_s+"____________",
     username,
-    forename,
+    firstname,
     surname,
     email,
     house,
