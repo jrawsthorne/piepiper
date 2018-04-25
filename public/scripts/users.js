@@ -1,14 +1,8 @@
-function accountTypeChange(userId){
-  select = document.getElementById(userId+"AccountType";
-  if(select).value == "Admin"){
-    if(!confirm("Are you sure you want to grant this user administrator priviliges?")){
-      value = (User.find(userId)).account_type.name
-      var options = select.options;
-      for(var option, index = 0; option = options[index]; index++){
-        if(option.value == value){
-          sel.selectedIndex = index;
-        }
-      }
-    }
+$("select").on('change', function() {
+  if($(this).val() == 3){
+    alert("Warning: "+$(this).data('user')+" will be granted administrator priviliges with this change.")
   }
-}
+  else if ($(this).val() == 2) {
+    alert("Warning: "+$(this).data('user')+" will be granted order-handler priviliges with this change.")
+  }
+})

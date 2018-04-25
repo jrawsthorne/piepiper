@@ -12,6 +12,7 @@ class PiePiper < Sinatra::Base
       @user_special_conditions = @user.user_special_conditions
       @account_types = AccountType.all
       @orders = @user.orders
+      @js = ['/scripts/users.js']
       erb :'/user/user'
     else
       redirect('/')
@@ -23,12 +24,11 @@ class PiePiper < Sinatra::Base
     @title = "Users"
     # get all users from database
     @users = User.all
+    @js = ['/scripts/users.js']
     erb :'/user/users'
   end
 
   post '/users' do
-    puts"---------------------------------------------"
-    puts params
     redirect '/'
   end
 

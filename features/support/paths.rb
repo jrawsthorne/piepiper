@@ -28,6 +28,9 @@ module NavigationHelpers
       
     when /the users page/
       '/users'
+        
+    when /the individual_users page/
+      '/user/1'    
       
     when /the logout page/
       '/logout'
@@ -43,6 +46,12 @@ module NavigationHelpers
       
     when /the api_get_items page/
       '/api/get-items'
+        
+    when /the all_campaigns page/
+      '/campaigns/all' 
+        
+    when /the new_campaigns page/
+      '/campaigns/new'     
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

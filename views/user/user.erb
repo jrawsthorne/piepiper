@@ -37,9 +37,9 @@
           </td>
           <td><%= @user.address %></td>
           <td>
-            <select>
-              <% @account_types.each do |type| %>
-                <option value="<%=type.id%>" <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
+            <select data-user="<%=@user.username%>">
+              <% AccountType.all.each do |type| %>
+                <option value="<%=type.id%>"    <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
               <% end %>
             </select>
           </td>
@@ -62,8 +62,8 @@
         </thead>
         <tbody>
           <% # iterate through all the user's orders and display their details %>
-          <% 
-            @orders.each do |order| 
+          <%
+            @orders.each do |order|
             tweet = order.get_tweet
           %>
             <tr>

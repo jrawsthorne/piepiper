@@ -76,7 +76,7 @@ class PiePiper < Sinatra::Base
     session[:location_id] = nil
     redirect '/'
   end
-  
+
   post '/set-location' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
