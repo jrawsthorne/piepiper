@@ -55,10 +55,12 @@ class PiePiper < Sinatra::Base
   get '/signup' do
     @title = "Sign up"
     # get the twitter user from the session if the session exists
+    @js = ['/scripts/address.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
     @special_conditions = SpecialCondition.all
     # redirect the user to twitter login if there isn't a twitter id in the session
     redirect('/auth/twitter') if(!@twitter_user)
+    flash[:twitter_id] = flash[:twitter_id]
     erb :'/user/signup'
   end
 

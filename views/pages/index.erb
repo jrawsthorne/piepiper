@@ -52,7 +52,14 @@
             <div>
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                  <% item.item_locations.each do |loc| %>
+                  <span class="badge badge-info '+extraclass+'">
+                  <%=loc.location.name%>
+                  </span>
+                <% end %>
+                </h5>
             </div>
           </div>
         </li>

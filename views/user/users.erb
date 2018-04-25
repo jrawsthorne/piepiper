@@ -14,7 +14,9 @@
           <th scope="col">Username</th>
           <th scope="col">Twitter Profile</th>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">Address</th>
+          <th scope="col">House Number/Name</th>
+          <th scope="col">Street Name</th>
+          <th scope="col">Postcode</th>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
@@ -39,7 +41,9 @@
               <% end %>
             <% end %>
           </td>
-          <td><%= user.address %></td>
+          <td><%= user.house %></td>
+          <td><%= user.street %></td>
+          <td><%= user.postcode %></td>
           <td>
             <select data-user="<%=user.username%>">
               <% AccountType.all.each do |type| %>
@@ -53,9 +57,5 @@
       </table>
 
       <button type="submit" class="btn btn-primary">Submit Changes</button>
-      <button type="reset" class="btn btn-danger">Reset</button>
-
-    </form>
-    </div>
-<% end %>
-<%= erb :footer %>
+      <button type="reset" class="btn btn-danger">Reset</b erb :footer %>
+>>>>>>> 788a1dd72189c17f4d1213eaa94ab5ad8167375b

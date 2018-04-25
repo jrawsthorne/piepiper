@@ -1,28 +1,55 @@
 $(function () {
     $('#address_checker').hide();
+    $('#map').hide();
  });
-$('.modal-opener-btn').one('click', function(){
+$('.modal-opener-btn').on('click', function(){
   initialize();
   });
 function initialize() {
   initMap();
   initAutocomplete();
-  initCircle();
+  initCircleShef();
+  initCircleLeeds();
+
+  $('#save').on('click', function(){
+  $("#address").val($("#street_number").val() + " " + $("#route").val() + ", " + $("#postal_code").val())
+  });
+
 }
 
-  var map, marker;
-  function initMap() {
+$("#address").keypress(function(e) {
+  e.preventDefault();
+  $("#map_modal").modal('show')
+  return false;
+});
 
+  function getLocation() {
+    if(navigator.geolocation) {
+      success = function(position) {
+        createMap(position.coords.latitude, position.coords.longitude);
+      };
+      error = function() { createMap( 53.383299,-1.482869); }
+
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+    else {
+      createMap( 53.383299, -1.482869);
+    }
+  }
+
+  var map, marker;
+  function initMap(lat,lng) {
       map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 53.383299, lng: -1.482869},
-        zoom: 13
+      center: new google.maps.LatLng(lat, lng),
+      zoom: 12,
+      scrollwheel: false
       });
     }
 
-  function initCircle() {
+  function initCircleShef() {
   // Define the circle
-circle = new google.maps.Circle({
-   center: new google.maps.LatLng( 53.383299, -1.482869),
+    circleShef = new google.maps.Circle({
+    center: new google.maps.LatLng( 53.383299, -1.482869),
     map: map,
     clickable: false,
     // metres
@@ -35,13 +62,27 @@ circle = new google.maps.Circle({
     });
   }
 
+  function initCircleLeeds() {
+  // Define the circle
+    circleLeeds = new google.maps.Circle({
+    center: new google.maps.LatLng(53.7942, -1.5476),
+    map: map,
+    clickable: false,
+    // metres
+    radius: 3218.69,
+    fillColor: '#FF0000',
+    fillOpacity: .1,
+    strokeColor: '#FF0000',
+    strokeOpacity: .4,
+    strokeWeight: .2
+    });
+  }
 
   var placeSearch, autocomplete;
   var componentForm = {
-    postal_code: 'short_name',
     street_number: 'short_name',
     route: 'long_name',
-
+    postal_code: 'short_name',
   };
 
   function initAutocomplete() {
@@ -65,7 +106,7 @@ circle = new google.maps.Circle({
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(13);
+      map.setZoom(12);
     }
     if (!marker) {
       marker = new google.maps.Marker;({
@@ -77,11 +118,14 @@ circle = new google.maps.Circle({
       position: place.geometry.location,
       map: map,
     })
-  if (!circle.getBounds().contains(marker.getPosition())) {
+  if (!circleShef.getBounds().contains(marker.getPosition()) && !circleLeeds.getBounds().contains(marker.getPosition())) {
       $("#address_checker").show();
+      $("#map").show();
+      $('#save').attr('disabled',true);
   }  else {
     $('#save').removeAttr('disabled');
     $("#address_checker").hide();
+      $("#map").hide();
   }
 
      for (var component in componentForm) {
@@ -117,7 +161,3 @@ circle = new google.maps.Circle({
       });
     }
   }
-
-  $("#map_modal").on("shown.bs.modal", function () {
-    google.maps.event.trigger(map, "resize");
-});
