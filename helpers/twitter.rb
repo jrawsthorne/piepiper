@@ -1,7 +1,6 @@
 def new_user(
   username, forename, surname, email,
-  house, street, postcode,
-  city_region, twitter_handle, dietary_preferences)
+  house, street, postcode, twitter_handle, dietary_preferences)
 
   user = User.new do |u|
     u.username = username.to_s
@@ -9,7 +8,6 @@ def new_user(
     u.lastname = surname.to_s
     u.password = "password"
     u.twitter_id = flash[:twitter_id].to_s
-    u.address = address_line_1.to_s
     u.house = house.to_s
     u.street = street.to_s
     u.postcode = postcode.to_s
