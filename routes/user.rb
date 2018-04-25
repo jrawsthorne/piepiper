@@ -81,9 +81,8 @@ class PiePiper < Sinatra::Base
     else
       diet = params[:diet]
     end
-    puts params[:house]
     update_user(
-      params[:forename],
+      params[:firstname],
       params[:surname],
       params[:email],
       params[:house],

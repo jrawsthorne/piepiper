@@ -31,6 +31,7 @@ def update_user(forename, surname, email,
 house, street, postcode, dietary_preferences)
 
   u = User.find(session[:user_id])
+
   u.firstname = forename.to_s
   u.lastname = surname.to_s
   u.house = house.to_s
@@ -38,6 +39,10 @@ house, street, postcode, dietary_preferences)
   u.postcode = postcode.to_s
   u.email = email
   u.save
+
+  u.user_special_conditions.each do |condition|
+    condition.destroy
+  end
 
   dietary_preferences.each do |condition|
     user_special_condition = UserSpecialCondition.new do |u| #ERROR HERE
