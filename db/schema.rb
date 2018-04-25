@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425105459) do
+ActiveRecord::Schema.define(version: 2018_04_25_105459) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20180425105459) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "item_id"
-    t.integer "locations_id"
+    t.integer "location_id"
     t.index ["item_id"], name: "index_item_locations_on_item_id"
-    t.index ["locations_id"], name: "index_item_locations_on_locations_id"
+    t.index ["location_id"], name: "index_item_locations_on_location_id"
   end
 
   create_table "item_types", force: :cascade do |t|

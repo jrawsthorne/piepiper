@@ -52,7 +52,8 @@ items = [
   {name: 'Fanta', item_type_id: 3, price: 1.0,path:'fanta.jpg'},
   {name: 'Vanilla milkshake', item_type_id: 4, price: 3.5,path:'vanilla.jpg'},
   {name: 'Chocolate milkshake', item_type_id: 4, price: 3.5,path:'chocolate.jpg'},
-  {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'}
+  {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'},
+  {name: 'Special Lamb HotPot Pie', item_type_id: 1, price: 12, special_condition_id: 1, path:'lamb-porkpie.jpg'}
 ]
 
 item_types = [
@@ -82,6 +83,9 @@ locations = [
   {name: "Leeds"}
 ]
 
+item_locations = [
+  {item_id: 25, location_id: 2}
+  ]
 users.each do |u|
   User.create(u)
 end
@@ -116,4 +120,8 @@ end
 
 locations.each do |u|
   Location.create(u)
+end
+
+item_locations.each do |u|
+  ItemLocation.create(u)
 end

@@ -4,6 +4,7 @@ class PiePiper < Sinatra::Base
     @item_types = ItemType.all
     @special_conditions = SpecialCondition.all
     @items = Item.all
+    @item_locations = ItemLocation.all
     erb :'/pages/index'
   end
 
