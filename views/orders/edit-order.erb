@@ -41,7 +41,16 @@
                     </ul>
                   <% end %>
                 </p>
-                <p class="mb-1">Address: <%= @user.address %></p>
+                <p class="mb-1">Postcode: <%= @user.postcode %></p>
+                <p>User's Rewards:
+                  <% @user.user_campaigns.each do |reward| %> 
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                      <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                    </div>
+                  <% end %> 
+                </p>
+
               </div>
             </div>
           </li>

@@ -4,7 +4,8 @@ users = [
   {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', postcode: 'S10 3AU', account_type_id: 1},
   {username: 'admin', firstname: 'Admin', lastname: 'User', password: 'admin', account_type_id: 3},
   {username: 'user', firstname: 'Regular', lastname: 'User', password: 'user', account_type_id: 1},
-  {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2}
+  {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2},
+  {username: 'seth', firstname: 'Seth', lastname: 'Faulkner', password: 'asd', twitter_id: '965555302560075776', postcode: 'S3 7HD', account_type_id: 1}
 ]
 
 special_conditions = [
@@ -53,7 +54,7 @@ items = [
   {name: 'Vanilla milkshake', item_type_id: 4, price: 3.5,path:'vanilla.jpg'},
   {name: 'Chocolate milkshake', item_type_id: 4, price: 3.5,path:'chocolate.jpg'},
   {name: 'Lager', item_type_id: 5, price: 5.7,path:'lager.jpg'},
-  {name: 'Special Lamb HotPot Pie', item_type_id: 1, price: 12, special_condition_id: 1, path:'lamb-porkpie.jpg'}
+  {name: 'Special Lamb HotPot Pie', item_type_id: 1, price: 12, special_condition_id: 1, path:'lamb-hotpot.jpg'}
 ]
 
 item_types = [

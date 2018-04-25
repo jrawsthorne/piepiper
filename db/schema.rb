@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 2018_04_25_105459) do
     t.datetime "updated_at"
   end
 
+  create_table "user_campaigns", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "campaign_id"
+    t.index ["campaign_id"], name: "index_user_campaigns_on_campaign_id"
+    t.index ["user_id"], name: "index_user_campaigns_on_user_id"
+  end
+
   create_table "user_special_conditions", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -121,15 +130,6 @@ ActiveRecord::Schema.define(version: 2018_04_25_105459) do
     t.integer "account_type_id"
     t.integer "location_id"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"
-  end
-
-  create_table "users_campaigns", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "user_id"
-    t.integer "campaigns_id"
-    t.index ["campaigns_id"], name: "index_users_campaigns_on_campaigns_id"
-    t.index ["user_id"], name: "index_users_campaigns_on_user_id"
   end
 
 end

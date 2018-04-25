@@ -54,11 +54,11 @@ post '/campaigns/all' do
     winner = ids[winner_index]
     winner_account = User.where(twitter_id: winner)
 
-    users_campaigns = UsersCampaigns.new do |u|
+    user_campaigns = UserCampaign.new do |u|
     	u.user_id = winner_account[0].get_id
-    	u.campaigns_id = campaign.get_id
+    	u.campaign_id = campaign.get_id
     end
-    users_campaigns.save
+    user_campaigns.save
 
     campaign.update_attribute(:closed, true)
     redirect('/campaigns/all')
