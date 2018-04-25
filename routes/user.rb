@@ -5,6 +5,7 @@ class PiePiper < Sinatra::Base
     @special_conditions = SpecialCondition.all
     @items = Item.all
     @item_locations = ItemLocation.all
+    @isAdmin = get_account_type_from_session == 3
     erb :'/pages/index'
   end
 
