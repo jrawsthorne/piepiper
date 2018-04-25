@@ -26,9 +26,10 @@ class PiePiper < Sinatra::Base
       params[:forename],
       params[:surname],
       params[:email],
-      params[:house],
-      params[:street],
+      params[:address_line_1],
+      params[:address_line_2],
       params[:postcode],
+      params[:city_region],
       flash[:twitter_id],
       diet
           )

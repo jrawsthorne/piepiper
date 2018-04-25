@@ -6,9 +6,7 @@ class CreateUsersTable < ActiveRecord::Migration[5.1]
       t.string :lastname
       t.string :password
       t.string :twitter_id
-      t.string :house
-      t.string :street
-      t.string :postcode
+      t.string :address
       t.datetime :created_at
       t.datetime :updated_at
     end

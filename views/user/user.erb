@@ -1,8 +1,4 @@
 <%= erb :header %>
-<% # find the user by id based on the URL parameter %>
-<% user = User.find(params['user_id']) %>
-<% # get the twitter user from the user %>
-<% twitter_user = user.get_twitter_user %>
     <p>User details <small><a href="/users">Go to users</a></small></p>
     <div class="table-responsive mb-3">
       <table class="table">
@@ -12,65 +8,73 @@
           <th scope="col">First</th>
           <th scope="col">Last</th>
           <th scope="col">Username</th>
-          <%= '<th scope="col">Twitter Profile</th>' if twitter_user %>
+          <%= '<th scope="col">Twitter Profile</th>' if @twitter_user %>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">House Number/Name</th>
-          <th scope="col">Street Name</th>
-          <th scope="col">Postcode</th>
+          <th scope="col">Address</th>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row"><%= user.id %></th>
-          <td><%= user.firstname %></td>
-          <td><%= user.lastname %></td>
-          <td><%= user.username %></td>
+          <th scope="row"><%= @user.id %></th>
+          <td><%= @user.firstname %></td>
+          <td><%= @user.lastname %></td>
+          <td><%= @user.username %></td>
           <% # display their twitter screen name if the user has a twitter id associated with them %>
-          <% if twitter_user %>
-            <td><a target="_blank" href="<%= twitter_user.uri %>"><%= twitter_user.screen_name %></a></td>
+          <% if @twitter_user %>
+            <td><a target="_blank" href="<%= @twitter_user.uri %>"><%= @twitter_user.screen_name %></a></td>
           <% end %>
           <td>
             <% # show dietary requirements as N/A if user has none %>
-            <% if(user.user_special_conditions.empty?) %>
+            <% if(@user_special_conditions.empty?) %>
             N/A
             <% else %>
               <% # otherwise iterate through them and show the name of the requirement %>
-              <% user.user_special_conditions.each do |user_special_condition| %>
+              <% @user_special_conditions.each do |user_special_condition| %>
                 <p><%= user_special_condition.special_condition.name %></p>
               <% end %>
             <% end %>
           </td>
-          <td><%= user.house %></td>
-          <td><%= user.street %></td>
-          <td><%= user.postcode %></td>
-          <td><%= user.account_type.name %></td>
+          <td><%= @user.address %></td>
+          <td>
+            <select data-user="<%=@user.username%>">
+              <% AccountType.all.each do |type| %>
+                <option value="<%=type.id%>"    <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
+              <% end %>
+            </select>
+          </td>
         </tr>
       </tbody>
       </table>
     </div>
     <p>User orders <small><a href="/orders">Go to orders</a></small></p>
     <div class="table-responsive mb-3">
+      <% if(@orders.empty?) %>
+          <p>This user has no orders<p>
+      <% else %>
       <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Tweet</th>
-          <th scope="col">State</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% # iterate through all the user's orders and display their details %>
-        <% user.orders.each do |order| %>
+        <thead>
           <tr>
-            <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
-            <% tweet = order.get_tweet %>
-            <% # show the first 40 characters of the tweet if it's too long %>
-            <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
-            <td><%= order.order_state.name %></td>
+            <th scope="col">#</th>
+            <th scope="col">Tweet</th>
+            <th scope="col">State</th>
           </tr>
-        <% end %>
-      </tbody>
+        </thead>
+        <tbody>
+          <% # iterate through all the user's orders and display their details %>
+          <%
+            @orders.each do |order|
+            tweet = order.get_tweet
+          %>
+            <tr>
+              <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
+              <% # show the first 40 characters of the tweet if it's too long %>
+              <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
+              <td><%= order.order_state.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
+      <% end %>
     </div>
 <%= erb :footer %>

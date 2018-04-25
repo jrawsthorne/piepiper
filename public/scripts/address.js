@@ -1,56 +1,28 @@
 $(function () {
     $('#address_checker').hide();
  });
-$('.modal-opener-btn').on('click', function(){
+$('.modal-opener-btn').one('click', function(){
   initialize();
   });
 function initialize() {
   initMap();
   initAutocomplete();
-  initCircleShef();
-  initCircleLeeds();
-
-
-$('#save').on('click', function(){
-  $("#address").val($("#street_number").val() + " " + $("#route").val() + ", " + $("#postal_code").val())
-  });
-
+  initCircle();
 }
 
-$("#address").keypress(function(e) {
-  e.preventDefault();
-  $("#map_modal").modal('show')
-  return false;
-});
   var map, marker;
   function initMap() {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 53.383299, lng: -1.482869},
-        zoom: 12
+        zoom: 13
       });
     }
 
-  function initCircleShef() {
+  function initCircle() {
   // Define the circle
-    circleShef = new google.maps.Circle({
-    center: new google.maps.LatLng( 53.383299, -1.482869),
-    map: map,
-    clickable: false,
-    // metres
-    radius: 3218.69,
-    fillColor: '#FF0000',
-    fillOpacity: .1,
-    strokeColor: '#FF0000',
-    strokeOpacity: .4,
-    strokeWeight: .2
-    });
-  }
-
-  function initCircleLeeds() {
-  // Define the circle
-    circleLeeds = new google.maps.Circle({
-    center: new google.maps.LatLng( 53.7942, -1.5476),
+circle = new google.maps.Circle({
+   center: new google.maps.LatLng( 53.383299, -1.482869),
     map: map,
     clickable: false,
     // metres
@@ -66,20 +38,16 @@ $("#address").keypress(function(e) {
 
   var placeSearch, autocomplete;
   var componentForm = {
-    street_number: 'long_name',
+    postal_code: 'short_name',
+    street_number: 'short_name',
     route: 'long_name',
-<<<<<<< HEAD
 
-=======
-    postal_code: 'short_name'
->>>>>>> Address_Rework
   };
 
   function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
-    autocomplete = new google.maps.
-    places.Autocomplete(
+    autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */
       (document.getElementById('autocomplete')), {
         types: ['geocode']
@@ -97,7 +65,7 @@ $("#address").keypress(function(e) {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(12);
+      map.setZoom(13);
     }
     if (!marker) {
       marker = new google.maps.Marker;({
@@ -109,9 +77,8 @@ $("#address").keypress(function(e) {
       position: place.geometry.location,
       map: map,
     })
-  if (!circleShef.getBounds().contains(marker.getPosition()) && !circleLeeds.getBounds().contains(marker.getPosition())) {
+  if (!circle.getBounds().contains(marker.getPosition())) {
       $("#address_checker").show();
-      $("#save").attr("disabled", true);
   }  else {
     $('#save').removeAttr('disabled');
     $("#address_checker").hide();
