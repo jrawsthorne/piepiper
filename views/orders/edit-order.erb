@@ -80,7 +80,7 @@
             <% end %>
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
             <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(@order.total_price) %></li>
-              <li class="list-group-item"><select name="order_state">
+              <li class="list-group-item"><select name="order_state" class="change_order_state">
               <% OrderState.all.each do |type| %>
                 <option value="<%=type.id%>"    <%= ("selected" if @order.order_state_id == type.id ) %> > <%=type.name%> </option>
               <% end %>
