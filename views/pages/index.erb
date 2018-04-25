@@ -1,5 +1,9 @@
 <%= erb :header %>
-<h3 class="mb-3">Food menu <button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
+<div class="indexx">
+  <h2 class="mb-3">Food menu </h2>
+  <button type="button" class="btn btn-outline-primary">Download PDF</button>
+  <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button>
+</div>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
@@ -7,14 +11,12 @@
     <% end %>
     <a class="nav-item nav-link" data-toggle="tab" href="#special_conditions" role="tab">Special Conditions</a>
     </div>
-  </div>
 </nav>
 <div class="tab-content mt-3" id="nav-tabContent">
   <% @item_types.each_with_index do |item_type,i| %>
   <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
     <ul class="list-group list-group-flush">
       <% @items.order(:price).select{|item| item.item_type_id == item_type.id}.each do |item| %>
-
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-4">
@@ -23,7 +25,15 @@
             <div>
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %> </h5>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> 
+                <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                <% item.item_locations.each do |loc| %>
+                  <span class="badge badge-info '+extraclass+'">
+                  <%=loc.location.name%>
+                  </span>
+                <% end %>
+              </h5>
             </div>
           </div>
         </li>
@@ -45,7 +55,14 @@
             <div>
               <% extraclass = '' %>
               <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
-              <h5 class="card-title mb-0"><%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %></h5>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                  <% item.item_locations.each do |loc| %>
+                  <span class="badge badge-info '+extraclass+'">
+                  <%=loc.location.name%>
+                  </span>
+                <% end %>
+                </h5>
             </div>
           </div>
         </li>

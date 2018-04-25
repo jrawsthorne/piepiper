@@ -11,6 +11,7 @@ class CreateUsersTable < ActiveRecord::Migration[5.1]
       t.string :postcode
       t.datetime :created_at
       t.datetime :updated_at
+      t.string :email
     end
     add_reference :users, :special_condition
     add_reference :users, :account_type

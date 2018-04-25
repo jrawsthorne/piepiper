@@ -23,7 +23,7 @@ class PiePiper < Sinatra::Base
     end
     new_user(
       params[:username],
-      params[:forename],
+      params[:firstname],
       params[:surname],
       params[:email],
       params[:house],

@@ -35,6 +35,9 @@ class PiePiper < Sinatra::Base
   get '/items' do
     admin!
     @title = "Items"
+    @item_types = ItemType.all
+    @items = Item.all
+    @special_conditions = SpecialCondition.all
     erb :'/pages/items'
   end
 

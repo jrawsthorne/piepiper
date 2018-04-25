@@ -4,6 +4,7 @@ class PiePiper < Sinatra::Base
     @item_types = ItemType.all
     @special_conditions = SpecialCondition.all
     @items = Item.all
+    @item_locations = ItemLocation.all
     erb :'/pages/index'
   end
 
@@ -54,6 +55,7 @@ class PiePiper < Sinatra::Base
   get '/signup' do
     @title = "Sign up"
     # get the twitter user from the session if the session exists
+    @js = ['/scripts/address.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
     @special_conditions = SpecialCondition.all
     # redirect the user to twitter login if there isn't a twitter id in the session
@@ -70,6 +72,25 @@ class PiePiper < Sinatra::Base
     @twitter_user = $client.user(@user.twitter_id.to_i) if @user.twitter_id
     @special_conditions = SpecialCondition.all
     erb :'/user/account'
+  end
+
+  post '/account' do
+    authenticate!
+    if params[:diet].nil?
+      diet = [1]
+    else
+      diet = params[:diet]
+    end
+    update_user(
+      params[:firstname],
+      params[:surname],
+      params[:email],
+      params[:house],
+      params[:street],
+      params[:postcode],
+      diet
+          )
+      redirect('/account')
   end
 
   get '/logout' do
