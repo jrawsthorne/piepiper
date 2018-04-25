@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 2018_04_25_105459) do
     t.string "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "email"
     t.integer "account_type_id"
     t.integer "location_id"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"

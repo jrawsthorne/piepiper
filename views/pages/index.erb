@@ -1,5 +1,9 @@
 <%= erb :header %>
-<h3 class="mb-3">Food menu <button type="button" class="btn btn-outline-primary">Download PDF</button> <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button></h3>
+<div class="indexx">
+  <h2 class="mb-3">Food menu </h2>
+  <button type="button" class="btn btn-outline-primary">Download PDF</button>
+  <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button>
+</div>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% @item_types.each_with_index do |item_type,i| %>
@@ -7,7 +11,6 @@
     <% end %>
     <a class="nav-item nav-link" data-toggle="tab" href="#special_conditions" role="tab">Special Conditions</a>
     </div>
-  </div>
 </nav>
 <div class="tab-content mt-3" id="nav-tabContent">
   <% @item_types.each_with_index do |item_type,i| %>

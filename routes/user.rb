@@ -72,6 +72,26 @@ class PiePiper < Sinatra::Base
     erb :'/user/account'
   end
 
+  post '/account' do
+    authenticate!
+    if params[:diet].nil?
+      diet = [1]
+    else
+      diet = params[:diet]
+    end
+    puts params[:house]
+    update_user(
+      params[:forename],
+      params[:surname],
+      params[:email],
+      params[:house],
+      params[:street],
+      params[:postcode],
+      diet
+          )
+      redirect('/account')
+  end
+
   get '/logout' do
     session[:user_id] = nil
     session[:location_id] = nil
