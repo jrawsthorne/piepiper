@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
     end
     return total
   end
-  def edit_order(items, quantities)
+  def edit_order(items, quantities, order_state)
     order_items.each do |order_item|
       order_item.destroy
     end
@@ -29,6 +29,7 @@ class Order < ActiveRecord::Base
         u.order_id = id
         u.item_id = Item.find_by(name: item).id
         u.quantity = quantities[i].to_i
+        u.order_state_id = order_state
       end
       order_item.save
     end

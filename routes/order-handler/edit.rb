@@ -2,7 +2,7 @@ class PiePiper < Sinatra::Base
   post '/edit-order/:order_id' do
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
-      Order.find(params[:order_id]).edit_order(params[:item], params[:quantity])
+      Order.find(params[:order_id]).edit_order(params[:item], params[:quantity], params[:order_state])
       redirect '/orders'
     else
       @title = "Edit order"
