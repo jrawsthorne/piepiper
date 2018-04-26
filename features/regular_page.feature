@@ -12,6 +12,11 @@ Feature: Regular pages
     Given I am on the home page
     Then I should see "Food menu"
     
+  Scenario: Logo 
+    Given I am on the login page
+    When I follow "The Pie Piper" within "nav"
+    Then I should be on the home page
+    
   Scenario: Login page
     Given I am on the login page
     Then I should see "Please sign in"
