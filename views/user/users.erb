@@ -45,9 +45,9 @@
           <td><%= user.street %></td>
           <td><%= user.postcode %></td>
           <td>
-            <select data-user="<%=user.username%>">
+            <select data-user="<%=user.id%>"  data-default=<%=User.where(id: user.id).pluck(:account_type_id).join.to_i%> id = "select<%=user.id%>">
               <% AccountType.all.each do |type| %>
-                <option value="<%=type.id%>"    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                <option value="<%=type.id%>" <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
               <% end %>
             </select>
           </td>
@@ -55,9 +55,6 @@
         <% end %>
       </tbody>
       </table>
-
-      <button type="submit" class="btn btn-primary">Submit Changes</button>
-      <button type="reset" class="btn btn-primary">Reset</button>
     </form>
    </div>
 <% end %>
