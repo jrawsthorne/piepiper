@@ -1,4 +1,3 @@
-module General
 
   def current_class?(test_path)
       request.path == test_path ? 'active' : ''
@@ -35,5 +34,3 @@ module General
   def display_currency(price)
     return format("£%.2f",price)
   end
-
-end

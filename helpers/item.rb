@@ -1,4 +1,4 @@
-module Item
+
   def get_items_with_prices
     return Item.all.pluck(:name, :price).to_h
   end
@@ -25,4 +25,3 @@ module Item
   		item_locations.save
   	end
   end
-end

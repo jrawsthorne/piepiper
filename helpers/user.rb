@@ -1,5 +1,4 @@
-module User
-  
+
   def authenticate!
       session[:user_id] = nil if(!User.exists?(session[:user_id]))
       unless session[:user_id]
@@ -35,5 +34,3 @@ module User
       redirect '/login'
     end
   end
-
-end

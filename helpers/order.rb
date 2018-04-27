@@ -1,4 +1,3 @@
-module Order
 
   def check_input(items, quantities)
     items.each do |item|
@@ -36,5 +35,3 @@ module Order
       order_item.save
     end
   end
-
-end
