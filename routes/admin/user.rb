@@ -32,13 +32,6 @@ class PiePiper < Sinatra::Base
     redirect '/'
   end
 
-  get '/items' do
-    admin!
-    @title = "Items"
-    @item_types = ItemType.all
-    @items = Item.all
-    @special_conditions = SpecialCondition.all
-    erb :'/pages/items'
-  end
+ 
 
 end
