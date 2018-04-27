@@ -9,4 +9,11 @@ class PiePiper < Sinatra::Base
     @title = "Orders"
     erb :'orders/orders'
   end
+  
+  get '/orders/completed' do
+    order_handler!
+    @title = "Orders"
+    @orders = Order.where('order_state_id = 3')
+    erb :'orders/completed'
+  end
 end

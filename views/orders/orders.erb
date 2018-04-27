@@ -53,7 +53,7 @@
       </ul>
     </div>
     <div class="col-lg-6 col-md-12">
-      <p>Orders</p>
+      <p>Orders <% if(!Order.where('order_state_id = 3').empty?) %><small><a href="/orders/completed">View completed orders</a></small><% end %></p>
       <div id="accordion">
       <% 
         if(Order.exists?)
