@@ -6,8 +6,7 @@
   def new_item(
   	name, price, types, special_condition_id, locations)
 
-  	puts "++++++++++++++++ types "+types
-  	puts "////////////////////////////////////////"
+  
 
   	item = Item.new do |u|
   		u.name = name
