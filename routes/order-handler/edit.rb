@@ -10,9 +10,10 @@ class PiePiper < Sinatra::Base
           user = order.get_tweet.user.screen_name
           tweet = order.get_tweet.id
           name = User.find(order.user_id).fullname
-          text = " your order is ready to collect. "
+          text = "your order is ready."
+          text += " Time: "+params[:time] + "."
           total_price = display_currency(order.total_price)
-          $client.update("@"+user+" "+name + ", " + text + "Your order costs: " + total_price, in_reply_to_status_id: tweet)
+          $client.update("@"+user+" "+name + ", " + text + " Your order costs: " + total_price, in_reply_to_status_id: tweet)
       end
       redirect '/orders'
     else
@@ -28,7 +29,7 @@ class PiePiper < Sinatra::Base
 
   get '/edit-order/:order_id' do
     authenticate!
-    @js = ['/scripts/forms.js']
+    @js = ['/scripts/forms.js', '/scripts/bootstrap-datetimepicker.min.js']
     @order_id = params['order_id']
     @order = Order.find(@order_id) if(Order.exists?(@order_id))
     @tweet = @order.get_tweet if @order

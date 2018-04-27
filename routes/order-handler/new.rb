@@ -19,7 +19,7 @@ class PiePiper < Sinatra::Base
 
   get '/new-order/:tweet_id' do
     order_handler!
-    @js = ['/scripts/forms.js']
+    @js = ['/scripts/forms.js', '/scripts/bootstrap-datetimepicker.min.js']
     @title = "New order"
     erb :'/orders/new-order'
   end
