@@ -15,6 +15,9 @@ $("select").on('change', function() {
       changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
     }
   }
+  else {
+    changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
+  }
 })
 
 function resetForm(id, defaultVal) {
