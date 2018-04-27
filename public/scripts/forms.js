@@ -156,4 +156,11 @@ $(function (){
   .catch((err) => console.error(err))
 });
   
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var current_time = new Date()
+$(".form_datetime").datetimepicker({
+      format: "dd MM yyyy - hh:ii"
+  });
+$(".form_datetime input").val(current_time.getDate() + " " + months[current_time.getMonth()] + " " + current_time.getFullYear() + " - " + current_time.getHours() + ":" + current_time.getMinutes())
+  
 });
