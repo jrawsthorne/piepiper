@@ -1,4 +1,4 @@
-class PiePiper < Sinatra::Base
+ class PiePiper < Sinatra::Base
 
 get '/campaigns/new' do
 	admin!

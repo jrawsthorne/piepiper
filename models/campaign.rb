@@ -9,8 +9,12 @@ class Campaign < ActiveRecord::Base
   	def get_retweet_ids
 		retweet_ids = $client.retweeters_ids(tweet_id, options = {})
 		ids = []
-		retweet_ids.each do |u|
-			ids.push(u)
+		retweet_ids.each do |i|
+			User.all.each do |u|
+				if u.twitter_id.to_i == i.to_i
+					ids.push(i)
+				end
+			end
 		end
 		return ids
 	end
