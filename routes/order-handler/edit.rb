@@ -10,9 +10,10 @@ class PiePiper < Sinatra::Base
           user = order.get_tweet.user.screen_name
           tweet = order.get_tweet.id
           name = User.find(order.user_id).fullname
-          text = "your order is ready."
+          text = " your order is ready."
           text += " Time: "+params[:time]
-          $client.update("@"+user+" "+name + ", " + text, in_reply_to_status_id: tweet)
+          total_price = display_currency(order.total_price)
+          $client.update("@"+user+" "+name + ", " + text + "Your order costs: " + total_price, in_reply_to_status_id: tweet)
       end
       redirect '/orders'
     else

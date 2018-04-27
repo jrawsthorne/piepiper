@@ -32,13 +32,16 @@ class PiePiper < Sinatra::Base
     redirect '/'
   end
 
-  get '/items' do
-    admin!
-    @title = "Items"
-    @item_types = ItemType.all
-    @items = Item.all
-    @special_conditions = SpecialCondition.all
-    erb :'/pages/items'
+ 
+
+
+  post '/change-user-type' do
+    data = params
+    data = JSON.parse(request.body.read).symbolize_keys unless params[:path]
+    u = User.find(data[:userId].to_i)
+    u.account_type_id = data[:accountTypeId]
+    u.save
+    return
   end
 
 end

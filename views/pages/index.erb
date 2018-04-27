@@ -77,6 +77,8 @@
         <%= '<li class="list-group-item">No items in this category, sorry</li>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
       </ul>
     <% end %>
+    <script> console.log(<%=@locations.to_json%>) </script>
   </div>
 </div>
+
 <%= erb :footer %>

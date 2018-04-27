@@ -36,7 +36,7 @@ module NavigationHelpers
       '/logout'
       
     when /the new_order page/
-      '/new-order/968523084159438848'
+      '/new-order/989109475557691392'
     
     when /the new_order_not_tweet page/
       '/new-order/9685230841'
