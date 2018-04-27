@@ -161,6 +161,11 @@ var current_time = new Date()
 $(".form_datetime").datetimepicker({
       format: "dd MM yyyy - hh:ii"
   });
-$(".form_datetime input").val(current_time.getDate() + " " + months[current_time.getMonth()] + " " + current_time.getFullYear() + " - " + current_time.getHours() + ":" + current_time.getMinutes())
+  
+  function minutes_with_leading_zeros(dt) { 
+    return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+  }
+  
+$(".form_datetime input").val(current_time.getDate() + " " + months[current_time.getMonth()] + " " + current_time.getFullYear() + " - " + current_time.getHours() + ":" + minutes_with_leading_zeros(current_time))
   
 });
