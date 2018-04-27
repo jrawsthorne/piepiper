@@ -41,4 +41,8 @@ class PiePiper < Sinatra::Base
     erb :'/pages/items'
   end
 
+  post '/change-user-type' do
+    puts "_________________________________________"
+  end
+
 end
