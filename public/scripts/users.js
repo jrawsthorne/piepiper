@@ -4,7 +4,7 @@ $("select").on('change', function() {
       resetForm("select"+$(this).data('user'), $(this).data('default'))
     }
     else {
-      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).selectedIndex);
+      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
     }
   }
   else if ($(this).val() == 2) {
@@ -12,7 +12,7 @@ $("select").on('change', function() {
       resetForm("select"+$(this).data('user'), $(this).data('default'))
     }
     else{
-      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).selectedIndex);
+      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
     }
   }
 })

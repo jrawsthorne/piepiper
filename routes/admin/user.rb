@@ -41,8 +41,14 @@ class PiePiper < Sinatra::Base
     erb :'/pages/items'
   end
 
+
   post '/change-user-type' do
-    puts "_________________________________________"
+    data = params
+    data = JSON.parse(request.body.read).symbolize_keys unless params[:path]
+    u = User.find(data[:userId].to_i)
+    u.account_type_id = data[:accountTypeId]
+    u.save
+    return
   end
 
 end
