@@ -9,7 +9,8 @@
       <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>-tab" data-toggle="tab" href="#menu-<%=item_type.id%>" role="tab"><%= item_type.name %></a>
     <% end %>
     <a class="nav-item nav-link" data-toggle="tab" href="#special_conditions" role="tab">Special Conditions</a>
-    </div>
+    <a class="nav-item nav-link" data-toggle="tab" href="#locations">Locations</a>
+  </div>
 </nav>
 <div class="tab-content mt-3" id="nav-tabContent">
   <% @item_types.each_with_index do |item_type,i| %>
@@ -77,7 +78,42 @@
         <%= '<li class="list-group-item">No items in this category, sorry</li>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
       </ul>
     <% end %>
-    <script> console.log(<%=@locations.to_json%>) </script>
+  </div>
+
+  <div class="tab-pane show" id="locations" role="tabpanel">
+    <% @locations.each do |local| %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="card-title mb-0 d-inline"><%=local.name%></h4>
+        </li>
+        <%# item.item_locations.each do |u| u.location.name%>
+        <% @item_locations.select{|item_loc| item_loc.location_id == local.id}.each do |item_loc| %>
+          <% @items.order(:price).select{|item| item.id == item_loc.item_id}.each do |item| %>
+            <li class="list-group-item">
+              <div class="d-flex align-items-center">
+                <div class="mr-4">
+                  <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
+                </div>
+                  <div>
+                    <% extraclass = '' %>
+                    <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+                    <h5 class="card-title mb-0">
+                      <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                        <% item.item_locations.each do |loc| %>
+                      <% end %>
+                      <% if @isAdmin %>
+                        <a class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
+                        <a class="btn btn-outline-danger" href="/delete-item/<%=item.id%>">Delete</a>
+                      <% end %>
+                    </h5>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        <% end %>
+        
+      </ul> 
+    <% end %>
   </div>
 </div>
 
