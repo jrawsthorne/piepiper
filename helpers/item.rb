@@ -5,10 +5,13 @@
 
   def new_item(
   	name, price, types, special_condition_id, locations)
+<<<<<<< HEAD
+    
+=======
 
-  	puts "++++++++++++++++ types "+types
-  	puts "////////////////////////////////////////"
+  
 
+>>>>>>> c773951b9240cb0f8dc2d43090281f8c150d1edb
   	item = Item.new do |u|
   		u.name = name
   		u.price = price
