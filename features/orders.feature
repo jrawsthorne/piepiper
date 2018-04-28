@@ -28,6 +28,17 @@ Feature: orders
     When I go to the new_order page
     Then I should see "Not yet created"  
     
+  Scenario: New order success
+    Given I am on the login page
+    When I fill in "username" with "admin"
+    When I fill in "password" with "admin"
+    When I press "Login" within "form"
+    When I go to the new_order page
+    When I fill in "item[]" with "Lager"
+    When I press "submit_order"
+    Then I should see "added successfully" within ".Orders"
+  
+    
   Scenario: New order tweet doesn't exist
     Given I am on the login page
     When I fill in "username" with "admin"
