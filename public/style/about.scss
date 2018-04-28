@@ -5,17 +5,12 @@ h3 {
 }
 
 .img {
-  display: inline-block;
-  width: 530px;
-  height: 10%;
   opacity: 0.8;
-  margin-top: 30px;
-  margin-right: 22px;
-
+  width: 100%;
+  margin: 20px 0 20px 0;
 }
 
 p .text{
-  margin-top: 30px;
   text-align: center;
 }
 
@@ -26,18 +21,10 @@ p .text{
 
 
 #map_Sheffield {
-  width: 400px;
   height: 400px;
-  position: relative;
-  float: left;
-  display: inline-block;
 }
 #map_Leeds {
-  width: 400px;
   height: 400px;
-  position: relative;
-  float: right;
-  display: inline-block;
 }
 
 .footer{
