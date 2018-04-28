@@ -2,6 +2,11 @@
 <h3 class="mb-3"><%= @location.name %> Food menu 
   <a href="/tablepdf" class="btn btn-outline-primary">Download PDF</a> 
   <button class="currency" type="button" class="btn btn-outline-primary"><span>&#163;</span> Cash Only</button>
+  <select id="locationChanger">
+    <% @locations.each do |location| %>
+      <option <%= 'selected' if(location.id == @location.id) %> value="<%=location.name%>"><%=location.name%></option>
+    <% end %>
+  </select>
 </h3>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
