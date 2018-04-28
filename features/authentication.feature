@@ -33,5 +33,5 @@ Feature: authentication
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I go to the signup page
-    Then I should be on the home page
+    Then I should be on the account page
 
