@@ -1,15 +1,4 @@
 class PiePiper < Sinatra::Base
-  get '/' do
-    @title = "Menu"
-    @item_types = ItemType.all
-    @special_conditions = SpecialCondition.all
-    @locations = Location.all
-    @items = Item.all
-    @item_locations = ItemLocation.all
-    @isAdmin = get_account_type_from_session == 3
-    erb :'/pages/index'
-  end
-
   get '/about' do
     @title = "About Us"
     @js = ['/scripts/about.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places']
