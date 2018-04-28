@@ -45,6 +45,9 @@ class PiePiper < Sinatra::Base
   end
 
   get '/signup' do
+    if(session[:user_id])
+      redirect('/account')
+    end
     @title = "Sign up"
     # get the twitter user from the session if the session exists
     @js = ['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
