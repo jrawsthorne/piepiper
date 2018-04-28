@@ -1,69 +1,23 @@
 <%= erb :header %>
 <div class="row">
-  <%
-    tweet_id = params['tweet_id']
-    if(!istweet(tweet_id))
-  %>
-    <%= display_error($errors[:tweet_not_exist]) %>
-  <% elsif(Order.exists?(tweet_id: tweet_id)) %>
-    <%= display_error($errors[:already_order]+' <a href="/edit-order/'+Order.where(tweet_id: tweet_id).pluck(:id).join.to_s+'">View it here</a>') %>
-  <% else %>
-  <%
-    
-    
-    
-    tweet = $client.status(tweet_id, tweet_mode: "extended")
-    if tweet.truncated? && tweet.attrs[:extended_tweet]
-      tweet_text = tweet.attrs[:extended_tweet][:full_text]
-    else
-      tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
-    end
-    user = User.find_by(twitter_id: tweet.user.id) if(User.exists?(twitter_id: tweet.user.id))
-    mentions_after_tweet = $client.search("from:@"+tweet.user.screen_name+" OR from:@piepiperchef to:@"+tweet.user.screen_name, options = {since_id:tweet.id})
-    replies = mentions_after_tweet.reverse_each.select do |reply|
-      !reply.in_reply_to_status_id.nil? && reply.in_reply_to_status_id === tweet.id
-    end
-    rejected = mentions_after_tweet.reverse_each.reject do |reply|
-      reply.in_reply_to_status_id === tweet.id
-    end
-    rejected.each do |reply|
-      reply_ids = replies.map{|reply| reply.id}
-      replies_not_root = rejected.select do |reply|
-        reply_ids.include?(reply.in_reply_to_status_id)
-      end
-      replies += replies_not_root
-      rejected = rejected.reject do |reply|
-        reply_ids.include?(reply.in_reply_to_status_id)
-      end
-    end
-    replies = replies.sort_by { |reply| reply.created_at.strftime("%s") }
-  %>
-  <% if(!user) %>
-    <%= display_error($errors[:user_not_registered]) %>
-  <% else %>
   <% if(@error) %>
     <%= display_error(@error) %>
-  <% end %>
-  <%# this gives a list of all of the retweet datas%>
-  <%# iterate through this and get the user, then the user's ID%>
-  <%# then check if this is in the user's database%>
-  <script>var json = <%= $client.retweets(tweet.id, options = {}).to_json %>;console.log(json)</script>
-
+  <% else %>
   <div class="mb-3 col-lg-5 col-md-12">
-    <p>Tweet <small><a target="_blank" href="<%= tweet.uri %>">View tweet</a></small></p>
+    <p>Tweet <small><a target="_blank" href="<%= @tweet.uri %>">View tweet</a></small></p>
     <ul class="list-group mb-3" id="tweets">
         <li class='list-group-item'>
           <div class="d-flex w-100">
             <div class="profile-image mr-3">
-              <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+              <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
             </div>
             <div class="profile">
-              <h5 class="mb-1"><%= user.fullname %> <span><%= tweet.created_at.asctime %></span></h5>
-              <p class="mb-1"><%= tweet_text %></p>
+              <h5 class="mb-1"><%= @user.fullname %> <span><%= @tweet.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= @tweet_text %></p>
             </div>
           </div>
         </li>
-        <% replies.each do |reply| %>
+        <% @replies.each do |reply| %>
         <% 
           user = User.find_by(twitter_id: reply.user.id) if(User.exists?(twitter_id: reply.user.id))
           if reply.truncated? && reply.attrs[:extended_tweet]
@@ -92,7 +46,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="reply">New message to <%= tweet.user.screen_name %></h5>
+              <h5 class="modal-title" id="reply">New message to <%= @tweet.user.screen_name %></h5>
               <button type="button" class="close" data-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -106,44 +60,48 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="reply-send" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">Send</button>
+              <button type="button" class="btn btn-primary" id="reply-send" data-user="<%=@tweet.user.screen_name%>" data-tweet="<%=@tweet.id%>">Send</button>
             </div>
           </div>
         </div>
       </div>
-      <p>User Details <small><a href="/user/<%= user.id %>">View user</a></small></p>
+      <p>User Details <small><a href="/user/<%= @user.id %>">View user</a></small></p>
       <ul class="list-group mb-3">
           <li class='list-group-item'>
             <div class="d-flex w-100">
               <div class="profile-image mr-3">
-                <img class="rounded-circle" src="<%= tweet.user.profile_image_url %>" />
+                <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
               </div>
               <div class="profile">
-                <p class="mb-1">Name: <%= user.fullname %></p>
-                <p class="mb-1">Username: <%= user.username %></p>
-                <p class="mb-1">Twitter profile: <a target="_blank" href="<%= tweet.user.uri %>"><%= tweet.user.screen_name %></a></p>
+                <p class="mb-1">Name: <%= @user.fullname %></p>
+                <p class="mb-1">Username: <%= @user.username %></p>
+                <p class="mb-1">Twitter profile: <a target="_blank" href="<%= @tweet.user.uri %>"><%= @tweet.user.screen_name %></a></p>
                 <p class="mb-1">
                   Dietary requirements: 
-                  <% if(user.user_special_conditions.empty?) %>
+                  <% if(@user.user_special_conditions.empty?) %>
                   N/A
                   <% else %>
                     <ul>
-                      <% user.user_special_conditions.each do |user_special_condition| %>  
+                      <% @user.user_special_conditions.each do |user_special_condition| %>  
                         <li><%= user_special_condition.special_condition.name %></li>
                       <% end %>
                     </ul>
                   <% end %>
                 </p>
-                <p class="mb-1">Postcode: <%= user.postcode %></p>
+                <p class="mb-1">Location: <%=@user.location.name%></p>
+                <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
+                <p class="mb-1">Address: <%= @user.address %></p>
                 <%# Shows the user's current rewards to the screen %>
-                <p>User's Rewards:
-                  <% user.user_campaigns.each do |reward| %> 
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
-                      <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
-                    </div>
-                  <% end %> 
-                </p>
+                <% if(!@user_campaigns.empty?) %>
+                  <p>User's Rewards:
+                    <% @user_campaigns.each do |reward| %> 
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                        <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                      </div>
+                    <% end %> 
+                  </p>
+                <% end %>
                 </div>
               </div>
             </li>
@@ -153,8 +111,8 @@
       <p>Order Overview</p>
       <div class="card mb-3">
         <div class="card-header">
-          <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
-          <%= user.fullname %>
+          <img width="30px" class="rounded-circle mr-2" src="<%= @tweet.user.profile_image_url %>" />
+          <%= @user.fullname %>
           <span class="badge badge-danger">Not yet created</span>
         </div>
         <form class="needs-validation" id="order" method="post" novalidate>
@@ -187,6 +145,6 @@
         </form>
       </div>
   </div>
-  <% end end %>
+  <% end %>
   </div>
   <%= erb :footer %>

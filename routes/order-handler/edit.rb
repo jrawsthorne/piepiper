@@ -32,13 +32,18 @@ class PiePiper < Sinatra::Base
     @js = ['/scripts/forms.js', '/scripts/bootstrap-datetimepicker.min.js']
     @order_id = params['order_id']
     @order = Order.find(@order_id) if(Order.exists?(@order_id))
-    @tweet = @order.get_tweet if @order
-    if @tweet.truncated? && @tweet.attrs[:extended_tweet]
-      @tweet_text = @tweet.attrs[:extended_tweet][:full_text]
+    if(!@order)
+      @error = $errors[:order_not_exist]
     else
-      @tweet_text = @tweet.attrs[:text] || @tweet.attrs[:full_text]
+      @tweet = @order.get_tweet if @order
+      if @tweet.truncated? && @tweet.attrs[:extended_tweet]
+        @tweet_text = @tweet.attrs[:extended_tweet][:full_text]
+      else
+        @tweet_text = @tweet.attrs[:text] || @tweet.attrs[:full_text]
+      end
+      @user = @order.user if @order
+      @user_campaigns = @user.user_campaigns
     end
-    @user = @order.user if @order
     @title = "Edit order"
     erb :'/orders/edit-order'
   end

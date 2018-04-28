@@ -1,31 +1,23 @@
 <%= erb :header %>
 <form class="form-signin" method="post" action="/campaigns/new">
   <h3> New Marketing Campaigns </h3>
-
   <form class="campaignform">
     <div class="form-group">
       <label for="prize">Select a prize</label>
       <select style="height:45px" class="form-control" name="reward" id="reward_id">
         <% @campaign_types.each do |campaign_type| %>
           <option for="<%=campaign_type.id%>" value="<%=campaign_type.id%>"><%=campaign_type.type_name%></option>
-
         <% end %>
       </select>
-
+    </div>
     <div class="form-group">
       <label for="winner_number">Retweet number, 0 is random</label>
       <textarea class="form-control" name="winner_number" rows="0" placeholder="0"></textarea>
     </div>
-
     <div class="form-group">
       <label for="message">Message</label>
       <textarea class="form-control" name="message" rows="3" placeholder="First person to retweet wins a 10% discount!"></textarea>
     </div>
-
-      <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>
-
-    
+    <button class="btn btn-primary" href="#" role="button" type="submit">Submit</button>    
   </form>
-
-
 <%= erb :footer %>

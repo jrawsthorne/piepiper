@@ -45,7 +45,7 @@
           <td>
             <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               <select class="form-control account_select" data-user="<%=@user.id%>"  data-default="<%=@user.account_type_id%>" id = "select<%=@user.id%>">
-                <% AccountType.all.each do |type| %>
+                <% @account_types.each do |type| %>
                   <option value="<%=type.id%>" <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
                 <% end %>
               </select>

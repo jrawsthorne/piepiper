@@ -24,6 +24,7 @@ class PiePiper < Sinatra::Base
     @title = "Users"
     # get all users from database
     @users = User.all
+    @account_types = AccountType.all
     @js = ['/scripts/users.js']
     erb :'/user/users'
   end
