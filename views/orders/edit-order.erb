@@ -64,6 +64,7 @@
         #<%=@order_id%> 
         <%= @user.fullname %>
         <span class="badge badge-info"><%= @order.order_state.name %></span>
+        <span class="badge badge-secondary"><%= @order.location.name %></span>
       </div>
       <form class="needs-validation" id="order" method="post" novalidate>
         <ul class="list-group list-group-flush">
