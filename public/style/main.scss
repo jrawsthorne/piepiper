@@ -17,7 +17,17 @@ nav .logo {
 }
 
 nav .logo:hover {
-    opacity: 0.65;
+  opacity: 0.65;
+}
+
+.twitter-button {
+  height: 54px;
+  line-height: 54px;
+  width: 92px
+}
+
+.campaign-header {
+  align-items: center;
 }
 
 .footer {

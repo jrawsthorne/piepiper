@@ -1,4 +1,4 @@
-$("select").on('change', function() {
+$("select.account_select").on('change', function() {
   if($(this).val() == 3) {
     if(!confirm("Warning: User with ID number: "+$(this).data('user')+" will be granted administrator priviliges with this change. Are you sure you want to make this change?")) {
       resetForm("select"+$(this).data('user'), $(this).data('default'))

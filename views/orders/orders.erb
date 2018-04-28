@@ -1,10 +1,6 @@
 <%= erb :header %>
-<h3><%=@location.name%> orders
-  <select class="mt-3 form-control" id="locationChanger">
-  <% @locations.each do |location| %>
-    <option <%= 'selected' if(location.id == @location.id) %> value="<%=location.name%>"><%=location.name%></option>
-  <% end %>
-</select></h1>
+<p><%=@location.name %> Orders</p>
+<hr>
 <div class="row">
   <%= display_success("New order \##{flash[:new_order]} added successfully") if(flash[:new_order]) %>
   <%= display_success("Order \##{flash[:delete_order]} deleted successfully") if(flash[:delete_order]) %>
@@ -34,7 +30,7 @@
               </h5>
               <p class="mb-1"><%= tweet_text %></p>
               <% if(User.exists?(twitter_id: tweet.user.id)) %>
-                <p class="mb-1"><a class="text-secondary" href="/new-order/<%=tweet.id%>">Create order from tweet</a></p>
+                <p class="mb-1"><a class="mt-2 btn-sm btn btn-outline-primary" href="/new-order/<%=tweet.id%>">New order</a></p>
               <% else %>
                 <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
                 <p class="mb-1"><a class="text-secondary tell-user-signup" href="/orders" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">Tell user they need to sign up before tweeting</a></p>
@@ -45,11 +41,12 @@
       <% end %>
       </ul>
       <% else %>
+        <hr>
         <p>Sorry, there are no incoming tweets</p>
       <% end %>
     </div>
     <div class="col-lg-6 col-md-12">
-      <p>Orders <% if(@completed_orders.exists?) %><small><a href="/orders/completed">View completed orders</a></small><% end %></p>
+      <p>Orders <% if(@completed_orders.exists?) %><a href="/orders/completed" class="btn-sm btn btn-outline-primary ml-2">Completed orders</a><% end %></p>
       <% if(@orders.exists?) %>
         <div id="accordion">
         <% 
@@ -84,6 +81,7 @@
         <% end %>
       </div>
     <% else %>
+      <hr>
       <p>Sorry, there are no active orders</p>
     <% end %>
     </div>

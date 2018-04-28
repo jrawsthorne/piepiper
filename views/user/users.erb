@@ -2,6 +2,7 @@
 <p>Users</p>
 <% # show error if there are no users in the database %>
 <% if(!@users.exists?) %>
+  <hr>
   <p>Sorry, no users exist</p>
 <% else %>
     <div class="table-responsive mb-3">

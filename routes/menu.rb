@@ -12,7 +12,6 @@ class PiePiper < Sinatra::Base
       @title = "Menu loading"
       erb :'/pages/loading'
     else
-      @js.push('/scripts/locationChanger.js')
       @title = "Menu"
       @item_types = ItemType.all
       @special_conditions = SpecialCondition.all

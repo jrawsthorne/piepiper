@@ -56,10 +56,11 @@
       </table>
     </div>
     <p>User orders <small><a href="/orders">Go to orders</a></small></p>
+    <% if(@orders.empty?) %>
+      <hr>  
+      <p>This user has no orders<p>
+    <% else %>
     <div class="table-responsive mb-3">
-      <% if(@orders.empty?) %>
-          <p>This user has no orders<p>
-      <% else %>
       <table class="table">
         <thead>
           <tr>

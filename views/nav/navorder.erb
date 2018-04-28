@@ -15,6 +15,15 @@
         <li class="nav-item <%=current_class?('/orders')%>">
           <a class="nav-link" href="/orders">Orders</a>
         </li>
+        <% if(@locations) %>
+        <li class="nav-link nav-item">
+          <select class="form-control" id="locationChanger">
+            <% @locations.each do |location| %>
+              <option <%= 'selected' if(location.id == @location.id) %> value="<%=location.name%>"><%=location.name%></option>
+            <% end %>
+          </select>
+        </li>
+        <% end %>
         <li class="nav-item <%=current_class?('/logout')%>">
           <a class="nav-link" href="/logout">Log Out</a>
         </li>

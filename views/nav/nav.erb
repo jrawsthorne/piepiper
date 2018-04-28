@@ -21,13 +21,22 @@
         <li class="nav-item <%=current_class?('/signup')%>">
           <a class="nav-link" href="/signup">Signup</a>
         </li>
-        <li>
+        <% if(@locations) %>
+        <li class="nav-link nav-item">
+          <select class="form-control" id="locationChanger">
+            <% @locations.each do |location| %>
+              <option <%= 'selected' if(location.id == @location.id) %> value="<%=location.name%>"><%=location.name%></option>
+            <% end %>
+          </select>
+        </li>
+        <% end %>
+        <li class="nav-link twitter-button nav-item">
             <a class="twitter-share-button"
               href="https://twitter.com/intent/tweet?text=@piepiperchef #order I'd like to order: "
                data-url="#"
                position="relative"
               data-size="large">
-            Tweet</a>
+            </a>
         </li>
       </ul>
     </div>

@@ -1,7 +1,8 @@
 <%= erb :header %>
 <div class="row">
-  <div class="col-md-12">
-    <p>Completed Orders <small><a href="/orders">View all orders</a></small></p>
+  <div class="col-md-6">
+    <p>Completed <%=@location.name %> Orders <a href="/orders" class="btn-sm btn btn-outline-primary ml-2">All orders</a></p>
+    <hr>
     <% if(@orders.exists?) %>
     <% @orders.each do |order| %>
     <% tweet = order.get_tweet %>

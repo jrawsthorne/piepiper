@@ -18,14 +18,20 @@
         <li class="nav-item <%=current_class?('/orders')%>">
           <a class="nav-link" href="/orders">Orders</a>
         </li>
-        <li class="nav-item <%=current_class?('/allcampaigns')%>">
-          <a class="nav-link" href="/campaigns/all">All Campaigns</a>
+        <li class="nav-item <%=current_class?('/campaigns/all')%>">
+          <a class="nav-link" href="/campaigns/all">Campaigns</a>
         </li>
-        <li class="nav-item <%=current_class?('/campaigns')%>">
-          <a class="nav-link" href="/campaigns/new">New Campaigns</a>
-        </li>
-        <li class="nav-item <%=current_class?('/items')%>">
-          <a class="nav-link" href="/items">Items</a>
+        <li class="nav-link nav-item">
+          <% if(@locations) %>
+          <% id = 'locationChanger' %>
+          <% else %>
+          <% id = 'locationChangerReload' %>
+          <% end %>
+          <select class="form-control" id="<%=id%>">
+            <% Location.all.each do |location| %>
+              <option <%= 'selected' if(location.id == session[:location_id]) %> value="<%=location.name%>"><%=location.name%></option>
+            <% end %>
+          </select>
         </li>
         <li class="nav-item <%=current_class?('/logout')%>">
           <a class="nav-link" href="/logout">Log Out</a>

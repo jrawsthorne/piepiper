@@ -3,11 +3,11 @@ def current_class?(test_path)
 end
 
 def display_error(error)
-  return '<div class="alert alert-danger col-sm-12" role="alert">'+error+'</div>'
+  return '<div class="col-md-12"><div class="alert alert-danger col-sm-12" role="alert">'+error+'</div></div>'
 end
 
 def display_success(success)
-  return '<div class="alert alert-success col-sm-12" role="alert">'+success+'</div>'
+  return '<div class="col-md-12"><div class="alert alert-success col-sm-12" role="alert">'+success+'</div></div>'
 end
 
 $errors = {

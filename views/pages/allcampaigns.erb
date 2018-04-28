@@ -1,7 +1,11 @@
 <%= erb :header %>
-<p>Campaigns</p>
+<div class="d-flex campaign-header">
+  <div class="mr-auto"><p class="mb-0">Marketing Campaigns</p></div>
+  <div><a href="/campaigns/new" class="btn-sm btn btn-outline-success">New campaign</a></div>
+</div>
 <% # show error if there are no campaign in the database %>
 <% if(!@campaigns.exists?) %>
+<hr>
 <p>Sorry, no campaigns exist</p>
 <% else %>
     <div class="table-responsive mb-3">
