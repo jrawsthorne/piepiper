@@ -63,8 +63,8 @@ class PiePiper < Sinatra::Base
   end
 
   get '/api/get-items' do
-    if(authenticated?)
-      prices = get_items_with_prices
+    if(authenticated? && params[:location])
+      prices = get_items_with_prices(params[:location])
       content_type :json
       return prices.to_json
     else

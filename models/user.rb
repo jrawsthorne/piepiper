@@ -18,6 +18,13 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+  def address
+    if(house && street && postcode)
+      return house + " " + street + ", " + postcode
+    else
+      return nil
+    end
+  end
   def get_id
     return id
   end

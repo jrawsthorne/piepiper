@@ -1,7 +1,7 @@
 <%= erb :header %>
 <div class="row">
-  <% if(!@order) %>
-    <%= display_error($errors[:order_not_exist]) %>
+  <% if(@error) %>
+    <%= display_error(@error) %>
   <% else %>
   <div class="mb-3 col-lg-5 col-md-12">
     <p>Tweet <small><a target="_blank" href="<%= @tweet.uri %>">View tweet</a></small></p>
@@ -42,14 +42,20 @@
                   <% end %>
                 </p>
                 <p class="mb-1">Postcode: <%= @user.postcode %></p>
-                <p>User's Rewards:
-                  <% @user.user_campaigns.each do |reward| %> 
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
-                      <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
-                    </div>
-                  <% end %> 
-                </p>
+                <p class="mb-1">Location: <%=@user.location.name%></p>
+                <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
+                <p class="mb-1">Address: <%= @user.address %></p>
+                <%# Shows the user's current rewards to the screen %>
+                <% if(!@user_campaigns.empty?) %>
+                  <p>User's Rewards:
+                    <% @user_campaigns.each do |reward| %> 
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                        <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                      </div>
+                    <% end %> 
+                  </p>
+                <% end %>
 
               </div>
             </div>
