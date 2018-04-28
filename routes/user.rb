@@ -22,21 +22,6 @@ class PiePiper < Sinatra::Base
     user = User.find_by_username(params[:username])
     if !user.nil? && user.password == params[:password]
       session[:user_id] = user.id
-      #Pony.mail({
-      #  :to => 'jake@jakerawsthorne.co.uk',
-      #  :from => 'no-reply@pie-piper.me',
-      #  :subject => 'Logged in',
-      #  :body => 'Thanks for loggin in '+user.fullname,
-      #  :via => :smtp,
-      #  :via_options => {
-      #    :address              => 'smtp.zoho.eu',
-      #    :port                 => '587',
-      #    :user_name            => 'no-reply@pie-piper.me',
-      #    :password             => 'sb3I5S7Cj9*5',
-      #    :authentication       => :plain,
-      #    :enable_starttls_auto => true,
-      #  }
-      #})
       redirect '/'
     else
       flash[:error] = "Incorrect credentials"
