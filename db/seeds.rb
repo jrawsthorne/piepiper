@@ -88,7 +88,7 @@ item_locations = [
   {item_id: 25, location_id: 2}
 ]
 
-(0..24).each do |i|
+(1..24).each do |i|
     item_locations.push({item_id: i, location_id: 1})
     item_locations.push({item_id: i, location_id: 2})
   end
