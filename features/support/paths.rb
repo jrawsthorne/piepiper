@@ -9,8 +9,11 @@ module NavigationHelpers
     case page_name
 
     when /the home\s?page/
-      '/?location=Sheffield'
+      '/'
       
+    when /the homedef page/
+      '/?location=Sheffield'
+        
     when /the login page/
       '/login'
       

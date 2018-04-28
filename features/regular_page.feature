@@ -9,7 +9,7 @@ Feature: Regular pages
     Then I should see "We are Pie Piper"
     
   Scenario: Menu page
-    Given I am on the home page
+    Given I am on the homedef page
     Then I should see "Food menu"
     
   Scenario: Logo 
