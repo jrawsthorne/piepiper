@@ -2,7 +2,7 @@ $(function (){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getCity, getLocation, {enableHighAccuracy: true, timeout: 1000, maximumAge: 0});
   } else {
-    getLocation('a')
+    getLocation()
   }
   // Get the latitude and the longitude;
   function getCity(position) {
@@ -24,8 +24,7 @@ $(function (){
         'Content-Type': 'application/json'
       })
     })
-    .then((res) => res.json())
-    .then((city) => window.location.href = "/?location="+city)
+    .then(() => window.location.href = "/")
   }
   
 })
