@@ -20,7 +20,7 @@
       <%  
         tweets.each do |tweet|
         hashtag = tweet.hashtags[0].text if (!tweet.hashtags.empty?)
-        if(!Order.exists?(tweet_id: tweet.id) && hashtag == "order" )
+        if(!Order.exists?(tweet_id: tweet.id) && hashtag == "order" && User.find_by(twitter_id: tweet.user.id).location_id == @location.id)
           if tweet.truncated? && tweet.attrs[:extended_tweet]
             tweet_text = tweet.attrs[:extended_tweet][:full_text]
           else
