@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :user_special_conditions
   has_many :orders
   has_many :user_campaigns
+  belongs_to :location
   def fullname
     [firstname, lastname].join(' ')
   end

@@ -26,6 +26,7 @@
         <label for="address">Address</label>
         <input  autocomplete="off" type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" placeholder="<%=@user.postcode%>" required>
       </div>
+      <input type="hidden" name="location" id="location">
       <% # display their twitter screen name if the user has a twitter id associated with them %>
       <% if (@twitter_user) %>
       <div class="form-group">

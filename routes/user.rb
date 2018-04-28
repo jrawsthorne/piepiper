@@ -69,7 +69,8 @@ class PiePiper < Sinatra::Base
       params[:house],
       params[:street],
       params[:postcode],
-      diet
+      diet,
+      params[:location]
           )
       redirect('/account')
   end
