@@ -1,5 +1,14 @@
 $(function (){
   $('#locationChanger').on("change", function() {
-    window.location.href = "/?location="+$(this).val()
+    const city = $(this).val()
+    fetch('/get-location', {
+      credentials: "same-origin",
+      method: 'POST',
+      body: JSON.stringify({city}),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    window.location.href = "?location="+city
   })
 })

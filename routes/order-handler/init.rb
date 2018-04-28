@@ -5,8 +5,15 @@ require_relative 'delete'
 class PiePiper < Sinatra::Base
   get '/orders' do
     order_handler!
-    @js = ['/scripts/orders.js']
+    @js = ['/scripts/orders.js', '/scripts/locationChanger.js']
     @title = "Orders"
+    if(!params[:location] || !Location.exists?(name: params[:location]))
+      @location = Location.find(session[:location_id])
+    else
+      @location = Location.find_by(name: params[:location])
+    end
+    @locations = Location.all
+    @orders = Order.where(location_id: @location.id)
     erb :'orders/orders'
   end
   
