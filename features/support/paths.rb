@@ -53,6 +53,9 @@ module NavigationHelpers
     when /the new_campaigns page/
       '/campaigns/new'     
 
+    when /the items page/
+      '/items'
+        
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

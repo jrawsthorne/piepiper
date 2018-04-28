@@ -61,3 +61,11 @@ Feature: Regular pages
     When I press "Login" within "form"
     When I go to the users page
     Then I should see "Account Type"
+    
+  Scenario: Items page
+    Given I am on the login page
+    When I fill in "username" with "admin"
+    When I fill in "password" with "admin"
+    When I press "Login" within "form"
+    When I go to the items page
+    Then I should see "Submit"  
