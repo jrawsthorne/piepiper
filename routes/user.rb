@@ -12,6 +12,7 @@ class PiePiper < Sinatra::Base
 
   get '/about' do
     @title = "About Us"
+    @js = ['/scripts/about.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places']
     erb :'/pages/about'
   end
 
@@ -57,7 +58,7 @@ class PiePiper < Sinatra::Base
   get '/signup' do
     @title = "Sign up"
     # get the twitter user from the session if the session exists
-    @js = ['/scripts/address.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
+    @js = ['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
     @twitter_user = $client.user(flash[:twitter_id].to_i) if flash[:twitter_id]
     @special_conditions = SpecialCondition.all
     @locations = Location.all
@@ -116,7 +117,7 @@ class PiePiper < Sinatra::Base
       status 200
     end
   end
-    
+
   get '/tablepdf' do
     Item.write_to_pdf()
     file = File.open('price_list.pdf')

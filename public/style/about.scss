@@ -23,3 +23,26 @@ p .text{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
+
+
+#map_Sheffield {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  float: left;
+  display: inline-block;
+}
+#map_Leeds {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  float: right;
+  display: inline-block;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
