@@ -13,6 +13,7 @@
           <th scope="col">House Number/Name</th>
           <th scope="col">Street Name</th>
           <th scope="col">Postcode</th>
+          <th scope="col">Location</th>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
@@ -40,12 +41,15 @@
           <td><%= @user.house %></td>
           <td><%= @user.street %></td>
           <td><%= @user.postcode %></td>
+          <td><%= @user.location.name if (@user.location) %></td>
           <td>
-            <select data-user="<%=@user.username%>">
-              <% AccountType.all.each do |type| %>
-                <option value="<%=type.id%>"    <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
-              <% end %>
-            </select>
+            <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <select class="form-control account_select" data-user="<%=@user.id%>"  data-default="<%=@user.account_type_id%>" id = "select<%=@user.id%>">
+                <% AccountType.all.each do |type| %>
+                  <option value="<%=type.id%>" <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                <% end %>
+              </select>
+            </form>
           </td>
         </tr>
       </tbody>

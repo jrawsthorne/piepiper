@@ -9,6 +9,6 @@ $(function (){
         'Content-Type': 'application/json'
       })
     })
-    window.location.href = "?location="+city
+    .then(() => window.location.href = "?location="+city)
   })
 })
