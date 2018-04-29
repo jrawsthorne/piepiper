@@ -94,12 +94,13 @@
                 <%# Shows the user's current rewards to the screen %>
                 <% if(!@user_campaigns.empty?) %>
                   <p>User's Rewards:
-                    <% @user_campaigns.each do |reward| %> 
-                      <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== reward.id.to_i}.length %>
+
+                    <% @campaign_types.each do |type| %>
+                      <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== type.id.to_i}.length %>
                       <% if count != 0 %>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="rewards[]" value="<%= reward.campaign.campaign_type.percentage_reduced%>" id="reward-<%= reward.campaign.campaign_type.id%>">
-                          <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                          <input class="form-check-input" type="radio" name="rewards[]" value="<%= type.percentage_reduced%>" id="reward-<%= type.id%>">
+                          <label class="form-check-label" for="<%= type.type_name%>"><%= type.type_name%></label>
                         </div>
                       <% end %>
                     <% end %> 

@@ -53,8 +53,7 @@
             <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== type.id.to_i}.length %>
             <% if count != 0 %>
               <li>
-                <%= count %>
-                <%= type.type_name %> 
+                <%= count + " " +type.type_name %> 
               </li>
             <% end %>
           <% end %>

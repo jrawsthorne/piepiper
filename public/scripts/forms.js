@@ -54,7 +54,9 @@ $(function (){
     $("#menu-items").find(".price").each(function() {
       total += (parseFloat($(this).val().replace("£","")))
     })
+
     $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+
   }
 
   $("#menu-items").on('keyup keydown change click', "input, .dropdown-item", function() {
@@ -74,14 +76,19 @@ $(function (){
   $("input[name='rewards[]']").on('click', function() {
     console.log($(this).val())
     total = 0
-    if($(this).val() != 100 || null){
-      
-      $("#menu-items").find(".price").each(function() {
+    $("#menu-items").find(".price").each(function() {
         total += (parseFloat($(this).val().replace("£","")))
       })
+    if($(this).val() != 100 || null){
       total -= (total * $(this).val() / 100)
-      $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+     
+    } else if($(this).val() == 100){
+      var min_of_array = Math.min.apply(Math, $("#menu-items").find(".price"))
+      console.log(min_of_array)
+    } else {
+
     }
+     $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
   })
 
   var num = 0;
