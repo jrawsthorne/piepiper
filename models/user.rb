@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     self.password_reset_token = get_random_string
     self.save
   end
+  def remove_token
+    self.password_reset_token = nil
+    self.save
+  end
 end
 
 class AccountType < ActiveRecord::Base
