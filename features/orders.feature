@@ -36,16 +36,18 @@ Feature: orders
     When I go to the new_order page
     When I fill in "item[]" with "Lager"
     When I press "submit_order"
-    Then I should see "added successfully" within ".success"
+    Then I should be on the orders_norm page
+    Then I should see "added successfully" within "body"
     
     Scenario: Delete order success
    Given I am on the login page
    When I fill in "username" with "admin"
    When I fill in "password" with "admin"
    When I press "Login" within "form"
-   When I go to the orders page
+   When I go to the orders_norm page
    When I follow "Delete"
-   Then I should see "deleted successfully" within ".success"
+   Then I should be on the orders_norm page
+   Then I should see "deleted successfully" within "body"
   
     
   Scenario: New order tweet doesn't exist

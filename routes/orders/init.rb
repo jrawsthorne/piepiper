@@ -7,7 +7,11 @@ class PiePiper < Sinatra::Base
     order_handler!
     @js = ['/scripts/orders.js']
     if(!params[:location] || !Location.exists?(name: params[:location]))
-      @location = Location.find(session[:location_id])
+      if(!Location.exists?(session[:location_id])) 
+          @location = Location.first
+      else
+          @location = Location.find(session[:location_id])
+      end
     else
       @location = Location.find_by(name: params[:location])
     end
