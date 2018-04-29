@@ -11,7 +11,8 @@ $("form[id='login']").submit(function(e){
     const latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
     new google.maps.Geocoder().geocode({'latLng': latlng}, (results, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
-        const city = results.find(result => result.types[0] === "locality").address_components[0].long_name
+        if(results.find(result => result.types[0] === "locality")) {
+          const city = results.find(result => result.types[0] === "locality").address_components[0].long_name
           fetch('/set-location', {
             credentials: "same-origin",
             method: 'POST',
@@ -21,6 +22,9 @@ $("form[id='login']").submit(function(e){
             })
           })
           .then(() => form.submit())
+        } else {
+          form.submit();
+        }
       } else {
         form.submit();
       }
