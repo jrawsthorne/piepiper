@@ -38,16 +38,6 @@ Feature: orders
     When I press "submit_order"
     Then I should be on the orders_norm page
     Then I should see "added successfully" within "body"
-
-    Scenario: Delete order success
-   Given I am on the login page
-   When I fill in "username" with "admin"
-   When I fill in "password" with "admin"
-   When I press "Login" within "form"
-   When I go to the orders_norm page
-   When I follow "Delete"
-   Then I should be on the orders_norm page
-   Then I should see "deleted successfully" within "body"
     
   Scenario: Delete order success
     Given I am on the login page
