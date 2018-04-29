@@ -8,6 +8,9 @@ def check_input(items, quantities)
       break
     end
   end
+  if(items.length != quantities.length)
+    return "Mismatch"
+  end
   quantities.each do |quantity|
     quantity = quantity.to_i
     if(quantity <= 0)
