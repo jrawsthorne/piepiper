@@ -3,7 +3,7 @@ class PiePiper < Sinatra::Base
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
     city = payload[:city]
-    if(payload[:city].empty?)
+    if(!city || city.empty?)
       location = Location.first
       session[:location_id] = location.id
       return location.name.to_json
