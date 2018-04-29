@@ -1,3 +1,4 @@
+
 html {
   position: relative;
   min-height: 100%;
@@ -12,11 +13,21 @@ body {
 nav .logo {
   font-family: "Arizonia";
   font-size: 50px;
-  transition: opacity .3s ease
+  transition: opacity .3s ease;
 }
 
 nav .logo:hover {
-    opacity: 0.65;
+  opacity: 0.65;
+}
+
+.twitter-button {
+  height: 54px;
+  line-height: 54px;
+  width: 92px
+}
+
+.campaign-header {
+  align-items: center;
 }
 
 .footer {
@@ -34,4 +45,29 @@ main {
 
 #submit_order:focus {
   box-shadow: none;
+}
+
+#map {
+  height: 100%;
+  height: 500px;
+  width:460px;
+}
+
+.Menu .badge {
+  margin: 15px;
+}
+
+#fb-wrap{
+  background-color: #foo;
+}
+#facebook-share{
+  opacity: 0;
+}
+
+.indexx{
+  text-align: center;
+}
+
+.account_select {
+  width: 160px;
 }

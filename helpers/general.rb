@@ -3,11 +3,11 @@ def current_class?(test_path)
 end
 
 def display_error(error)
-  return '<div class="alert alert-danger col-sm-12" role="alert">'+error+'</div>'
+  return '<div class="col-md-12 error"><div class="alert alert-danger col-sm-12" role="alert">'+error+'</div></div>'
 end
 
 def display_success(success)
-  return '<div class="alert alert-success col-sm-12" role="alert">'+success+'</div>'
+  return '<div class="col-md-12 success"><div class="alert alert-success col-sm-12" role="alert">'+success+'</div></div>'
 end
 
 $errors = {
@@ -27,7 +27,11 @@ def istweet(tweet_id)
 end
 
 def get_user_from_tweet(tweet_id)
-  return $client.status(tweet_id.to_i).user.id
+  begin
+    return $client.status(tweet_id.to_i).user.id
+  rescue Twitter::Error
+    return nil
+  end
 end
 
 def display_currency(price)

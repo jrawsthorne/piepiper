@@ -10,12 +10,13 @@ SimpleCov.start do
   add_filter 'db/'
 end
 
-## Replace with path to your controller 
+## Replace with path to your controller
 require_relative '../../app'
 
 ENV['RACK_ENV'] = 'test'
 
-Capybara.app = Sinatra::Application
+Capybara.app = PiePiper
+Capybara.ignore_hidden_elements = false
 
 class Sinatra::ApplicationWorld
   include RSpec::Expectations
@@ -24,8 +25,5 @@ class Sinatra::ApplicationWorld
 end
 
 World do
-	Sinatra::ApplicationWorld.new  
+	Sinatra::ApplicationWorld.new
 end
-
-
-

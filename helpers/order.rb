@@ -8,6 +8,9 @@ def check_input(items, quantities)
       break
     end
   end
+  if(items.length != quantities.length)
+    return "Mismatch"
+  end
   quantities.each do |quantity|
     quantity = quantity.to_i
     if(quantity <= 0)
@@ -18,11 +21,15 @@ def check_input(items, quantities)
   return false
 end
 
-def new_order(items, quantities, tweet_id)
+def new_order(items, quantities, tweet_id, campaign_id)
   order = Order.new do |u|
     u.user_id = User.where(twitter_id: get_user_from_tweet(tweet_id)).pluck(:id).join
     u.tweet_id = tweet_id
     u.order_state_id = 1
+    u.location_id = User.where(twitter_id: get_user_from_tweet(tweet_id)).pluck(:location_id).join
+    if(campaign_id)
+      u.campaign_id = campaign_id
+    end
   end
   order.save
   items.each_with_index do |item,i|

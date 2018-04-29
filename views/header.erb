@@ -5,20 +5,23 @@
         <meta author="Lucas Maybury, Jake Rawsthrone, Collin Coutinho, Palash Surana, Seth Faulkner, Sofia Bodurova, Vasilka Zheleva">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/bootstrap-datetimepicker.min.css">
         <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico">
         <title><%= @title %> - Pie Piper</title>
     </head>
     <body>
-      <% if(authenticated?) %>
+      <% # show the nav bar specific to the user account type %>
         <% account_type = get_account_type_from_session %>
-        <% if(account_type == 1) %>
-          <%= erb :'./nav/navuser' %>
-        <% elsif(account_type == 2) %>
-          <%= erb :'./nav/navorder' %>
-        <% else %>
-          <%= erb :'./nav/navadmin' %>
-        <% end %>
-      <% else %>
-        <%= erb :'./nav/nav' %>
+        <% 
+          case account_type
+          when 1 %>
+            <%= erb :'./nav/user' %>
+          <% when 2 %>
+            <%= erb :'./nav/order' %>
+          <% when 3 %>
+            <%= erb :'./nav/admin' %>
+          <% else %>
+            <%= erb :'./nav/nav' %>
       <% end %>
+      <% # create a valid css class for each page to target individual pages with custom styles %>
       <main class="container <%= @title.delete(' ') %>">

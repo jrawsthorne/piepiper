@@ -7,3 +7,36 @@
 .Menu .menu img {
   object-fit: contain;
 }
+
+.frame {
+  width: 350px;
+  height: 350px;
+  margin: 10px;
+}
+
+.text {
+  text-align: center;
+}
+
+.non-veg {
+    background-color: #d81b1b;
+}
+
+.menu-img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+}
+
+.currency:hover {
+    background: none;
+    color: $success;
+    cursor: initial!important;
+}
+
+.currency:active {
+	position:relative;
+}

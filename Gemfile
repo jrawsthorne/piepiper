@@ -5,8 +5,9 @@ gem 'twitter', '~> 6.2'
 gem 'json'
 gem 'omniauth-twitter'
 gem 'sinatra-flash'
-gem 'activerecord'
+gem 'activerecord', '~> 5.2.0'
 gem 'sinatra-activerecord'
+gem 'minitest'
 gem 'rake'
 gem 'cucumber'
 gem 'capybara'
@@ -19,6 +20,7 @@ gem 'sinatra-contrib'
 group :development, :test do
   gem 'sqlite3'
 end
-group :production do
-  gem 'pg'
-end
+gem 'bcrypt' 
+gem 'pony'
+gem 'prawn', '~> 1.2.1'
+gem 'prawn-table', '~>0.1.0'

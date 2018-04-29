@@ -1,5 +1,4 @@
 <%= erb :header %>
-<% user = User.find(params['user_id']) %>
     <p>User details <small><a href="/users">Go to users</a></small></p>
     <div class="table-responsive mb-3">
       <table class="table">
@@ -9,56 +8,82 @@
           <th scope="col">First</th>
           <th scope="col">Last</th>
           <th scope="col">Username</th>
-          <th scope="col">Twitter Profile</th>
+          <%= '<th scope="col">Twitter Profile</th>' if @twitter_user %>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">Address</th>
+          <%= '<th scope="col">House Number/Name</th>' if @user.house %>
+          <%= '<th scope="col">Street Name</th>' if @user.street %>
+          <%= '<th scope="col">Postcode</th>' if @user.postcode %>
+          <%= '<th scope="col">Location</th>' if @user.location %>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row"><%= user.id %></th>
-          <td><%= user.firstname %></td>
-          <td><%= user.lastname %></td>
-          <td><%= user.username %></td>
-          <td><a target="_blank" href="<%= $client.user(user.twitter_id.to_i).uri %>"><%= $client.user(user.twitter_id.to_i).screen_name %></a></td>
+          <th scope="row"><%= @user.id %></th>
+          <td><%= @user.firstname %></td>
+          <td><%= @user.lastname %></td>
+          <td><%= @user.username %></td>
+          <% # display their twitter screen name if the user has a twitter id associated with them %>
+          <% if @twitter_user %>
+            <td><a target="_blank" href="<%= @twitter_user.uri %>"><%= @twitter_user.screen_name %></a></td>
+          <% end %>
           <td>
-            <% if(user.user_special_conditions.empty?) %>
+            <% # show dietary requirements as N/A if user has none %>
+            <% if(@user_special_conditions.empty?) %>
             N/A
             <% else %>
-              <ul>
-                <% user.user_special_conditions.each do |user_special_condition| %>  
-                  <li><%= user_special_condition.special_condition.name %></li>
-                <% end %>
-              </ul>
+              <% # otherwise iterate through them and show the name of the requirement %>
+              <% @user_special_conditions.each do |user_special_condition| %>
+                <p><%= user_special_condition.special_condition.name %></p>
+              <% end %>
             <% end %>
           </td>
-          <td><%= user.address %></td>
-          <td><%= user.account_type.name %></td>
+          <%= '<td>'+@user.house+'</td>' if @user.house %>
+          <%= '<td>'+@user.street+'</td>' if @user.street %>
+          <%= '<td>'+@user.postcode+'</td>' if @user.postcode %>
+          <%= '<td>'+@user.location.name+'</td>' if @user.location %>
+          <td>
+            <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <select class="form-control account_select" data-user="<%=@user.id%>"  data-default="<%=User.find(@user.id).account_type.name%>" id = "select<%=@user.id%>">
+                <% @account_types.each do |type| %>
+                  <option value="<%=type.id%>" <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                <% end %>
+              </select>
+            </form>
+          </td>
         </tr>
       </tbody>
       </table>
     </div>
     <p>User orders <small><a href="/orders">Go to orders</a></small></p>
+    <% if(@orders.empty?) %>
+      <hr>
+      <p>This user has no orders<p>
+    <% else %>
     <div class="table-responsive mb-3">
       <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Tweet</th>
-          <th scope="col">State</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% user.orders.each do |order| %>
+        <thead>
           <tr>
-            <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
-            <% tweet = order.get_tweet %>
-            <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
-            <td><%= order.order_state.name %></td>
+            <th scope="col">#</th>
+            <th scope="col">Tweet</th>
+            <th scope="col">State</th>
           </tr>
-        <% end %>
-      </tbody>
+        </thead>
+        <tbody>
+          <% # iterate through all the user's orders and display their details %>
+          <%
+            @orders.each do |order|
+            tweet = order.get_tweet
+          %>
+            <tr>
+              <th scope="row"><a href="/orders/edit/<%=order.id%>"><%= order.id %></a></th>
+              <% # show the first 40 characters of the tweet if it's too long %>
+              <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
+              <td><%= order.order_state.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
+      <% end %>
     </div>
 <%= erb :footer %>

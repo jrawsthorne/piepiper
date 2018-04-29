@@ -10,12 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312223516) do
+ActiveRecord::Schema.define(version: 2018_04_29_125655) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "campaign_types", force: :cascade do |t|
+    t.string "type_name"
+    t.integer "percentage_reduced"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "campaign_type_id"
+    t.string "tweet_id"
+    t.integer "winner_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "closed"
+  end
+
+  create_table "hidden_tweets", force: :cascade do |t|
+    t.string "tweet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_locations", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "item_id"
+    t.integer "location_id"
+    t.index ["item_id"], name: "index_item_locations_on_item_id"
+    t.index ["location_id"], name: "index_item_locations_on_location_id"
   end
 
   create_table "item_types", force: :cascade do |t|
@@ -31,8 +60,15 @@ ActiveRecord::Schema.define(version: 20180312223516) do
     t.datetime "updated_at"
     t.integer "item_type_id"
     t.integer "special_condition_id"
+    t.string "path"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["special_condition_id"], name: "index_items_on_special_condition_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -57,6 +93,8 @@ ActiveRecord::Schema.define(version: 20180312223516) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.integer "order_state_id"
+    t.integer "location_id"
+    t.integer "campaign_id"
     t.index ["order_state_id"], name: "index_orders_on_order_state_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -65,6 +103,15 @@ ActiveRecord::Schema.define(version: 20180312223516) do
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "user_campaigns", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "campaign_id"
+    t.index ["campaign_id"], name: "index_user_campaigns_on_campaign_id"
+    t.index ["user_id"], name: "index_user_campaigns_on_user_id"
   end
 
   create_table "user_special_conditions", force: :cascade do |t|
@@ -80,12 +127,17 @@ ActiveRecord::Schema.define(version: 20180312223516) do
     t.string "username"
     t.string "firstname"
     t.string "lastname"
-    t.string "password"
+    t.string "password_hash"
     t.string "twitter_id"
-    t.string "address"
+    t.string "house"
+    t.string "street"
+    t.string "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "email"
     t.integer "account_type_id"
+    t.integer "location_id"
+    t.string "password_reset_token"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"
   end
 

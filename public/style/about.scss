@@ -1,27 +1,27 @@
 /* About */
 
 .img {
-  display: block;
-  margin-top: 2px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  height: 15%;
   opacity: 0.8;
-
+  width: 100%;
+  margin: 20px 0 20px 0;
 }
 
-.aroundimg{
-  border:black;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  width:400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-img:hover {
+.img:hover {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+
+#map_Sheffield {
+  height: 400px;
+}
+#map_Leeds {
+  height: 400px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
