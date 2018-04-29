@@ -128,8 +128,8 @@
               <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
               <li class="list-group-item" id="total-order-price">Total order price: £0.00</li>
               <%# Shows the user's current rewards to the screen %>
+              <% if(!@user_campaigns.empty?) %>
               <li class="list-group-item">
-                <% if(!@user_campaigns.empty?) %>
                   <p>User's Rewards:
                    <% @user_campaigns.uniq{|t| t.campaign.campaign_type.id}.each do |user_camp| %>
                       <div class="form-check form-check-inline">
@@ -138,8 +138,8 @@
                       </div>
                     <% end %>
                   </p>
-                <% end %>
               </li>
+              <% end %>
             </div>
           </ul>
           <div class="card-footer border-top-0">
