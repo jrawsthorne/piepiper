@@ -41,7 +41,36 @@ class PiePiper < Sinatra::Base
       erb :'/user/reset'
     end
   end
-
+  
+  get '/reset-password/:token' do
+    if(User.exists?(password_reset_token: params[:token]))
+      @user = User.find_by(password_reset_token: params[:token])
+      flash[:password_reset_token] = @user.password_reset_token
+      @token = flash[:password_reset_token]
+      @error = flash[:error]
+      @title = "Change password"
+      erb :'/user/changepw'
+    else
+      redirect('/')
+    end
+  end
+  
+  post '/change-password' do
+    if(params[:password] != params[:passwordconf])
+      @error = 'Passwords don\'t match'
+    end
+    if(!@error)      
+      user = User.find_by(password_reset_token: flash[:password_reset_token])
+      user.change_password(params[:password])
+      user.remove_token
+      session[:user_id] = user.id
+      redirect("/")
+    else
+      flash[:error] = @error
+      redirect('/reset-password/'+flash[:password_reset_token])
+    end
+  end
+  
   post '/reset-password' do
     if(User.exists?(email: params[:email]))
       user = User.find_by(email: params[:email])
