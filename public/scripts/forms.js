@@ -71,6 +71,18 @@ $(function (){
     totalOrderPirceChange();
     validateItems();
   })
+  $("input[name='rewards[]']").on('click', function() {
+    console.log($(this).val())
+    total = 0
+    if($(this).val() != 100 || null){
+      
+      $("#menu-items").find(".price").each(function() {
+        total += (parseFloat($(this).val().replace("£","")))
+      })
+      total -= (total * $(this).val() / 100)
+      $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+    }
+  })
 
   var num = 0;
   $("#add button").click(function(){
