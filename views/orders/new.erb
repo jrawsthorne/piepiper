@@ -91,20 +91,7 @@
                 <p class="mb-1">Location: <%=@user.location.name%></p>
                 <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
                 <p class="mb-1">Address: <%= @user.address %></p>
-                <%# Shows the user's current rewards to the screen %>
-                <% if(!@user_campaigns.empty?) %>
-                  <p>User's Rewards:
-                    <% @user_campaigns.each do |reward| %> 
-                      <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== reward.id.to_i}.length %>
-                      <% if count != 0 %>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="rewards[]" value="<%= reward.campaign.campaign_type.percentage_reduced%>" id="reward-<%= reward.campaign.campaign_type.id%>">
-                          <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
-                        </div>
-                      <% end %>
-                    <% end %> 
-                  </p>
-                <% end %>
+                
                 </div>
               </div>
             </li>
@@ -140,6 +127,19 @@
               </li>
               <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
               <li class="list-group-item" id="total-order-price">Total order price: £0.00</li>
+              <%# Shows the user's current rewards to the screen %>
+              <li class="list-group-item">
+                <% if(!@user_campaigns.empty?) %>
+                  <p>User's Rewards:
+                    <% @user_campaigns.each do |user_camp| %>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="reward" value="<%= user_camp.campaign.id%>" data-discount="<%=user_camp.campaign.campaign_type.percentage_reduced %>" id="reward-<%= user_camp.campaign.id%>">
+                          <label class="form-check-label" for="<%= user_camp.campaign.campaign_type.type_name%>"><%= user_camp.campaign.campaign_type.type_name%></label>
+                      </div>
+                    <% end %>
+                  </p>
+                <% end %>
+              </li>
             </div>
           </ul>
           <div class="card-footer border-top-0">
