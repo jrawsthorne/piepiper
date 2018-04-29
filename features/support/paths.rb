@@ -28,7 +28,10 @@ module NavigationHelpers
 
     when /the orders page/
       '/orders?location=Sheffield'
-
+        
+    when /the orders_norm page/
+      '/orders'
+        
     when /the about page/
       '/about'
 

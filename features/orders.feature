@@ -10,7 +10,7 @@ Feature: orders
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I follow "Orders" within "body"
-    Then I should be on the orders page
+    Then I should be on the orders_norm page
     
   Scenario: Logged in and try to access orders page - order_handler
     Given I am on the login page
@@ -18,7 +18,7 @@ Feature: orders
     When I fill in "password" with "order_handler"
     When I press "Login" within "form"
     When I follow "Orders" within "body"
-    Then I should be on the orders page 
+    Then I should be on the orders_norm page 
     
   Scenario: New order 
     Given I am on the login page
