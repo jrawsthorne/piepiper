@@ -27,7 +27,7 @@ module NavigationHelpers
       '/account'
 
     when /the orders page/
-      '/orders'
+      '/orders?location=Sheffield'
 
     when /the about page/
       '/about'
