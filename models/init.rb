@@ -4,4 +4,4 @@ require_relative 'order'
 require_relative 'item'
 require_relative 'campaign'
 require_relative 'location'
-
+require_relative 'twitter'

@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(version: 2018_04_29_125655) do
     t.boolean "closed"
   end
 
+  create_table "hidden_tweets", force: :cascade do |t|
+    t.string "tweet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "item_locations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
