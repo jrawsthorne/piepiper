@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
   def get_id
     return id
   end
+  def change_password(password)
+    self.password = password
+    self.save
+  end
   def generate_token
     self.password_reset_token = get_random_string
     self.save
