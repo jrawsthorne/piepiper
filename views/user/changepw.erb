@@ -1,0 +1,23 @@
+<%= erb :header %>
+<div class="row">
+  <div class="mb-3 col-lg-5 col-md-12">
+  <p>Change password</p>
+  <hr>
+  <% # show an error if there is one present %>
+  <%= display_error(@error) if @error %>
+  <form id="reset" method="post" action="/change-password">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="password">New Password</label>
+        <input name="password" type="password" class="form-control" id="password" placeholder="New Password" required >
+      </div>
+      <div class="form-group col-md-6">
+        <label for="passwordconf">Confirm Password</label>
+        <input name="passwordconf" type="password" class="form-control" id="passwordconf" placeholder="Confirm Password" required>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Change</button>
+  </form>
+</div>
+</div>
+<%= erb :footer %>
