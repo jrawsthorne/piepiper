@@ -26,6 +26,9 @@ class Campaign < ActiveRecord::Base
 	def get_id
 		return id
 	end
+	def get_type_name
+		return campaign_type.type_name
+	end
 end
 
 class CampaignType < ActiveRecord::Base
