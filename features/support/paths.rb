@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the homedef page/
       '/?location=Sheffield'
         
+    when /the homeleeds page/
+      '/?location=Leeds' 
+        
     when /the login page/
       '/login'
       
