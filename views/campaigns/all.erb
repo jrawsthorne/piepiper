@@ -31,7 +31,10 @@
               <th scope="row"><%= campaign.id %></th>
               <td><%= campaign.campaign_type.type_name %></td>
               <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
-              <td><%= campaign.get_retweet_ids.length %></td>
+              <td>
+                <%= campaign.get_retweet_ids.uniq.length%>
+                
+              </td>
               <% if campaign.winner_number == 0 %>
                 <td>Random</td>
               <% else %>            

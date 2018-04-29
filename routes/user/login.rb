@@ -11,8 +11,8 @@ class PiePiper < Sinatra::Base
 
   post '/login' do
     user = User.find_by_username(params[:username])
-    session[:location_id] = user.location_id
     if !user.nil? && user.password == params[:password]
+      session[:location_id] = user.location_id
       session[:user_id] = user.id
       redirect '/'
     else

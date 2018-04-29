@@ -25,6 +25,8 @@ function resetForm(id, defaultVal) {
 }
 
 function changeUserType(userId, accountTypeId) {
+  document.querySelector("main").style.opacity = "0.5";
+  document.querySelector("body").classList.add("spinner");
   var data = { 'userId': userId, 'accountTypeId': accountTypeId };
   fetch('/change-user-type', {
     credentials: "same-origin",
@@ -33,5 +35,11 @@ function changeUserType(userId, accountTypeId) {
     headers: new Headers({
       'Content-Type': 'application/json'
     })
+  })
+  .then(() => {
+    setTimeout(() => {
+      document.querySelector("main").style.opacity = "1";
+      document.querySelector("body").classList.remove("spinner");
+    }, 500)
   })
 };

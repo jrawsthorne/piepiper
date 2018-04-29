@@ -1,39 +1,47 @@
 $(function (){
-  $("#submit_order").attr("disabled", true);
+  document.querySelector("#submit_order").disabled = true
   var itemPrices = []
   var itemsArray = []
   var availableItems = []
-  const userLocation = $("#userLocation").val()
-  $.ajax({
-    url: "/api/get-items?location="+userLocation,
-    dataType: "json",
-    type: "GET",
-    success: function(data) {
-      itemPrices = data
-      for (var name in itemPrices) {
-      	itemsArray.push(name)
-      }
-      availableItems = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: itemsArray
-      });
-      $('.typeahead').typeahead({
-        hint: true,
-        minLength: 1,
-        highlight: true,
-        classNames: {
-          menu : 'dropdown-menu tt-menu',
-          suggestion: 'dropdown-item tt-suggestion',
-        }
-      },
-      {
-        name: 'items',
-        source: availableItems
-      });
+  const userLocation = document.querySelector("#userLocation").value
+  document.querySelector("main").style.opacity = "0.5";
+  document.querySelector("body").classList.add("spinner");
+  fetch('/api/get-items?location='+userLocation, {
+    credentials: "same-origin",
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    setTimeout(() => {
+      document.querySelector("main").style.opacity = "1";
+      document.querySelector("body").classList.remove("spinner");
+    }, 500)
+    itemPrices = data
+    for (var name in itemPrices) {
+      itemsArray.push(name)
     }
-  });
-
+    availableItems = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: itemsArray
+    });
+    $('.typeahead').typeahead({
+      hint: true,
+      minLength: 1,
+      highlight: true,
+      classNames: {
+        menu : 'dropdown-menu tt-menu',
+        suggestion: 'dropdown-item tt-suggestion',
+      }
+    },
+    {
+      name: 'items',
+      source: availableItems
+    });
+  })
   function inputChange(input) {
     var formrow = $(input).closest(".form-row")
     var iteminput = formrow.find("input[name='item[]']")
