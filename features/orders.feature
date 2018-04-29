@@ -39,16 +39,6 @@ Feature: orders
     Then I should be on the orders_norm page
     Then I should see "added successfully" within "body"
 
-    Scenario: Delete order success
-   Given I am on the login page
-   When I fill in "username" with "admin"
-   When I fill in "password" with "admin"
-   When I press "Login" within "form"
-   When I go to the orders_norm page
-   When I follow "Delete"
-   Then I should be on the orders_norm page
-   Then I should see "deleted successfully" within "body"
-    
   Scenario: Delete order success
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -58,7 +48,7 @@ Feature: orders
     When I follow "Delete"
     Then I should be on the orders_norm page
     Then I should see "deleted successfully" within "body"
-    
+
   Scenario: Edit orders
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -68,10 +58,10 @@ Feature: orders
     When I fill in "item[]" with "Lager"
     When I press "submit_order"
     When I follow "Edit"
-    When I select "Ready" from "order_state" 
+    When I select "Ready" from "order_state"
     When I press "Update"
-    Then I should be on the orders_norm page 
-  
+    Then I should be on the orders_norm page
+
   Scenario: New order tweet doesn't exist
     Given I am on the login page
     When I fill in "username" with "admin"
