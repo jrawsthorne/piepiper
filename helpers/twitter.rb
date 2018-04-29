@@ -1,6 +1,6 @@
 def new_user(
   username, firstname, surname, email,
-  house, street, postcode, twitter_handle, dietary_preferences, location)
+  house, street, postcode, twitter_handle, dietary_preferences, location, password)
   
   if(Location.exists?(name: location))
     location_id = Location.find_by(name: location).id
@@ -12,7 +12,7 @@ def new_user(
     u.username = username.to_s
     u.firstname = firstname.to_s
     u.lastname = surname.to_s
-    u.password = "password"
+    u.password = password
     u.twitter_id = flash[:twitter_id].to_s
     u.house = house.to_s
     u.street = street.to_s
