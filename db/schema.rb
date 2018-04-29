@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_25_105459) do
+ActiveRecord::Schema.define(version: 2018_04_29_113015) do
 
   create_table "account_types", force: :cascade do |t|
     t.string "name"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 2018_04_25_105459) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "closed"
+  end
+
+  create_table "hidden_tweets", force: :cascade do |t|
+    t.string "tweet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "item_locations", force: :cascade do |t|
