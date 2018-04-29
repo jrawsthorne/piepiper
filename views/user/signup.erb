@@ -2,11 +2,13 @@
 <div class="row">
   <div class="mb-3 col-lg-5 col-md-12">
   <p>Signup</p>
+  <%=display_error(@error) if @error%>
+  <hr>
     <form method="post" autocomplete="false" autocorrect="off" autocapitalize="off" spellcheck="false">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="username">Username</label>
-        <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+        <input name="username" type="text" class="form-control" id="username" value="<%=@values? @values[:username] : '' %>" placeholder="<%=@values? @values[:username] : 'Username' %>" required>
       </div>
     </div>
     <div class="form-row">
@@ -22,21 +24,23 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="firstname">First Name</label>
-          <input name="firstname" type="text" class="form-control" id="forename" placeholder="First Name" required>
+          <input name="firstname" type="text" class="form-control" id="forename" value="<%=@values? @values[:firstname] : '' %>" placeholder="<%=@values? @values[:firstname] : 'First Name' %>" required>
         </div>
         <div class="form-group col-md-6">
           <label for="surname">Last Name</label>
-          <input name="surname" type="text" class="form-control" id="surname" placeholder="Last Name" required>
+          <input name="surname" type="text" class="form-control" id="surname" value="<%=@values? @values[:surname] : '' %>" placeholder="<%=@values? @values[:surname] : 'Last Name' %>" required>
         </div>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input name="email" type="email" class="form-control" id="email" placeholder="Email" required>
+        <input name="email" type="email" class="form-control" id="email" value="<%=@values? @values[:email] : '' %>" placeholder="<%=@values? @values[:email] : 'Email' %>" required>
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <input autocomplete="off" type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="" placeholder="Address" required>
+        <input name="address" autocomplete="off" type="text" class="form-control" data-toggle="modal" data-target="#map_modal" id="address" value="<%=@values? @values[:address] : '' %>" placeholder="<%=@values? @values[:address] : 'Address' %>" required>
       </div>
+      
+      <input type="hidden" name="location" id="location">
 
 
       <div class="form-group">
@@ -49,7 +53,7 @@
         <% (@special_conditions).each do |special_condition| %>
         <% if(special_condition.id != 1)%>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="diet[]" value="<%=special_condition.id%>" id="<%=special_condition.name%>">
+            <input class="form-check-input" type="checkbox" name="diet[]" <%= "checked" if (@values && @values[:diet] && @values[:diet].include?(special_condition.id.to_s)) %> value="<%=special_condition.id%>" id="<%=special_condition.name%>">
             <label class="form-check-label" for="<%=special_condition.name%>"><%=special_condition.name%></label>
           </div>
         <% end end %>
@@ -75,15 +79,15 @@
                 </div>
                 <div class="form-group">
                   <label for="house">House Number/Name</label>
-                  <input name="house" type="text" class="form-control" id="street_number" placeholder="House Number/Name" required>
+                  <input name="house" type="text" class="form-control" id="street_number" value="<%=@values? @values[:house] : '' %>" placeholder="<%=@values? @values[:house] : 'House Number/Name' %>" required>
                 </div>
                 <div class="form-group">
                   <label for="street_address">Street Name</label>
-                  <input name="street" type="text" class="form-control" id="route" placeholder="Street Name" required>
+                  <input name="street" type="text" class="form-control" id="route" value="<%=@values? @values[:street] : '' %>" placeholder="<%=@values? @values[:street] : 'Street Name' %>" required>
                 </div>
                 <div class="form-group">
                   <label for="postal_code">Postcode</label>
-                  <input name="postcode" type="text" class="form-control" id="postal_code" placeholder="Postcode" required>
+                  <input name="postcode" type="text" class="form-control" id="postal_code" value="<%=@values? @values[:postcode] : '' %>" placeholder="<%=@values? @values[:postcode] : 'Postcode' %>" required>
                 </div>
 
               </div>

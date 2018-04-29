@@ -1,13 +1,22 @@
 <%= erb :header %>
-<form class="form-signin" id="login" method="post" action="/login">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <% # show an error if there is one present %>
-    <%= display_error(@error) if @error %>
-    <label for="username" class="sr-only">Username</label>
-    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+<div class="row">
+  <div class="mb-3 col-lg-5 col-md-12">
+  <p>Login</p>
+  <hr>
+  <% # show an error if there is one present %>
+  <%= display_error(@error) if @error %>
+  <form id="login" method="post" action="/login">
+    <div class="form-group">
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
+    </div>
+    <div class="form-group">
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+    </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     <a class="btn btn-info btn-block" href="/auth/twitter">Login or sign up with Twitter</a>
   </form>
+</div>
+</div>
 <%= erb :footer %>

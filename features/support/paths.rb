@@ -11,6 +11,9 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
       
+    when /the homedef page/
+      '/?location=Sheffield'
+        
     when /the login page/
       '/login'
       
@@ -36,10 +39,10 @@ module NavigationHelpers
       '/logout'
       
     when /the new_order page/
-      '/new-order/989109475557691392'
+      '/orders/new/989109475557691392'
     
     when /the new_order_not_tweet page/
-      '/new-order/9685230841'
+      '/orders/new/9685230841'
       
     when /the page_does_not_exist page/
       '/page_does_not_exist'
@@ -53,6 +56,9 @@ module NavigationHelpers
     when /the new_campaigns page/
       '/campaigns/new'     
 
+    when /the items page/
+      '/items/new'
+        
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

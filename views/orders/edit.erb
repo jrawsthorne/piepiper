@@ -1,0 +1,126 @@
+<%= erb :header %>
+<div class="row">
+  <% if(@error) %>
+    <%= display_error(@error) %>
+  <% else %>
+  <div class="mb-3 col-lg-5 col-md-12">
+    <p>Tweet <small><a target="_blank" href="<%= @tweet.uri %>">View tweet</a></small></p>
+    <ul class="list-group mb-3">      
+        <li class='list-group-item'>
+          <div class="d-flex w-100">
+            <div class="profile-image mr-3">
+              <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
+            </div>
+            <div class="profile">
+              <h5 class="mb-1"><%= @user.fullname %> <span><%= @tweet.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= @tweet_text %></p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p>User Details <small><a href="/user/<%= @user.id %>">View user</a></small></p>
+      <ul class="list-group mb-3">      
+          <li class='list-group-item'>
+            <div class="d-flex w-100">
+              <div class="profile-image mr-3">
+                <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
+              </div>
+              <div class="profile">
+                <p class="mb-1">Name: <%= @user.fullname %></p>
+                <p class="mb-1">Username: <%= @user.username %></p>
+                <p class="mb-1">Twitter profile: <a target="_blank" href="<%= @tweet.user.uri %>"><%= @tweet.user.screen_name %></a></p>
+                <p class="mb-1">
+                  Dietary requirements: 
+                  <% if(@user.user_special_conditions.empty?) %>
+                  N/A
+                  <% else %>
+                    <ul>
+                      <% @user.user_special_conditions.each do |user_special_condition| %>  
+                        <li><%= user_special_condition.special_condition.name %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </p>
+                <p class="mb-1">Postcode: <%= @user.postcode %></p>
+                <p class="mb-1">Location: <%=@user.location.name%></p>
+                <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
+                <p class="mb-1">Address: <%= @user.address %></p>
+                <%# Shows the user's current rewards to the screen %>
+                <% if(!@user_campaigns.empty?) %>
+                  <p>User's Rewards:
+                    <% @user_campaigns.each do |reward| %> 
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
+                        <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                      </div>
+                    <% end %> 
+                  </p>
+                <% end %>
+
+              </div>
+            </div>
+          </li>
+        </ul>
+    </div>
+  <div class="col-lg-7 col-md-12">
+    <p>Order Overview</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <img width="30px" class="rounded-circle mr-2" src="<%= @tweet.user.profile_image_url %>" />
+        #<%=@order_id%> 
+        <%= @user.fullname %>
+        <span class="badge badge-info"><%= @order.order_state.name %></span>
+        <span class="badge badge-secondary"><%= @order.location.name %></span>
+      </div>
+      <form class="needs-validation" id="order" method="post" novalidate>
+        <ul class="list-group list-group-flush">
+          <div class="form-group mb-0" id="menu-items">
+            <li class="list-group-item">Search for items to add to the order</li>
+            <% @order.order_items.each_with_index do |order_item,i| %>
+              <li class="list-group-item">
+                <div class="form-row">
+                  <div class="form-group mb-0 col-sm-2">
+                    <input class="form-control disabled price" disabled type="texr" value="<%=display_currency(order_item.item.price*order_item.quantity)%>" placeholder="£0.00">
+                  </div>
+                  <div class="form-group mb-0 col-md-7">
+                    <input name="item[]" class="form-control typeahead" type="text" value="<%= order_item.item.name %>" placeholder="Search for an item..." required>
+                  </div>
+                  <div class="form-group mb-0 col-md-2">
+                    <input name="quantity[]" class="form-control" type="number" min="1" value="<%= order_item.quantity %>" required>
+                  </div>
+                  <div class="form-group mb-0 col-sm-1">
+                    <button <%= "disabled" if(i==0)%> type="button" class="<%= "disabled" if(i==0)%> remove-item btn btn-danger btn-block">-</button>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+            <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
+            <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(@order.total_price) %></li>
+            <li class="list-group-item">
+                <select id="order_state" name="order_state" class="change_order_state form-control">
+                <% OrderState.all.each do |type| %>
+                  <option value="<%=type.id%>"    <%= ("selected" if @order.order_state_id == type.id ) %> > <%=type.name%> </option>
+                <% end %>
+                </select>
+            </li>
+            <% if(@order.order_state_id == 1) %>
+            <li class="list-group-item">Delivery/pick up time</li>
+            <li class="list-group-item">
+              <div class="input-append date form_datetime">
+                  <input name="time" size="16" type="text" value="" readonly class="form-control">
+                  <span class="add-on"><i class="icon-th"></i></span>
+              </div>
+            </li>
+            <% end %>
+          </div>
+        </ul>
+        <div class="card-footer border-top-0">
+          <button type="submit" id="submit_order" class="btn btn-success">Update</button>
+          <a class="btn btn-danger" href="/delete-order/<%=@order.id%>">Delete</a>
+        </div>
+      </form>
+    </div>
+</div>
+<%end%>
+</div>
+<%= erb :footer %>

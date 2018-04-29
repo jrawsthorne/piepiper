@@ -3,8 +3,9 @@ $(function (){
   var itemPrices = []
   var itemsArray = []
   var availableItems = []
+  const userLocation = $("#userLocation").val()
   $.ajax({
-    url: "/api/get-items",
+    url: "/api/get-items?location="+userLocation,
     dataType: "json",
     type: "GET",
     success: function(data) {

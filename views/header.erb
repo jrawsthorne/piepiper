@@ -15,11 +15,11 @@
         <% 
           case account_type
           when 1 %>
-            <%= erb :'./nav/navuser' %>
+            <%= erb :'./nav/user' %>
           <% when 2 %>
-            <%= erb :'./nav/navorder' %>
+            <%= erb :'./nav/order' %>
           <% when 3 %>
-            <%= erb :'./nav/navadmin' %>
+            <%= erb :'./nav/admin' %>
           <% else %>
             <%= erb :'./nav/nav' %>
       <% end %>

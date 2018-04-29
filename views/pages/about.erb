@@ -1,15 +1,30 @@
 <%= erb :header %>
-
-  <h3> About Pie Piper </h3>
-
+<p>About Pie Piper</p>
+<hr>
+<div class="row">
+  <div class="col-md-6">
     <img class="img" src="/img/aboutus.jpg">
+  </div>
+  <div class="col-md-6">
     <img class="img" src="/img/pie.jpg">
-
-
-      <p class="text"> We are Pie Piper. Pie Piper originates from ancient Greece and popularizes their delicious pies recipes all over Europe and especially in Sheffield, the United Kingdom.
-        Because of the magic in our recipes we are currently one of the best pie shops on the market worldwide, famous for our varieties of pies for vegans, vegetarians, and non-vegetarians. 
-        Furthermore, we serve soft drinks, milkshakes (which are awesome, by the way) alcohol, and gluten-free sweets. Daily we have around 1000 clients per day, leaving our pie shop with a smile.
-      </p>
-
-
+  </div>
+</div>
+<div class="row">
+  <p class="text"> We are Pie Piper. Pie Piper originates from ancient Greece and popularizes their delicious pies recipes all over Europe and especially in Sheffield, the United Kingdom.
+    Because of the magic in our recipes we are currently one of the best pie shops on the market worldwide, famous for our varieties of pies for vegans, vegetarians, and non-vegetarians.
+    Furthermore, we serve soft drinks, milkshakes (which are awesome, by the way) alcohol, and gluten-free sweets. Daily we have around 1000 clients per day, leaving our pie shop with a smile.
+  </p>
+</div>
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <h5 class="text mb-2">Our shop in Sheffield.<h5>
+    <h6 class="text mb-2">S3 7HB</h6> 
+    <div id="map_Sheffield"></div>
+  </div>
+  <div class="col-md-6 mb-3">
+    <h5 class="text mb-2">Our shop in Leeds.</h5>  
+    <h6 class="text mb-2">LS1 4DY</h6> 
+    <div id="map_Leeds"></div>
+  </div>
+</div>
 <%= erb :footer %>

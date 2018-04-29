@@ -10,8 +10,13 @@ class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :order_state
   belongs_to :user
+  belongs_to :location
   def get_tweet
-    return $client.status(tweet_id.to_i, tweet_mode: "extended")
+    begin
+	    return $client.status(tweet_id.to_i, tweet_mode: "extended")
+	  rescue Twitter::Error
+	    return nil
+	  end
   end
   def total_price
     total = 0

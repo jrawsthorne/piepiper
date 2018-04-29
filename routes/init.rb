@@ -1,5 +1,7 @@
-require_relative 'user'
-require_relative 'order-handler/init'
-require_relative 'admin/init'
+require_relative 'orders/init'
 require_relative 'twitter'
-
+require_relative 'general'
+require_relative 'user/init'
+require_relative 'pages/init'
+require_relative 'items/init'
+require_relative 'campaigns/init'

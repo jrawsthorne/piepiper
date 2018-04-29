@@ -18,6 +18,12 @@ task :deploy do
   Rake::Task[:"db"].invoke
   Rake::Task[:"serve"].invoke
 end
+task :test do
+  Rake::Task[:"db"].invoke
+end
+task :'test:features' do
+  Rake::Task[:"db"].invoke
+end
 Rake::TestTask.new do |t|
   t.pattern = "test/*_test.rb"
 end
