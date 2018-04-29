@@ -20,7 +20,7 @@
   <% @item_types.each_with_index do |item_type,i| %>
   <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
     <ul class="list-group list-group-flush">
-      <% @items.order(:price).select{|item| item.item_type_id == item_type.id}.each do |item| %>
+      <% @items.order(:price, :name).select{|item| item.item_type_id == item_type.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-4">
@@ -54,7 +54,7 @@
         <li class="list-group-item">
           <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
         </li>
-        <% @items.order(:price).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
+        <% @items.order(:price, :name).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-4">

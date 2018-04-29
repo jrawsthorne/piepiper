@@ -15,7 +15,23 @@ class Item < ActiveRecord::Base
   has_many :item_locations
   has_many :locations, through: :item_locations
   
-
+  def edit_item(item_name, item_price, types, special_condition, locations)
+    item_locations.each do |item_location|
+      item_location.destroy
+    end
+    self.name = item_name
+    self.price = item_price
+    self.item_type_id = types
+    self.special_condition_id = special_condition
+    self.save
+    locations.each do |locals|
+  		item_locations = ItemLocation.new do |u|
+  			u.item_id = id
+  			u.location_id = locals
+  		end
+  		item_locations.save
+  	end
+  end
 
   def self.write_to_pdf
     table_data = []
