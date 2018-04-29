@@ -47,6 +47,12 @@ When /^(?:|I )set "([^\"]*)" with "([^\"]*)"(?: within "([^\"]*)")?$/ do |field,
     find(field, visible: false).set 'value'
   end
 end
+
+When /^(?:|I )find and set "([^\"]*)" with "([^\"]*)"(?: within "([^\"]*)")?$/ do |field, value, selector|
+  with_scope(selector) do
+    find("Username", visible: false).set 'value'
+  end
+end
 # Use this to fill in an entire form with data from a table. Example:
 #
 #   When I fill in the following:
