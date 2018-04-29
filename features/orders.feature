@@ -38,7 +38,6 @@ Feature: orders
     When I press "submit_order"
     Then I should be on the orders_norm page
     Then I should see "added successfully" within "body"
-<<<<<<< HEAD
 
     Scenario: Delete order success
    Given I am on the login page
@@ -49,9 +48,6 @@ Feature: orders
    When I follow "Delete"
    Then I should be on the orders_norm page
    Then I should see "deleted successfully" within "body"
-
-
-=======
     
   Scenario: Delete order success
     Given I am on the login page
@@ -76,7 +72,6 @@ Feature: orders
     When I press "Update"
     Then I should be on the orders_norm page 
   
->>>>>>> 5ce722e85fdfa4c0d3ca5067f703bf89b2f6375e
   Scenario: New order tweet doesn't exist
     Given I am on the login page
     When I fill in "username" with "admin"
