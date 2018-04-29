@@ -10,10 +10,10 @@
           <th scope="col">Username</th>
           <%= '<th scope="col">Twitter Profile</th>' if @twitter_user %>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">House Number/Name</th>
-          <th scope="col">Street Name</th>
-          <th scope="col">Postcode</th>
-          <th scope="col">Location</th>
+          <%= '<th scope="col">House Number/Name</th>' if @user.house %>
+          <%= '<th scope="col">Street Name</th>' if @user.street %>
+          <%= '<th scope="col">Postcode</th>' if @user.postcode %>
+          <%= '<th scope="col">Location</th>' if @user.location %>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
@@ -38,10 +38,10 @@
               <% end %>
             <% end %>
           </td>
-          <td><%= @user.house %></td>
-          <td><%= @user.street %></td>
-          <td><%= @user.postcode %></td>
-          <td><%= @user.location.name if (@user.location) %></td>
+          <%= '<td>'+@user.house+'</td>' if @user.house %>
+          <%= '<td>'+@user.street+'</td>' if @user.street %>
+          <%= '<td>'+@user.postcode+'</td>' if @user.postcode %>
+          <%= '<td>'+@user.location.name+'</td>' if @user.location %>
           <td>
             <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               <select class="form-control account_select" data-user="<%=@user.id%>"  data-default="<%=@user.account_type_id%>" id = "select<%=@user.id%>">

@@ -30,7 +30,7 @@
             <td><%= user.username %></td>
             <% twitter_user = user.get_twitter_user %>
             <% # display their twitter screen name if the user has a twitter id associated with them %>
-            <td><a target="_blank" href="<%= twitter_user.uri if twitter_user%>"><%= twitter_user.screen_name if twitter_user %></a></td>
+            <td><% if twitter_user %><a target="_blank" href="<%= twitter_user.uri%>"><%= twitter_user.screen_name %></a><% end %></td>
             <td>
               <% # show dietary requirements as N/A if user has none %>
               <% if(user.user_special_conditions.empty?) %>

@@ -9,7 +9,11 @@ class User < ActiveRecord::Base
     [firstname, lastname].join(' ')
   end
   def get_twitter_user
-    return $client.user(twitter_id.to_i) if !twitter_id.nil?
+    begin
+	    return $client.user(twitter_id.to_i)
+	  rescue Twitter::Error
+	    return nil
+	  end
   end
   def password
     @password ||= Password.new(password_hash)
