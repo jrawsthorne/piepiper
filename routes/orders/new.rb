@@ -3,7 +3,7 @@ class PiePiper < Sinatra::Base
     order_handler!
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
-      new_order(params[:item], params[:quantity], params[:tweet_id])
+      new_order(params[:item], params[:quantity], params[:tweet_id], params[:reward])
       flash[:new_order] = Order.where(tweet_id: params[:tweet_id]).pluck(:id).join
       redirect '/orders'
     else

@@ -8,6 +8,7 @@ end
 
 class Order < ActiveRecord::Base
   has_many :order_items
+  belongs_to :campaign
   belongs_to :order_state
   belongs_to :user
   belongs_to :location
@@ -22,6 +23,12 @@ class Order < ActiveRecord::Base
     total = 0
     order_items.each do |order_item|
       total += order_item.item.price*order_item.quantity
+    end
+    if(campaign)
+      discount = campaign.campaign_type.percentage_reduced
+      if discount != 100 or nil
+        total -= (total * discount / 100)
+      end
     end
     return total
   end
