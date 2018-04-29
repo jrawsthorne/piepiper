@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2018_04_29_125655) do
     t.integer "user_id"
     t.integer "order_state_id"
     t.integer "location_id"
-    t.integer "campaign_type_id"
+    t.integer "campaign_id"
     t.index ["order_state_id"], name: "index_orders_on_order_state_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

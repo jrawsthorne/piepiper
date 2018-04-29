@@ -3,7 +3,7 @@ class PiePiper < Sinatra::Base
     order_handler!
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
-      new_order(params[:item], params[:quantity], params[:tweet_id])
+      new_order(params[:item], params[:quantity], params[:tweet_id], params[:reward])
       flash[:new_order] = Order.where(tweet_id: params[:tweet_id]).pluck(:id).join
       redirect '/orders'
     else
@@ -57,7 +57,7 @@ class PiePiper < Sinatra::Base
         end
       end
       @replies = replies.sort_by { |reply| reply.created_at.strftime("%s") }
-      @user_campaigns = @user.user_campaigns.all
+      @user_campaigns = @user.user_campaigns
       @campaign_types = CampaignType.all
     end
     erb :'/orders/new'

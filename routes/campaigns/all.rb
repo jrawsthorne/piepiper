@@ -2,7 +2,7 @@ class PiePiper < Sinatra::Base
 	get '/campaigns/all' do
 		admin!
 		@title = "All Campaigns"
-		@campaigns = Campaign.all
+		@campaigns = Campaign.where(closed: false)
 		erb :'/campaigns/all'
 	end
 

@@ -8,6 +8,7 @@ end
 
 class Order < ActiveRecord::Base
   has_many :order_items
+  belongs_to :campaign
   belongs_to :order_state
   belongs_to :user
   belongs_to :location
@@ -23,12 +24,30 @@ class Order < ActiveRecord::Base
     order_items.each do |order_item|
       total += order_item.item.price*order_item.quantity
     end
+    if(campaign)
+      discount = campaign.campaign_type.percentage_reduced
+      if discount != 100
+        total -= (total * discount / 100)
+      elsif discount == 100
+        i = []
+        order_items.each do |order_item|
+          i.push(order_item.item.price)
+        end
+        total -= i.min
+      end
+    end
     return total
   end
-  def edit_order(items, quantities)
+
+  def edit_order(items, quantities, camp_id)
+
     order_items.each do |order_item|
       order_item.destroy
     end
+
+    self.campaign_id = camp_id
+    self.save
+
     items.each_with_index do |item,i|
       order_item = OrderItem.new do |u|
         u.order_id = id

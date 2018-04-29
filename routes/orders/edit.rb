@@ -3,7 +3,7 @@ class PiePiper < Sinatra::Base
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
       order = Order.find(params[:order_id])
-      order.edit_order(params[:item], params[:quantity])
+      order.edit_order(params[:item], params[:quantity], params[:reward])
       order.order_state_id = params[:order_state]
       order.save
       if(params[:order_state] == "2")

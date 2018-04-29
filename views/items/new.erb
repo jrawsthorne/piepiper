@@ -48,7 +48,7 @@
         <label>Location</label>
         <% Location.all.each do |location| %>
           <div class="form-check">
-            <input required name="locations[]" class="form-check-input" type="checkbox" value="<%=location.id%>" id="location-<%=location.id%>">
+            <input name="locations[]" class="form-check-input" type="checkbox" value="<%=location.id%>" id="location-<%=location.id%>">
             <label class="form-check-label" for="location-<%=location.id%>">
               <%=location.name%>
             </label>

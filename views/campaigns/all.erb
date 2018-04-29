@@ -1,5 +1,5 @@
 <%= erb :header %>
-<div class="d-flex campaign-header">
+<div class="d-flex campaign-header <%= 'mb-3' if(@campaigns.exists?) %>">
   <div class="mr-auto"><p class="mb-0">Marketing Campaigns</p></div>
   <div><a href="/campaigns/new" class="btn-sm btn btn-outline-success">New campaign</a></div>
 </div>

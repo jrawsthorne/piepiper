@@ -45,17 +45,6 @@
                 <p class="mb-1">Location: <%=@user.location.name%></p>
                 <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
                 <p class="mb-1">Address: <%= @user.address %></p>
-                <%# Shows the user's current rewards to the screen %>
-                <% if(!@user_campaigns.empty?) %>
-                  <p>User's Rewards:
-                    <% @user_campaigns.each do |reward| %> 
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="diet[]" value="<%= reward.campaign.campaign_type.type_name%>" id="<%= reward.campaign.campaign_type.type_name%>">
-                        <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
-                      </div>
-                    <% end %> 
-                  </p>
-                <% end %>
 
               </div>
             </div>
@@ -96,6 +85,19 @@
             <% end %>
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
             <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(@order.total_price) %></li>
+            <%# Shows the user's current rewards to the screen %>
+            <li class="list-group-item">
+              <% if(!@user_campaigns.empty?) %>
+                <p>User's Rewards:
+                  <% @user_campaigns.uniq{|t| t.campaign.campaign_type.id}.each do |user_camp| %>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="reward" value="<%= user_camp.campaign.id%>" data-discount="<%=user_camp.campaign.campaign_type.percentage_reduced %>" id="reward-<%= user_camp.campaign.id%>" <%='checked' if @order.campaign.campaign_type.id==user_camp.campaign.campaign_type.id%>>
+                        <label class="form-check-label" for="reward-<%= user_camp.campaign.id%>"><%= user_camp.campaign.campaign_type.type_name%></label>
+                     </div>
+                  <% end %>
+                </p>
+              <% end %>
+            </li>
             <li class="list-group-item">
                 <select id="order_state" name="order_state" class="change_order_state form-control">
                 <% OrderState.all.each do |type| %>

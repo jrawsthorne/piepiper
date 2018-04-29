@@ -54,7 +54,9 @@ $(function (){
     $("#menu-items").find(".price").each(function() {
       total += (parseFloat($(this).val().replace("£","")))
     })
-    $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+
+    $("#total-order-price").html(("Total order price: £"+calculateDiscount(total).toFixed(2)))
+
   }
 
   $("#menu-items").on('keyup keydown change click', "input, .dropdown-item", function() {
@@ -71,17 +73,31 @@ $(function (){
     totalOrderPirceChange();
     validateItems();
   })
-  $("input[name='rewards[]']").on('click', function() {
-    console.log($(this).val())
-    total = 0
-    if($(this).val() != 100 || null){
-      
-      $("#menu-items").find(".price").each(function() {
-        total += (parseFloat($(this).val().replace("£","")))
-      })
-      total -= (total * $(this).val() / 100)
-      $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+  function calculateDiscount(order_price) {
+    discount_percent = $("input[name='reward']:checked").data('discount')
+    console.log(discount_percent)
+    if(discount_percent) {
+      if(discount_percent != 100 || null){
+        return order_price - (order_price * discount_percent / 100)
+      //the cheapest item is free
+      } else if(discount_percent == 100){
+        const prices = $(".price")
+        const values = []
+        
+        for (index = 0; index < prices.length; ++index) {
+          values.push(prices[index].value.replace("£",""))
+        }
+
+        const min_val = Math.min.apply(Math, values)
+        return order_price - min_val
+
     }
+  } else {
+      return order_price
+  }
+  }
+  $("input[name='reward']").on('click', function() {
+    totalOrderPirceChange()
   })
 
   var num = 0;
