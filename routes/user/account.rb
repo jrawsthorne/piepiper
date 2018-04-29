@@ -9,26 +9,37 @@ class PiePiper < Sinatra::Base
     @campaigns = Campaign.all
     @user_campaigns = @user.user_campaigns
     @campaign_types = CampaignType.all
+    @error = flash[:error]
     erb :'/user/account'
   end
 
   post '/account' do
     authenticate!
-    if params[:diet].nil?
-      diet = [1]
-    else
-      diet = params[:diet]
+      if(params[:house] = "" || params[:street] = "")
+        @error = 'Fill in address'
+      end
+      if(!@error)
+        if params[:diet].nil?
+          diet = [1]
+        else
+          diet = params[:diet]
+        end
+        update_user(
+          params[:firstname],
+          params[:surname],
+          params[:email],
+          params[:house],
+          params[:street],
+          params[:postcode],
+          diet,
+          params[:location]
+              )
+          redirect('/')
+      else
+        flash[:error] = @error
+        flash[:values] = params
+        flash[:twitter_id] = flash[:twitter_id]
+        redirect('/account')
+      end
     end
-    update_user(
-      params[:firstname],
-      params[:surname],
-      params[:email],
-      params[:house],
-      params[:street],
-      params[:postcode],
-      diet,
-      params[:location]
-          )
-      redirect('/account')
-  end
 end
