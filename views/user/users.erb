@@ -45,7 +45,7 @@
           <td><%= user.street %></td>
           <td><%= user.postcode %></td>
           <td>
-            <select data-user="<%=user.id%>"  data-default="<%=User.where(id: user.id).pluck(:account_type_id).join.to_i%>" id = "select<%=user.id%>">
+            <select data-user="<%=user.id%>"  data-default="<%=User.find(user.id).account_type.name%>" id = "select<%=user.id%>">
               <% AccountType.all.each do |type| %>
                 <option value="<%=type.id%>" <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
               <% end %>

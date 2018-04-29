@@ -1,28 +1,22 @@
 $("select").on('change', function() {
-  if($(this).val() == 3) {
-    if(!confirm("Warning: User with ID number: "+$(this).data('user')+" will be granted administrator priviliges with this change. Are you sure you want to make this change?")) {
-      resetForm("select"+$(this).data('user'), $(this).data('default'))
-    }
-    else {
-      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
-    }
-  }
-  else if ($(this).val() == 2) {
-    if(!confirm("Warning: User with ID number: "+$(this).data('user')+" will be granted order-handler priviliges with this change. Are you sure you want to make this change?")) {
-      resetForm("select"+$(this).data('user'), $(this).data('default'))
-    }
-    else{
-      changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
-    }
-  }
-  else {
-    changeUserType($(this).data('user'), document.getElementById("select"+$(this).data('user')).value);
-  }
+  var userId = $(this).data('user');
+  var defaultVal = $(this).data('default');
+  var selectElement = document.getElementById("select"+userId);
+
+  if( ( ($(this).val()==3) || ($(this).val()==2) )
+      &&
+      (!confirm("Warning: User with ID number: "+userId+" will be granted " + selectElement.options[selectElement.selectedIndex].text + " priviliges with this change. Are you sure you want to make this change?")) )
+      {
+        resetForm("select"+userId, defaultVal)
+      }
+      else {
+        changeUserType(userId, selectElement.value);
+      }
 })
 
 function resetForm(id, defaultVal) {
   for(var index = 0; index < (document.getElementById(id).options.length); index++ ){
-    if( document.getElementById(id).options[index].value == defaultVal ){
+    if( document.getElementById(id).options[index].text == defaultVal ){
       document.getElementById(id).selectedIndex = index;
       break;
     }
