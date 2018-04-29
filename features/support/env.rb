@@ -16,6 +16,7 @@ require_relative '../../app'
 ENV['RACK_ENV'] = 'test'
 
 Capybara.app = PiePiper
+Capybara.ignore_hidden_elements = false
 
 class Sinatra::ApplicationWorld
   include RSpec::Expectations

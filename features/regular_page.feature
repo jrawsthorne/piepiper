@@ -27,7 +27,7 @@ Feature: Regular pages
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I go to the orders page
-    Then I should see "Incoming tweets"  
+    Then I should see "Sheffield Orders" within "body" 
     
   Scenario: Order page through order handler
     Given I am on the login page
@@ -36,15 +36,16 @@ Feature: Regular pages
     When I press "Login" within "form"
     Then I should see "Orders" within "body"
     When I go to the orders page
-    Then I should see "Incoming tweets" 
+    Then I should see "Sheffield Orders" within "body"
     
   Scenario: New Campaigns page
     Given I am on the login page
     When I fill in "username" with "admin"
     When I fill in "password" with "admin"
     When I press "Login" within "form"
-    When I go to the new_campaigns page
-    Then I should see "New Marketing Campaign"
+    When I go to the all_campaigns page
+    When I follow "New campaign" within "body"
+    Then I should be on the new_campaigns page
     
   Scenario: All Campaigns page
     Given I am on the login page

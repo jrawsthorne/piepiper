@@ -1,11 +1,12 @@
 users = [
   {username: 'collin602', firstname: 'Collin', lastname: 'Coutinho', password: 'password', twitter_id: '226319377', postcode: 'S10 3AU', account_type_id: 1, location_id: 1},
-  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', password: 'password', twitter_id: '298769407', postcode: 'S10 3AU', account_type_id: 1, location_id: 1},
-  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', password: 'password', twitter_id: '965615031185485824', postcode: 'S10 3AU', account_type_id: 1, location_id: 1},
+  {username: 'jrawsthorne', firstname: 'Jake', lastname: 'Rawsthorne', email: 'jake@jakerawsthorne.co.uk', password: 'password', twitter_id: '298769407', postcode: 'S10 3AU', account_type_id: 1, location_id: 1},
+  {username: 'piepiperchef', firstname: 'Pie', lastname: 'Piper', email: 'jakerawsthorne@pie-piper.me', password: 'password', twitter_id: '965615031185485824', postcode: 'S10 3AU', account_type_id: 1, location_id: 1},
   {username: 'admin', firstname: 'Admin', lastname: 'User', password: 'admin', account_type_id: 3},
   {username: 'user', firstname: 'Regular', lastname: 'User', password: 'user', account_type_id: 1},
   {username: 'order_handler', firstname: 'Order', lastname: 'Handler', password: 'order_handler', account_type_id: 2},
-  {username: 'seth', firstname: 'Seth', lastname: 'Faulkner', password: 'asd', twitter_id: '965555302560075776', postcode: 'S3 7HD', account_type_id: 1, location_id: 1}
+  {username: 'seth', firstname: 'Seth', lastname: 'Faulkner', password: 'asd', twitter_id: '965555302560075776', postcode: 'S3 7HD', account_type_id: 1, location_id: 1},
+  {username: 'lucas', firstname: 'Lucas', lastname: 'Maybury', email: 'lmaybury1@sheffield.ac.uk', password: 'qwerty', twitter_id: '965555302560075776', house: 'Flat 10, Crescent Flats', street: 'Endcliffe Crescent', postcode: 'S10 3ED', account_type_id: 3, location_id: 2},
 ]
 
 special_conditions = [
@@ -20,7 +21,8 @@ special_conditions = [
 user_special_conditions = [
   {user_id: 1, special_condition_id: 3},
   {user_id: 1, special_condition_id: 5},
-  {user_id: 2, special_condition_id: 1}
+  {user_id: 2, special_condition_id: 1},
+  {user_id: 8, special_condition_id: 3},
 ]
 
 order_states = [

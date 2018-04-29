@@ -13,14 +13,10 @@ module NavigationHelpers
 
     when /the homedef page/
       '/?location=Sheffield'
-<<<<<<< HEAD
 
-=======
-        
     when /the homeleeds page/
-      '/?location=Leeds' 
-        
->>>>>>> fdd814964c067dbecd3fb4b68183993b719aa862
+      '/?location=Leeds'
+
     when /the login page/
       '/login'
 
@@ -31,8 +27,11 @@ module NavigationHelpers
       '/account'
 
     when /the orders page/
+      '/orders?location=Sheffield'
+        
+    when /the orders_norm page/
       '/orders'
-
+        
     when /the about page/
       '/about'
 
