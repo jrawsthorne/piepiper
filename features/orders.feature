@@ -38,11 +38,7 @@ Feature: orders
     When I press "submit_order"
     Then I should be on the orders_norm page
     Then I should see "added successfully" within "body"
-<<<<<<< HEAD
-
-=======
     
->>>>>>> e5448ff8d727767cdeb34943716d7d7f97dac0f7
   Scenario: Delete order success
     Given I am on the login page
     When I fill in "username" with "admin"
