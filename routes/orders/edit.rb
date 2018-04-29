@@ -1,5 +1,5 @@
 class PiePiper < Sinatra::Base
-  post '/edit-order/:order_id' do
+  post '/orders/edit/:order_id' do
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
       order = Order.find(params[:order_id])
@@ -18,16 +18,16 @@ class PiePiper < Sinatra::Base
       redirect '/orders'
     else
       @title = "Edit order"
-      erb :'/orders/edit-order'
+      erb :'/orders/edit'
     end
   end
 
-  get '/edit-order' do
+  get '/orders/edit' do
     authenticate!
     redirect '/orders'
   end
 
-  get '/edit-order/:order_id' do
+  get '/orders/edit/:order_id' do
     authenticate!
     @js = ['/scripts/forms.js', '/scripts/bootstrap-datetimepicker.min.js']
     @order_id = params['order_id']
@@ -45,6 +45,6 @@ class PiePiper < Sinatra::Base
       @user_campaigns = @user.user_campaigns
     end
     @title = "Edit order"
-    erb :'/orders/edit-order'
+    erb :'/orders/edit'
   end
 end

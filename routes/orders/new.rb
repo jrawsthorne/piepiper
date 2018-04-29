@@ -1,5 +1,5 @@
 class PiePiper < Sinatra::Base
-  post '/new-order/:tweet_id' do
+  post '/orders/new/:tweet_id' do
     order_handler!
     @error = check_input(params[:item],params[:quantity])
     if(@error == false)
@@ -8,16 +8,16 @@ class PiePiper < Sinatra::Base
       redirect '/orders'
     else
       @title = "New order"
-      erb :'/orders/new-order'
+      erb :'/orders/new'
     end
   end
 
-  get '/new-order' do
+  get '/orders/new' do
     order_handler!
     redirect '/orders'
   end
 
-  get '/new-order/:tweet_id' do
+  get '/orders/new/:tweet_id' do
     order_handler!
     @js = ['/scripts/forms.js', '/scripts/bootstrap-datetimepicker.min.js']
     @title = "New order"
@@ -59,7 +59,7 @@ class PiePiper < Sinatra::Base
       @replies = replies.sort_by { |reply| reply.created_at.strftime("%s") }
       @user_campaigns = @user.user_campaigns
     end
-    erb :'/orders/new-order'
+    erb :'/orders/new'
   end
 
   get '/api/get-items' do
@@ -69,31 +69,6 @@ class PiePiper < Sinatra::Base
       return prices.to_json
     else
       return {}
-    end
-  end
-
-  post '/send-tweet' do
-    payload = params
-    payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
-    if(authenticated?)
-      tweet = $client.update("@"+payload[:user]+" "+payload[:tweet], in_reply_to_status_id: payload[:in_reply_to].to_i)
-      if tweet.truncated? && tweet.attrs[:extended_tweet]
-        tweet_text = tweet.attrs[:extended_tweet][:full_text]
-      else
-        tweet_text = tweet.attrs[:text] || tweet.attrs[:full_text]
-      end
-      return {
-          created_at: tweet.created_at.asctime,
-          tweet_text: tweet_text,
-          user: {
-            profile_image_url: tweet.user.profile_image_url.to_s,
-            full_name: User.find_by(twitter_id: tweet.user.id).fullname
-          }
-      }.to_json
-    else
-      content_type :json
-      status 400
-      return {error: "Unauthorised"}.to_json
     end
   end
 

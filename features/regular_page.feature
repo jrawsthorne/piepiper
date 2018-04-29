@@ -10,7 +10,7 @@ Feature: Regular pages
     
   Scenario: Menu page
     Given I am on the homedef page
-    Then I should see "Food menu"
+    Then I should see "Food Menu"
     
   Scenario: Logo 
     Given I am on the login page
@@ -19,7 +19,7 @@ Feature: Regular pages
     
   Scenario: Login page
     Given I am on the login page
-    Then I should see "Please sign in"
+    Then I should see "Login"
     
   Scenario: Order page through admin
     Given I am on the login page
@@ -44,7 +44,7 @@ Feature: Regular pages
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I go to the new_campaigns page
-    Then I should see "New Marketing Campaigns"
+    Then I should see "New Marketing Campaign"
     
   Scenario: All Campaigns page
     Given I am on the login page
@@ -68,4 +68,4 @@ Feature: Regular pages
     When I fill in "password" with "admin"
     When I press "Login" within "form"
     When I go to the items page
-    Then I should see "Submit"  
+    Then I should see "Create"  

@@ -30,7 +30,7 @@
               </h5>
               <p class="mb-1"><%= tweet_text %></p>
               <% if(User.exists?(twitter_id: tweet.user.id)) %>
-                <p class="mb-1"><a class="mt-2 btn-sm btn btn-outline-primary" href="/new-order/<%=tweet.id%>">New order</a></p>
+                <p class="mb-1"><a class="mt-2 btn-sm btn btn-outline-primary" href="/orders/new/<%=tweet.id%>">New order</a></p>
               <% else %>
                 <!-- For now to check isuser function. Could hide tweets not from users or have them in another tab etc. -->
                 <p class="mb-1"><a class="text-secondary tell-user-signup" href="/orders" data-user="<%=tweet.user.screen_name%>" data-tweet="<%=tweet.id%>">Tell user they need to sign up before tweeting</a></p>
@@ -73,8 +73,8 @@
               <li class="list-group-item">Total order price: <%= display_currency(order.total_price) %></li>
             </ul>
             <div class="card-footer border-top-0">
-              <a class="btn btn-primary" href="/edit-order/<%=order.id%>">Edit</a>
-              <a class="btn btn-danger" href="/delete-order/<%=order.id%>">Delete</a>
+              <a class="btn btn-primary" href="/orders/edit/<%=order.id%>">Edit</a>
+              <a class="btn btn-danger" href="/orders/delete/<%=order.id%>">Delete</a>
             </div>
         </div>
         </div>

@@ -24,7 +24,12 @@
         <li class="list-group-item">
           <div class="d-flex align-items-center">
             <div class="mr-4">
-              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
+              <% if(item.path.nil?) %>
+              <% img = 'http://via.placeholder.com/300x300?text=No%20image' %>
+              <% else %>
+              <% img = '/img/Menu/'+item.path %>
+              <% end %>
+              <div class="rounded-circle menu-img" style="background-image: url('<%=img%>')"></div>
             </div>
             <div>
               <% extraclass = '' %>
@@ -33,8 +38,8 @@
                 <%= display_currency(item.price) %>
                 <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
                 <% if @isAdmin %>
-                  <a class="btn btn-outline-primary mr-2" href="/edit-item/<%=item.id%>">Edit</a>
-                  <a class="btn btn-outline-danger" href="/delete-item/<%=item.id%>">Delete</a>
+                  <a class="btn btn-outline-primary mr-2" href="/items/edit/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/items/delete/<%=item.id%>">Delete</a>
                 <% end %>
               </h5>
             </div>
@@ -61,8 +66,8 @@
               <h5 class="card-title mb-0">
                 <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
                 <% if @isAdmin %>
-                  <a class="btn btn-outline-primary" href="/edit-item/<%=item.id%>">Edit</a>
-                  <a class="btn btn-outline-danger" href="/delete-item/<%=item.id%>">Delete</a>
+                  <a class="btn btn-outline-primary" href="/items/edit/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/items/delete/<%=item.id%>">Delete</a>
                 <% end %>
                 </h5>
             </div>

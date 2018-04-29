@@ -1,5 +1,4 @@
 require_relative './test_helper'
-require_relative '../helpers/campaign_helper'
 
 class MyTest < Minitest::Test
 

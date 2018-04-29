@@ -15,26 +15,4 @@ class PiePiper < Sinatra::Base
       redirect '/signup'
     end
   end
-
-  post '/signup' do
-    if params[:diet].nil?
-      diet = [1]
-    else
-      diet = params[:diet]
-    end
-    new_user(
-      params[:username],
-      params[:firstname],
-      params[:surname],
-      params[:email],
-      params[:house],
-      params[:street],
-      params[:postcode],
-      flash[:twitter_id],
-      diet,
-      params[:location]
-          )
-      redirect("/")
-  end
-
 end

@@ -21,25 +21,4 @@ class PiePiper < Sinatra::Base
       erb :'/pages/menu'
     end
   end
-  
-  post '/get-location' do
-    payload = params
-    payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
-    city = payload[:city]
-    if(payload[:city].empty?)
-      location = Location.first
-      session[:location_id] = location.id
-      return location.name.to_json
-      status 200
-    elsif(Location.exists?(name: city))
-      session[:location_id] = Location.find_by(name: city).id
-      return city.to_json
-      status 200
-    else
-      location = Location.first
-      return location.name.to_json
-      status 200
-    end
-  end
-
 end

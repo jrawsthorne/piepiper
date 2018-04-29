@@ -76,7 +76,7 @@
             tweet = order.get_tweet
           %>
             <tr>
-              <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
+              <th scope="row"><a href="/orders/edit/<%=order.id%>"><%= order.id %></a></th>
               <% # show the first 40 characters of the tweet if it's too long %>
               <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
               <td><%= order.order_state.name %></td>

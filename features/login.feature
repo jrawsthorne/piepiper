@@ -40,6 +40,5 @@ Feature: login
     Then I should be on the home page
     Then I should see "Users"
     Then I should see "Orders"
-    Then I should see "All Campaigns"
-    Then I should see "New Campaigns"
+    Then I should see "Campaigns"
     
