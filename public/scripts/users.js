@@ -9,7 +9,8 @@ $("select").on('change', function() {
       {
         resetForm("select"+userId, defaultVal)
       }
-      else {
+      else
+      {
         changeUserType(userId, selectElement.value);
       }
 })

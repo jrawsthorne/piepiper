@@ -48,7 +48,7 @@
             <td><%= user.location.name if (user.location) %></td>
             <td>
               <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                <select class="form-control account_select" data-user="<%=user.id%>"  data-default=data-default="<%=User.find(user.id).account_type.name%>" id = "select<%=user.id%>">
+                <select class="form-control account_select" data-user="<%=user.id%>"  data-default="<%=User.find(user.id).account_type.name%>" id = "select<%=user.id%>">
                   <% @account_types.each do |type| %>
                     <option value="<%=type.id%>" <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
                   <% end %>
