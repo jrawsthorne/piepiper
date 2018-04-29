@@ -69,3 +69,11 @@ Feature: Regular pages
     When I press "Login" within "form"
     When I go to the items page
     Then I should see "Create"  
+    
+  Scenario: Leeds Menu
+    Given I am on the homeleeds page
+    Then I should see "Special Lamb HotPot Pie"
+    
+  Scenario: Sheffield Menu
+    Given I am on the homedef page
+    Then I should not see "Special Lamb HotPot Pie"

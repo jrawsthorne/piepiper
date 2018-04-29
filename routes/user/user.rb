@@ -33,8 +33,36 @@ class PiePiper < Sinatra::Base
     redirect '/'
   end
 
- 
+  get '/reset-password' do
+    if(authenticated?)
+      redirect('/account')
+    else
+      @title = "Reset password"
+      erb :'/user/reset'
+    end
+  end
 
+  post '/reset-password' do
+    if(User.exists?(email: params[:email]))
+      user = User.find_by(email: params[:email])
+      user.generate_token
+      Pony.mail({
+        :to => user.email,
+        :from => 'no-reply@pie-piper.me',
+        :subject => 'Reset Password for PiePiper',
+        :body => 'Please click this link to reset your password: '+'http://localhost:4567/reset-password/'+user.password_reset_token,
+        :via => :smtp,
+        :via_options => {
+          :address              => 'smtp.zoho.eu',
+          :port                 => '587',
+          :user_name            => 'no-reply@pie-piper.me',
+          :password             => 'sb3I5S7Cj9*5',
+          :authentication       => :plain,
+          :enable_starttls_auto => true,
+        }
+      })
+    end
+  end
 
   post '/change-user-type' do
     data = params
