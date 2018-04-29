@@ -27,6 +27,14 @@ Feature: authentication
     When I go to the logout page
     Then I should be on the home page
 
+  Scenario: Incorrect Credentials
+    Given I am on the login page
+    When I fill in "username" with "admin"
+    When I fill in "password" with "wrong"
+    When I press "Login" within "form"
+    Then I should be on the login page
+    Then I should see "Incorrect credentials"
+
   Scenario: Sign up while logged in
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -34,4 +42,3 @@ Feature: authentication
     When I press "Login" within "form"
     When I go to the signup page
     Then I should be on the account page
-
