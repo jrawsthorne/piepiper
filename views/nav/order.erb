@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand logo" href="/">
+       <img src="/img/Logo.png" alt="Logo" width="60px" height="60px">
+       <span class="ml-3">The Pie Piper</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item <%=current_class?('/')%>">
+          <a class="nav-link" href="/">Menu</a>
+        </li>
+        <li class="nav-item <%=current_class?('/orders')%>">
+          <a class="nav-link" href="/orders">Orders</a>
+        </li>
+        <% if(@locations) %>
+        <li class="nav-link nav-item">
+          <select class="form-control" id="locationChanger">
+            <% @locations.each do |location| %>
+              <option <%= 'selected' if(location.id == @location.id) %> value="<%=location.name%>"><%=location.name%></option>
+            <% end %>
+          </select>
+        </li>
+        <% end %>
+        <li class="nav-item <%=current_class?('/logout')%>">
+          <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

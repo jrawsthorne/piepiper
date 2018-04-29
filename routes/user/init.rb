@@ -1,0 +1,5 @@
+require_relative 'login'
+require_relative 'signup'
+require_relative 'logout'
+require_relative 'account'
+require_relative 'user'

@@ -1,0 +1,153 @@
+<%= erb :header %>
+<div class="row">
+  <% if(@error) %>
+    <%= display_error(@error) %>
+  <% else %>
+  <div class="mb-3 col-lg-5 col-md-12">
+    <p>Tweet <small><a target="_blank" href="<%= @tweet.uri %>">View tweet</a></small></p>
+    <ul class="list-group mb-3" id="tweets">
+        <li class='list-group-item'>
+          <div class="d-flex w-100">
+            <div class="profile-image mr-3">
+              <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
+            </div>
+            <div class="profile">
+              <h5 class="mb-1"><%= @user.fullname %> <span><%= @tweet.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= @tweet_text %></p>
+            </div>
+          </div>
+        </li>
+        <% @replies.each do |reply| %>
+        <% 
+          user = User.find_by(twitter_id: reply.user.id) if(User.exists?(twitter_id: reply.user.id))
+          if reply.truncated? && reply.attrs[:extended_tweet]
+            reply_text = reply.attrs[:extended_tweet][:full_text]
+          else
+            reply_text = reply.attrs[:text] || reply.attrs[:full_text]
+          end
+        %>
+        <li class='list-group-item'>
+          <div class="d-flex w-100">
+            <div class="profile-image mr-3">
+              <img class="rounded-circle" src="<%= reply.user.profile_image_url %>" />
+            </div>
+            <div class="profile">
+              <h5 class="mb-1"><%= user.fullname %> <span><%= reply.created_at.asctime %></span></h5>
+              <p class="mb-1"><%= reply_text %></p>
+            </div>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#reply">
+        Reply for clarification
+      </button>
+      <div class="modal fade" id="reply" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reply">New message to <%= @tweet.user.screen_name %></h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="reply-send" data-user="<%=@tweet.user.screen_name%>" data-tweet="<%=@tweet.id%>">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>User Details <small><a href="/user/<%= @user.id %>">View user</a></small></p>
+      <ul class="list-group mb-3">
+          <li class='list-group-item'>
+            <div class="d-flex w-100">
+              <div class="profile-image mr-3">
+                <img class="rounded-circle" src="<%= @tweet.user.profile_image_url %>" />
+              </div>
+              <div class="profile">
+                <p class="mb-1">Name: <%= @user.fullname %></p>
+                <p class="mb-1">Username: <%= @user.username %></p>
+                <p class="mb-1">Twitter profile: <a target="_blank" href="<%= @tweet.user.uri %>"><%= @tweet.user.screen_name %></a></p>
+                <p class="mb-1">
+                  Dietary requirements: 
+                  <% if(@user.user_special_conditions.empty?) %>
+                  N/A
+                  <% else %>
+                    <ul>
+                      <% @user.user_special_conditions.each do |user_special_condition| %>  
+                        <li><%= user_special_condition.special_condition.name %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </p>
+                <p class="mb-1">Location: <%=@user.location.name%></p>
+                <input type="hidden" value="<%=@user.location.id%>" id="userLocation">
+                <p class="mb-1">Address: <%= @user.address %></p>
+                <%# Shows the user's current rewards to the screen %>
+                <% if(!@user_campaigns.empty?) %>
+                  <p>User's Rewards:
+                    <% @user_campaigns.each do |reward| %> 
+                      <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== reward.id.to_i}.length %>
+                      <% if count != 0 %>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="rewards[]" value="<%= reward.campaign.campaign_type.percentage_reduced%>" id="reward-<%= reward.campaign.campaign_type.id%>">
+                          <label class="form-check-label" for="<%= reward.campaign.campaign_type.type_name%>"><%= reward.campaign.campaign_type.type_name%></label>
+                        </div>
+                      <% end %>
+                    <% end %> 
+                  </p>
+                <% end %>
+                </div>
+              </div>
+            </li>
+          </ul>
+      </div>
+    <div class="col-lg-7 col-md-12">
+      <p>Order Overview</p>
+      <div class="card mb-3">
+        <div class="card-header">
+          <img width="30px" class="rounded-circle mr-2" src="<%= @tweet.user.profile_image_url %>" />
+          <%= @user.fullname %>
+          <span class="badge badge-danger">Not yet created</span>
+        </div>
+        <form class="needs-validation" id="order" method="post" novalidate>
+          <ul class="list-group list-group-flush">
+            <div class="form-group mb-0" id="menu-items">
+              <li class="list-group-item">Search for items to add to the order</li>
+              <li class="list-group-item">
+                <div class="form-row">
+                  <div class="form-group mb-0 col-sm-2">
+                    <input class="form-control disabled price" disabled type="texr" value="£0.00" placeholder="£0.00">
+                  </div>
+                  <div class="form-group mb-0 col-sm-7">
+                    <input name="item[]" class="form-control typeahead" type="text" placeholder="Search for an item..." required>
+                  </div>
+                  <div class="form-group mb-0 col-sm-2">
+                    <input name="quantity[]" class="form-control" type="number" min="1" value="1" required>
+                  </div>
+                  <div class="form-group mb-0 col-sm-1">
+                    <button disabled type="button" class="disabled btn btn-danger btn-block">-</button>
+                  </div>
+                </div>
+              </li>
+              <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
+              <li class="list-group-item" id="total-order-price">Total order price: £0.00</li>
+            </div>
+          </ul>
+          <div class="card-footer border-top-0">
+            <button type="submit" id="submit_order" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+  </div>
+  <% end %>
+  </div>
+  <%= erb :footer %>

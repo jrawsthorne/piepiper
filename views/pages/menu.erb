@@ -1,0 +1,84 @@
+<%= erb :header %>
+<div class="d-flex campaign-header">
+  <div class="mr-auto"><p class="mb-0"><%= @location.name %> Food Menu</p></div>
+  <div><a href="/menu?location=<%=@location.name%>" class="btn-sm btn btn-outline-primary mr-2">Download PDF</a></div>
+  <div><button class="btn-sm btn btn-outline-success currency"><span>&#163;</span> Cash Only</button></div>
+  <% if @isAdmin %>
+  <div><a href="/items/new" class="btn-sm btn btn-outline-info ml-2">New Item</a></div>
+  <% end %>
+</div>
+<hr>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <% @item_types.each_with_index do |item_type,i| %>
+      <a class="nav-item nav-link <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>-tab" data-toggle="tab" href="#menu-<%=item_type.id%>" role="tab"><%= item_type.name %></a>
+    <% end %>
+    <a class="nav-item nav-link" data-toggle="tab" href="#special_conditions" role="tab">Special Conditions</a>
+  </div>
+</nav>
+<div class="tab-content mt-3" id="nav-tabContent">
+  <% @item_types.each_with_index do |item_type,i| %>
+  <div class="tab-pane show <%if(i==0)%>active<%end%>" id="menu-<%=item_type.id%>" role="tabpanel">
+    <ul class="list-group list-group-flush">
+      <% @items.order(:price, :name).select{|item| item.item_type_id == item_type.id}.each do |item| %>
+        <li class="list-group-item">
+          <div class="d-flex align-items-center">
+            <div class="mr-4">
+              <% if(item.path.nil?) %>
+              <% img = 'http://via.placeholder.com/300x300?text=No%20image' %>
+              <% else %>
+              <% img = '/img/Menu/'+item.path %>
+              <% end %>
+              <div class="rounded-circle menu-img" style="background-image: url('<%=img%>')"></div>
+            </div>
+            <div>
+              <% extraclass = '' %>
+              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %>
+                <%=item.name%><%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                <% if @isAdmin %>
+                  <a class="btn btn-outline-primary mr-2" href="/items/edit/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/items/delete/<%=item.id%>">Delete</a>
+                <% end %>
+              </h5>
+            </div>
+          </div>
+        </li>
+      <% end %>
+  </div>
+  <% end %>
+  <div class="tab-pane show" id="special_conditions" role="tabpanel">
+    <% @special_conditions.each do |special_condition| %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h4 class="card-title mb-0 d-inline"><%=special_condition.name%></h4>
+        </li>
+        <% @items.order(:price, :name).select{|item| item.special_condition_id == special_condition.id}.each do |item| %>
+        <li class="list-group-item">
+          <div class="d-flex align-items-center">
+            <div class="mr-4">
+              <div class="rounded-circle menu-img" style="background-image: url(/img/Menu/<%= item.path %>)"></div>
+            </div>
+            <div>
+              <% extraclass = '' %>
+              <% extraclass = 'non-veg' if(item.special_condition_id == 1) %>
+              <h5 class="card-title mb-0">
+                <%= display_currency(item.price) %> <%=item.name%> <%= '<span class="badge badge-success '+extraclass+'">'+@special_conditions.select{|special_condition| special_condition.id == item.special_condition_id}[0].name+'</span>' if item.special_condition_id %>
+                <% if @isAdmin %>
+                  <a class="btn btn-outline-primary" href="/items/edit/<%=item.id%>">Edit</a>
+                  <a class="btn btn-outline-danger" href="/items/delete/<%=item.id%>">Delete</a>
+                <% end %>
+                </h5>
+            </div>
+          </div>
+        </li>
+        <% end %>
+        <%= '<li class="list-group-item">No items in this category, sorry</li>' if(@items.select{|item| item.special_condition_id == special_condition.id}.empty?) %>
+      </ul>
+    <% end %>
+  </div>
+  
+</div>
+
+<%= erb :footer %>

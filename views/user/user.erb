@@ -10,9 +10,10 @@
           <th scope="col">Username</th>
           <%= '<th scope="col">Twitter Profile</th>' if @twitter_user %>
           <th scope="col">Dietary Requirements</th>
-          <th scope="col">House Number/Name</th>
-          <th scope="col">Street Name</th>
-          <th scope="col">Postcode</th>
+          <%= '<th scope="col">House Number/Name</th>' if @user.house %>
+          <%= '<th scope="col">Street Name</th>' if @user.street %>
+          <%= '<th scope="col">Postcode</th>' if @user.postcode %>
+          <%= '<th scope="col">Location</th>' if @user.location %>
           <th scope="col">Account Type</th>
         </tr>
       </thead>
@@ -37,25 +38,29 @@
               <% end %>
             <% end %>
           </td>
-          <td><%= @user.house %></td>
-          <td><%= @user.street %></td>
-          <td><%= @user.postcode %></td>
+          <%= '<td>'+@user.house+'</td>' if @user.house %>
+          <%= '<td>'+@user.street+'</td>' if @user.street %>
+          <%= '<td>'+@user.postcode+'</td>' if @user.postcode %>
+          <%= '<td>'+@user.location.name+'</td>' if @user.location %>
           <td>
-            <select data-user="<%=@user.username%>">
-              <% AccountType.all.each do |type| %>
-                <option value="<%=type.id%>"    <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
-              <% end %>
-            </select>
+            <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <select class="form-control account_select" data-user="<%=@user.id%>"  data-default="<%=User.find(user.id).account_type.name%>" id = "select<%=@user.id%>">
+                <% @account_types.each do |type| %>
+                  <option value="<%=type.id%>" <%= ("selected" if @user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                <% end %>
+              </select>
+            </form>
           </td>
         </tr>
       </tbody>
       </table>
     </div>
     <p>User orders <small><a href="/orders">Go to orders</a></small></p>
+    <% if(@orders.empty?) %>
+      <hr>
+      <p>This user has no orders<p>
+    <% else %>
     <div class="table-responsive mb-3">
-      <% if(@orders.empty?) %>
-          <p>This user has no orders<p>
-      <% else %>
       <table class="table">
         <thead>
           <tr>
@@ -71,7 +76,7 @@
             tweet = order.get_tweet
           %>
             <tr>
-              <th scope="row"><a href="/edit-order/<%=order.id%>"><%= order.id %></a></th>
+              <th scope="row"><a href="/orders/edit/<%=order.id%>"><%= order.id %></a></th>
               <% # show the first 40 characters of the tweet if it's too long %>
               <td><a target="_blank" href="<%= tweet.uri %>"><%= tweet.attrs[:full_text][0...40] %><%= "..." if(tweet.attrs[:full_text].length > 40) %></a></td>
               <td><%= order.order_state.name %></td>

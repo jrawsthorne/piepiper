@@ -10,48 +10,57 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-      
+
+    when /the homedef page/
+      '/?location=Sheffield'
+
+    when /the homeleeds page/
+      '/?location=Leeds'
+
     when /the login page/
       '/login'
-      
+
     when /the signup page/
       '/signup'
-      
+
     when /the account page/
       '/account'
-      
+
     when /the orders page/
       '/orders'
-      
+
     when /the about page/
       '/about'
-      
+
     when /the users page/
       '/users'
-        
+
     when /the individual_users page/
-      '/user/1'    
-      
+      '/user/1'
+
     when /the logout page/
       '/logout'
-      
+
     when /the new_order page/
-      '/new-order/968523084159438848'
-    
+      '/orders/new/989109475557691392'
+
     when /the new_order_not_tweet page/
-      '/new-order/9685230841'
-      
+      '/orders/new/9685230841'
+
     when /the page_does_not_exist page/
       '/page_does_not_exist'
-      
+
     when /the api_get_items page/
       '/api/get-items'
-        
+
     when /the all_campaigns page/
-      '/campaigns/all' 
-        
+      '/campaigns/all'
+
     when /the new_campaigns page/
-      '/campaigns/new'     
+      '/campaigns/new'
+
+    when /the items page/
+      '/items/new'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

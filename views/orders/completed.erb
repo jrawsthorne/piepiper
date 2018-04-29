@@ -1,0 +1,35 @@
+<%= erb :header %>
+<div class="row">
+  <div class="col-md-6">
+    <p>Completed <%=@location.name %> Orders <a href="/orders" class="btn-sm btn btn-outline-primary ml-2">All orders</a></p>
+    <hr>
+    <% if(@orders.exists?) %>
+    <% @orders.each do |order| %>
+    <% tweet = order.get_tweet %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <img width="30px" class="rounded-circle mr-2" src="<%= tweet.user.profile_image_url %>" />
+        #<%=order.id%>
+        <%= order.user.fullname %>
+        <span class="badge badge-info"><%= order.order_state.name %></span>
+        <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order.id %>">
+          View order details
+        </button>
+      </div>
+      <div id="order-details-<%=order.id%>" class="collapse" data-parent="#accordion">
+        <ul class="list-group list-group-flush">
+          <% order.order_items.each do |order_item| %>
+            <% item = order_item.item %>
+            <li class="list-group-item"><%=display_currency(item.price*order_item.quantity)%> <%= order_item.quantity %>x <%= item.name %></li>
+          <% end %>
+          <li class="list-group-item">Total order price: <%= display_currency(order.total_price) %></li>
+        </ul>
+      </div>
+    </div>
+    <% end %>
+    <% else %>
+    <p>Sorry, no completed orders to show</p>
+    <% end %>
+  </div>
+</div>
+<%= erb :footer %>

@@ -142,6 +142,9 @@ $("#address").keypress(function(e) {
         document.getElementById(addressType).value = val;
       }
     }
+    if(place.address_components && place.address_components.find(result => result.types[0] === "postal_town")) {
+      $('#location').val((place.address_components.find(result => result.types[0] === "postal_town").long_name))
+    }
   }
 
   // Bias the autocomplete object to the user's geographical location,

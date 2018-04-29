@@ -5,6 +5,7 @@
         <meta author="Lucas Maybury, Jake Rawsthrone, Collin Coutinho, Palash Surana, Seth Faulkner, Sofia Bodurova, Vasilka Zheleva">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/bootstrap-datetimepicker.min.css">
         <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico">
         <title><%= @title %> - Pie Piper</title>
     </head>
@@ -14,11 +15,11 @@
         <% 
           case account_type
           when 1 %>
-            <%= erb :'./nav/navuser' %>
+            <%= erb :'./nav/user' %>
           <% when 2 %>
-            <%= erb :'./nav/navorder' %>
+            <%= erb :'./nav/order' %>
           <% when 3 %>
-            <%= erb :'./nav/navadmin' %>
+            <%= erb :'./nav/admin' %>
           <% else %>
             <%= erb :'./nav/nav' %>
       <% end %>

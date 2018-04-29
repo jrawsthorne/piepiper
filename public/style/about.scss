@@ -1,25 +1,27 @@
 /* About */
 
-h3 {
-    text-align: center;
-}
-
 .img {
-  display: inline-block;
-  width: 530px;
-  height: 10%;
   opacity: 0.8;
-  margin-top: 30px;
-  margin-right: 22px;
-
-}
-
-p .text{
-  margin-top: 30px;
-  text-align: center;
+  width: 100%;
+  margin: 20px 0 20px 0;
 }
 
 .img:hover {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+
+#map_Sheffield {
+  height: 400px;
+}
+#map_Leeds {
+  height: 400px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

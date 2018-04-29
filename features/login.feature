@@ -1,5 +1,5 @@
 Feature: login
-  
+
   Scenario: Incorrect password
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -7,7 +7,7 @@ Feature: login
     When I press "Login" within "form"
     Then I should be on the login page
     Then I should see "Incorrect credentials"
-    
+
   Scenario: Incorrect username
     Given I am on the login page
     When I fill in "username" with "wrong"
@@ -15,7 +15,7 @@ Feature: login
     When I press "Login" within "form"
     Then I should be on the login page
     Then I should see "Incorrect credentials"
-    
+
   Scenario: Blank username
     Given I am on the login page
     When I fill in "username" with ""
@@ -23,7 +23,7 @@ Feature: login
     When I press "Login" within "form"
     Then I should be on the login page
     Then I should see "Incorrect credentials"
-    
+
   Scenario: Blank password
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -31,7 +31,7 @@ Feature: login
     When I press "Login" within "form"
     Then I should be on the login page
     Then I should see "Incorrect credentials"
-    
+
   Scenario: Correct admin credentials
     Given I am on the login page
     When I fill in "username" with "admin"
@@ -40,6 +40,4 @@ Feature: login
     Then I should be on the home page
     Then I should see "Users"
     Then I should see "Orders"
-    Then I should see "All Campaigns"
-    Then I should see "New Campaigns"
-    
+    Then I should see "Campaigns"

@@ -20,7 +20,7 @@ end
 def admin!
   check_account_type(3)
 end
-  
+
 def order_handler!
   check_account_type(2);
 end
@@ -32,4 +32,12 @@ def check_account_type(account_type_id)
     session[:user_id] = nil
     redirect '/login'
   end
+end
+
+def get_random_string
+  length=30
+  source=("a".."z").to_a + ("A".."Z").to_a + (0..9).to_a + ["_","-"]
+  key=""
+  length.times{ key += source[rand(source.size)].to_s }
+  return key
 end

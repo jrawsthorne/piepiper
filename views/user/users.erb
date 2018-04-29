@@ -2,63 +2,63 @@
 <p>Users</p>
 <% # show error if there are no users in the database %>
 <% if(!@users.exists?) %>
+  <hr>
   <p>Sorry, no users exist</p>
 <% else %>
     <div class="table-responsive mb-3">
-      <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Full Name</th>
-          <th scope="col">Username</th>
-          <th scope="col">Twitter Profile</th>
-          <th scope="col">Dietary Requirements</th>
-          <th scope="col">House Number/Name</th>
-          <th scope="col">Street Name</th>
-          <th scope="col">Postcode</th>
-          <th scope="col">Account Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% # iterate through all the users and display their details %>
-        <% @users.each do |user| %>
-        <tr>
-          <th scope="row"><a href="/user/<%= user.id %>"><%= user.id %></a></th>
-          <td><%= user.fullname %></td>
-          <td><%= user.username %></td>
-          <% twitter_user = user.get_twitter_user %>
-          <% # display their twitter screen name if the user has a twitter id associated with them %>
-          <td><a target="_blank" href="<%= twitter_user.uri if twitter_user%>"><%= twitter_user.screen_name if twitter_user %></a></td>
-          <td>
-            <% # show dietary requirements as N/A if user has none %>
-            <% if(user.user_special_conditions.empty?) %>
-            N/A
-            <% else %>
-              <% # otherwise iterate through them and show the name of the requirement %>
-              <% user.user_special_conditions.each do |user_special_condition| %>
-                <p><%= user_special_condition.special_condition.name %></p>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Twitter Profile</th>
+            <th scope="col">Dietary Requirements</th>
+            <th scope="col">House Number/Name</th>
+            <th scope="col">Street Name</th>
+            <th scope="col">Postcode</th>
+            <th scope="col">Location</th>
+            <th scope="col">Account Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% # iterate through all the users and display their details %>
+          <% @users.each do |user| %>
+          <tr>
+            <th scope="row"><a href="/user/<%= user.id %>"><%= user.id %></a></th>
+            <td><%= user.fullname %></td>
+            <td><%= user.username %></td>
+            <% twitter_user = user.get_twitter_user %>
+            <% # display their twitter screen name if the user has a twitter id associated with them %>
+            <td><% if twitter_user %><a target="_blank" href="<%= twitter_user.uri%>"><%= twitter_user.screen_name %></a><% end %></td>
+            <td>
+              <% # show dietary requirements as N/A if user has none %>
+              <% if(user.user_special_conditions.empty?) %>
+              N/A
+              <% else %>
+                <% # otherwise iterate through them and show the name of the requirement %>
+                <% user.user_special_conditions.each do |user_special_condition| %>
+                  <p><%= user_special_condition.special_condition.name %></p>
+                <% end %>
               <% end %>
-            <% end %>
-          </td>
-          <td><%= user.house %></td>
-          <td><%= user.street %></td>
-          <td><%= user.postcode %></td>
-          <td>
-            <select data-user="<%=user.username%>">
-              <% AccountType.all.each do |type| %>
-                <option value="<%=type.id%>"    <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
-              <% end %>
-            </select>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
+            </td>
+            <td><%= user.house %></td>
+            <td><%= user.street %></td>
+            <td><%= user.postcode %></td>
+            <td><%= user.location.name if (user.location) %></td>
+            <td>
+              <form method="post" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <select class="form-control account_select" data-user="<%=user.id%>"  data-default="<%=User.find(user.id).account_type.name%>" id = "select<%=user.id%>">
+                  <% @account_types.each do |type| %>
+                    <option value="<%=type.id%>" <%= ("selected" if user.account_type.name == type.name ) %> > <%=type.name%> </option>
+                  <% end %>
+                </select>
+              </form>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
       </table>
-
-      <button type="submit" class="btn btn-primary">Submit Changes</button>
-      <button type="reset" class="btn btn-primary">Reset</button>
-    </form>
    </div>
 <% end %>
 <%= erb :footer %>

@@ -3,8 +3,9 @@ $(function (){
   var itemPrices = []
   var itemsArray = []
   var availableItems = []
+  const userLocation = $("#userLocation").val()
   $.ajax({
-    url: "/api/get-items",
+    url: "/api/get-items?location="+userLocation,
     dataType: "json",
     type: "GET",
     success: function(data) {
@@ -69,6 +70,18 @@ $(function (){
     $(this).closest(".list-group-item").remove()
     totalOrderPirceChange();
     validateItems();
+  })
+  $("input[name='rewards[]']").on('click', function() {
+    console.log($(this).val())
+    total = 0
+    if($(this).val() != 100 || null){
+      
+      $("#menu-items").find(".price").each(function() {
+        total += (parseFloat($(this).val().replace("£","")))
+      })
+      total -= (total * $(this).val() / 100)
+      $("#total-order-price").html(("Total order price: £"+total.toFixed(2)))
+    }
   })
 
   var num = 0;
@@ -155,5 +168,17 @@ $(function (){
   )
   .catch((err) => console.error(err))
 });
+  
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var current_time = new Date()
+$(".form_datetime").datetimepicker({
+      format: "dd MM yyyy - hh:ii"
+  });
+  
+  function minutes_with_leading_zeros(dt) { 
+    return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+  }
+  
+$(".form_datetime input").val(current_time.getDate() + " " + months[current_time.getMonth()] + " " + current_time.getFullYear() + " - " + current_time.getHours() + ":" + minutes_with_leading_zeros(current_time))
   
 });
