@@ -32,17 +32,4 @@ class Item < ActiveRecord::Base
   		item_locations.save
   	end
   end
-
-  def self.write_to_pdf
-    table_data = []
-    table_data << ["Name", "Price", "Type"]
-    Item.all.each do |item|
-      table_data << [item.name, item.price, item.item_type.name]
-    end
-    Prawn::Document.generate "price_list.pdf" do |pdf|
-      table = pdf.make_table(table_data)
-       table.row(0).font_style = :bold
-      table.draw
-    end
-  end
 end

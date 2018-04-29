@@ -21,3 +21,17 @@ def new_item(
 		item_locations.save
 	end
 end
+
+def write_to_pdf(location_id)
+  location = Location.find(location_id)
+  table_data = []
+  table_data << ["Name", "Price", "Type"]
+  Location.find(location_id).items.each do |item|
+    table_data << [item.name, display_currency(item.price), item.item_type.name]
+  end
+  Prawn::Document.generate location.name+"_price_list.pdf" do |pdf|
+    table = pdf.make_table(table_data)
+     table.row(0).font_style = :bold
+    table.draw
+  end
+end

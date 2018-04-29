@@ -1,7 +1,7 @@
 <%= erb :header %>
 <div class="d-flex campaign-header">
   <div class="mr-auto"><p class="mb-0"><%= @location.name %> Food Menu</p></div>
-  <div><a href="/tablepdf" class="btn-sm btn btn-outline-primary mr-2">Download PDF</a></div>
+  <div><a href="/menu?location=<%=@location.name%>" class="btn-sm btn btn-outline-primary mr-2">Download PDF</a></div>
   <div><button class="btn-sm btn btn-outline-success currency"><span>&#163;</span> Cash Only</button></div>
   <% if @isAdmin %>
   <div><a href="/items/new" class="btn-sm btn btn-outline-info ml-2">New Item</a></div>
