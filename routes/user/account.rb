@@ -6,6 +6,9 @@ class PiePiper < Sinatra::Base
     @user = get_user_from_session
     @twitter_user = $client.user(@user.twitter_id.to_i) if @user.twitter_id
     @special_conditions = SpecialCondition.all
+    @campaigns = Campaign.all
+    @user_campaigns = @user.user_campaigns
+    @campaign_types = CampaignType.all
     erb :'/user/account'
   end
 

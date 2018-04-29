@@ -20,12 +20,14 @@ class PiePiper < Sinatra::Base
 	    	winner_index = winner_number - 1
 	    end
 	    winner = ids[winner_index]
-	    winner_account = User.where(twitter_id: winner)
+	    winner_account = User.find_by(twitter_id: winner)
 
 	    user_campaigns = UserCampaign.new do |u|
-	    	u.user_id = winner_account[0].get_id
+	    	u.user_id = winner_account.get_id
 	    	u.campaign_id = campaign.get_id
 	    end
+	    
+		$client.update("@"+$client.user(winner).screen_name+" you have won a piepiper "+ campaign.get_type_name + " competition, order now to use your reward", )	   
 	    user_campaigns.save
 
 	    campaign.update_attribute(:closed, true)
