@@ -32,6 +32,14 @@ class User < ActiveRecord::Base
   def get_id
     return id
   end
+  def generate_token
+    self.password_reset_token = get_random_string
+    self.save
+  end
+  def remove_token
+    self.password_reset_token = nil
+    self.save
+  end
 end
 
 class AccountType < ActiveRecord::Base

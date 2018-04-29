@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 2018_04_29_125655) do
     t.string "email"
     t.integer "account_type_id"
     t.integer "location_id"
+    t.string "password_reset_token"
     t.index ["account_type_id"], name: "index_users_on_account_type_id"
   end
 

@@ -57,7 +57,8 @@ class PiePiper < Sinatra::Base
         end
       end
       @replies = replies.sort_by { |reply| reply.created_at.strftime("%s") }
-      @user_campaigns = @user.user_campaigns
+      @user_campaigns = @user.user_campaigns.all
+      @campaign_types = CampaignType.all
     end
     erb :'/orders/new'
   end

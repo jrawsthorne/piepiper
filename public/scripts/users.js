@@ -1,4 +1,4 @@
-$("select").on('change', function() {
+$(".account_select").on('change', function() {
   var userId = $(this).data('user');
   var defaultVal = $(this).data('default');
   var selectElement = document.getElementById("select"+userId);
