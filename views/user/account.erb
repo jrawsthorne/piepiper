@@ -50,11 +50,13 @@
         </div>
         <div class="form-group">
           <label for="campaignswon">Competitions Won</label>
+          <script> console.log(@campaign_types.to_json) </script>
           <% @campaign_types.each do |type| %>
             <% count = @user_campaigns.select{|user_camp| user_camp.campaign.campaign_type_id.to_i== type.id.to_i}.length %>
             <% if count != 0 %>
               <li>
-                <%= count + " " +type.type_name %>
+                <%= count %>
+                <%= type.type_name %>
               </li>
             <% end %>
           <% end %>
