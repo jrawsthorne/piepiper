@@ -79,13 +79,13 @@ class PiePiper < Sinatra::Base
         :to => user.email,
         :from => 'no-reply@pie-piper.me',
         :subject => 'Reset Password for PiePiper',
-        :body => 'Please click this link to reset your password: '+user.password_reset_token,
+        :body => 'Please click this link to reset your password: '+'http://localhost:4567/reset-password/'+user.password_reset_token,
         :via => :smtp,
         :via_options => {
-          :address              => 'smtp.zoho.eu', 
-          :port                 => '587',                 
+          :address              => 'smtp.zoho.eu',
+          :port                 => '587',
           :user_name            => 'no-reply@pie-piper.me',
-          :password             => 'sb3I5S7Cj9*5',         
+          :password             => 'sb3I5S7Cj9*5',
           :authentication       => :plain,
           :enable_starttls_auto => true,
         }
