@@ -7,7 +7,7 @@ Scenario: Create an item
   When I press "Login" within "form"
   When I go to the homedef page
   When I follow "New Item" within "body"
-  Then I should see "New Item" 
+  Then I should see "New Item"
   When I fill in "name" with "Pie"
   When I fill in "price" with "10"
   When I choose "Vegan" within "#special_cond_form"
@@ -17,7 +17,7 @@ Scenario: Create an item
   Then I should be on the home page
   Then I should see "Pie" within "body"
 
-  Scenario: Edin an item
+  Scenario: Edit an item
     Given I am on the homedef page
     When I press "edit" within "body"
     When I fill in "name" with "Pie"
