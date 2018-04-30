@@ -8,6 +8,7 @@ function initialize() {
         scrollwheel : false,
         gestureHandling : 'none',
         zoomControl : false,
+        // styles the maps
           styles:[
       {
           "featureType": "administrative",
@@ -281,6 +282,7 @@ function initialize() {
         strokeOpacity: .4,
         strokeWeight: .2
       });
+      //Defines the marker
         var marker = new google.maps.Marker({
         position: new google.maps.LatLng( 53.383299, -1.482869),
         map: map
@@ -301,6 +303,7 @@ function initialize() {
         strokeOpacity: .4,
         strokeWeight: .2
       });
+      // Defines the marker
         var marker = new google.maps.Marker({
         position: new google.maps.LatLng(53.7942, -1.5476),
         map: map2
