@@ -1,8 +1,11 @@
 class PiePiper < Sinatra::Base
+
+  #Redirects the user to appropriate page
   get '/login_twitter' do
     redirect to("/auth/twitter")
   end
 
+  #Uses the user's twitter ID to sign them in, or redirect them to the sign-up page
   get '/auth/twitter/callback' do
     auth = request.env["omniauth.auth"]
     if(User.exists?(twitter_id: auth.uid))
