@@ -1,4 +1,6 @@
 class PiePiper < Sinatra::Base
+
+  #Authenticates user and sets variables to be passed to the page
   get '/account' do
     authenticate!
     @js =['/scripts/address.js','https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU&callback=initialize&libraries=places,geometry']
@@ -13,6 +15,7 @@ class PiePiper < Sinatra::Base
     erb :'/user/account'
   end
 
+  #Updates user with posted values
   post '/account' do
     authenticate!
       if(params[:house] == "" || params[:street] == "")
