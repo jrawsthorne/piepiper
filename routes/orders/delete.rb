@@ -1,4 +1,6 @@
 class PiePiper < Sinatra::Base
+
+  #Deletes an order from the table
   get '/orders/delete/:order_id' do
     order_handler!
     order_id = params[:order_id]

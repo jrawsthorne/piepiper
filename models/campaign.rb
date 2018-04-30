@@ -1,5 +1,7 @@
 class Campaign < ActiveRecord::Base
 	belongs_to :campaign_type
+
+	#Returns the tweet attatched to a campaign
 	def get_tweet
 		begin
 	    return $client.status(tweet_id.to_i, tweet_mode: "extended")
@@ -7,6 +9,8 @@ class Campaign < ActiveRecord::Base
 	    return nil
 	  end
   end
+
+	#Returns the IDs of tweets that retweeted the campaign tweet
 	def get_retweet_ids
 		retweet_ids = $client.retweeters_ids(tweet_id, options = {})
 		ids = []
@@ -19,13 +23,19 @@ class Campaign < ActiveRecord::Base
 		end
 		return ids
 	end
+
+	#Returns the number of the winner
 	def get_winner_number
 		win_num = winner_number
 		return win_num
 	end
+
+	#Returns the ID of the campaign tweet
 	def get_id
 		return id
 	end
+
+	#Returns the name of the campaign type
 	def get_type_name
 		return campaign_type.type_name
 	end

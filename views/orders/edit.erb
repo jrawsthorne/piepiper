@@ -86,8 +86,8 @@
             <li id="add" class="list-group-item add"><button type="button" class="btn btn-success">+</button></li>
             <li class="list-group-item" id="total-order-price">Total order price: <%= display_currency(@order.total_price) %></li>
             <%# Shows the user's current rewards to the screen %>
-            <li class="list-group-item">
-              <% if(!@user_campaigns.empty?) %>
+            <% if(!@user_campaigns.empty?) %>
+            <li class="list-group-item">    
                 <p>User's Rewards:
                   <% @user_campaigns.uniq{|t| t.campaign.campaign_type.id}.each do |user_camp| %>
                      <div class="form-check form-check-inline">
@@ -96,8 +96,8 @@
                      </div>
                   <% end %>
                 </p>
-              <% end %>
             </li>
+            <% end %>
             <li class="list-group-item">
                 <select id="order_state" name="order_state" class="change_order_state form-control">
                 <% OrderState.all.each do |type| %>

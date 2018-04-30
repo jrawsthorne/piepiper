@@ -1,4 +1,6 @@
 class PiePiper < Sinatra::Base
+
+  #Authenticates user and sets variables to be passed to the page
   get '/login' do
     if(authenticated?)
       redirect '/account'
@@ -9,6 +11,7 @@ class PiePiper < Sinatra::Base
     erb :'/user/login'
   end
 
+  #Logs the user in, setting sessions or rejecting the attempt
   post '/login' do
     user = User.find_by_username(params[:username])
     if !user.nil? && user.password == params[:password]

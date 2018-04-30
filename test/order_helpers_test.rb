@@ -3,7 +3,7 @@ require_relative './test_helper'
 class MyTest < Minitest::Test
 
   include Rack::Test::Methods
-  
+
   def setup
     config = {
         :consumer_key => 'vqJ9GQDOns00WAQx7oDoBJqFX',
@@ -13,7 +13,7 @@ class MyTest < Minitest::Test
     }
     $client = Twitter::REST::Client.new(config)
   end
-  
+
   def test_check_input
     refute check_input(['Pork pie'], [1])
     assert_equal check_input(['New pie'], [1]), "Item 'New pie' doesn't exist"
@@ -26,11 +26,11 @@ class MyTest < Minitest::Test
     items = ['Pork pie']
     quantities = [1]
     tweet_id = 989109475557691392
-    
-    new_order(items, quantities, tweet_id)
-    
+
+    new_order(items, quantities, tweet_id, nil)
+
     u = Order.last
-    
+
     assert_equal u.tweet_id, tweet_id.to_s
     assert_equal u.user_id, 3
     assert_equal u.order_state_id, 1
@@ -42,7 +42,7 @@ class MyTest < Minitest::Test
         item.destroy
       end
     end
-    
+
     u.destroy
 
   end
