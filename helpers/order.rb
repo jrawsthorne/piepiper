@@ -1,4 +1,7 @@
+#Checks the validity of passed items and their quantities
 def check_input(items, quantities)
+
+  #Checks if the item exists and isnt empty, returns an error message if not
   items.each do |item|
     if(item.empty?)
       return "Can't have an empty item"
@@ -8,9 +11,13 @@ def check_input(items, quantities)
       break
     end
   end
+
+  #Fails if two lists don't have the same length
   if(items.length != quantities.length)
     return "Mismatch"
   end
+
+  #Fails if any quantity is less than 1
   quantities.each do |quantity|
     quantity = quantity.to_i
     if(quantity <= 0)
@@ -21,7 +28,10 @@ def check_input(items, quantities)
   return false
 end
 
+#Used to create a new order in the Orders table
 def new_order(items, quantities, tweet_id, campaign_id)
+
+  #Creates the new order in the table, with the passed parameters
   order = Order.new do |u|
     u.user_id = User.where(twitter_id: get_user_from_tweet(tweet_id)).pluck(:id).join
     u.tweet_id = tweet_id
@@ -32,6 +42,8 @@ def new_order(items, quantities, tweet_id, campaign_id)
     end
   end
   order.save
+
+  #Creates each order_item in the Order linking table
   items.each_with_index do |item,i|
     order_item = OrderItem.new do |u|
       u.order_id = order.id
