@@ -8,6 +8,7 @@ class PiePiper < Sinatra::Base
 
 	post '/campaigns/all' do
 	    campaign = Campaign.find(params[:campaign_id])
+	    # get the twitter ids of all users who have retweeted
 	    ids = campaign.get_retweet_ids
 	    if ids.length != 0
 		    winner_number = campaign.get_winner_number
@@ -23,11 +24,13 @@ class PiePiper < Sinatra::Base
 		    winner = ids[winner_index]
 		    winner_account = User.find_by(twitter_id: winner)
 
+		    # set winner of campaign
 		    user_campaigns = UserCampaign.new do |u|
 		    	u.user_id = winner_account.get_id
 		    	u.campaign_id = campaign.get_id
 		    end
 		    
+		    # send tweet to winner
 			$client.update("@"+$client.user(winner).screen_name+" you have won a piepiper "+ campaign.get_type_name + " competition, order now to use your reward", )	   
 		    user_campaigns.save
 		end

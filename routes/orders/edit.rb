@@ -6,6 +6,7 @@ class PiePiper < Sinatra::Base
       order.edit_order(params[:item], params[:quantity], params[:reward])
       order.order_state_id = params[:order_state]
       order.save
+      # if setting state to ready
       if(params[:order_state] == "2")
           user = order.get_tweet.user.screen_name
           tweet = order.get_tweet.id
@@ -13,6 +14,7 @@ class PiePiper < Sinatra::Base
           text = "your order is ready."
           text += " Time: "+params[:time] + "."
           total_price = display_currency(order.total_price)
+          # send tweet saying order is ready
           $client.update("@"+user+" "+name + ", " + text + " Your order costs: " + total_price, in_reply_to_status_id: tweet)
       end
       redirect '/orders'
@@ -35,6 +37,7 @@ class PiePiper < Sinatra::Base
     if(!@order)
       @error = $errors[:order_not_exist]
     else
+      # get 280 character tweet
       @tweet = @order.get_tweet if @order
       if @tweet.truncated? && @tweet.attrs[:extended_tweet]
         @tweet_text = @tweet.attrs[:extended_tweet][:full_text]
