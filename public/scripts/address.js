@@ -1,3 +1,12 @@
+//Prevents user from pressing enter on form to submit details
+$('.account_details_form').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) {
+    e.preventDefault();
+    return false;
+  }
+});
+//Hides the address_checker and map on default
 $(function () {
     $('#address_checker').hide();
     $('#map').hide();
@@ -10,19 +19,19 @@ function initialize() {
   initAutocomplete();
   initCircleShef();
   initCircleLeeds();
-
+//Populate address field with user address
   $('#save').on('click', function(){
   $("#address").val($("#street_number").val() + " " + $("#route").val() + ", " + $("#postal_code").val())
   });
 
 }
-
+//Prevents user from typing into the address field, and opens modal
 $("#address").keypress(function(e) {
   e.preventDefault();
   $("#map_modal").modal('show')
   return false;
 });
-
+//Gets user location
   function getLocation() {
     if(navigator.geolocation) {
       success = function(position) {
@@ -36,7 +45,7 @@ $("#address").keypress(function(e) {
       createMap( 53.383299, -1.482869);
     }
   }
-
+//Creates the Map
   var map, marker;
   function initMap(lat,lng) {
       map = new google.maps.Map(document.getElementById('map'), {
@@ -77,7 +86,7 @@ $("#address").keypress(function(e) {
     strokeWeight: .2
     });
   }
-
+//Array for autocomplete
   var placeSearch, autocomplete;
   var componentForm = {
     street_number: 'short_name',

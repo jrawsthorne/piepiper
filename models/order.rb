@@ -12,6 +12,8 @@ class Order < ActiveRecord::Base
   belongs_to :order_state
   belongs_to :user
   belongs_to :location
+
+  #Gets tweet from order
   def get_tweet
     begin
 	    return $client.status(tweet_id.to_i, tweet_mode: "extended")
@@ -19,11 +21,17 @@ class Order < ActiveRecord::Base
 	    return nil
 	  end
   end
+
+  #Returns the total price of the order
   def total_price
     total = 0
+
+    #Adds the prices of the orders up
     order_items.each do |order_item|
       total += order_item.item.price*order_item.quantity
     end
+
+    #Applies any discounts
     if(campaign)
       discount = campaign.campaign_type.percentage_reduced
       if discount != 100
@@ -39,15 +47,19 @@ class Order < ActiveRecord::Base
     return total
   end
 
+  #To edit an order in the table
   def edit_order(items, quantities, camp_id)
 
+    #Deletes each order item from the table
     order_items.each do |order_item|
       order_item.destroy
     end
 
+    #Saves the campaign ID of the order
     self.campaign_id = camp_id
     self.save
 
+    #Saves the order_items for the current order
     items.each_with_index do |item,i|
       order_item = OrderItem.new do |u|
         u.order_id = id

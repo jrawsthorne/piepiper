@@ -1,4 +1,6 @@
 class PiePiper < Sinatra::Base
+
+  #Displays the current location's menu
   get '/menu' do
     if(!params[:location] || !Location.exists?(name: params[:location]))
       location_id = Location.first.id

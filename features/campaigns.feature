@@ -8,10 +8,10 @@ Feature: Campaigns
     When I follow "Campaigns" within "body"
     When I follow "New campaign" within "body"
     When I fill in "message" with "message"
-    When I fill in "winner_number" with "0"
+    When I fill in "winner_number" with "8"
     When I select "10% Discount" from "reward"
     When I press "new_campaign_submit"
-    Then I should be on the all_campaigns page
+    When I go to the all_campaigns page
     Then I should see "Win Number"
     
   Scenario: Closing a campaign

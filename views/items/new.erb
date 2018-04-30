@@ -10,7 +10,7 @@
           <input required type="name" name="name" class="form-control" id="itemname" placeholder="Name">
         </div>
         <div class="form-group col-md-6">
-          <label for="Price">Price</label>
+          <label for="price">Price</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">£</div>
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div id="special_cond_form" class="form-group">
         <label>Special Conditions</label>
         <% @special_conditions.each do |special_condition| %>
           <div class="form-check">
@@ -32,7 +32,7 @@
         <% end %>
       </div>
 
-      <div class="form-group">
+      <div id="item_type_form" class="form-group">
         <label>Item Type</label>
         <% @item_types.each do |type| %>
           <div class="form-check">
@@ -44,7 +44,7 @@
         <% end %>
       </div>
 
-      <div class="form-group">
+      <div id="location_form" class="form-group">
         <label>Location</label>
         <% Location.all.each do |location| %>
           <div class="form-check">

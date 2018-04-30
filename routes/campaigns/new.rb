@@ -8,6 +8,7 @@ class PiePiper < Sinatra::Base
 
 	post '/campaigns/new' do
 		if(authenticated?)
+			# tweet message
 			 tweet=$client.update(params[:message])
 			 reward_type = params[:reward]
 			 winner_number = params[:winner_number]

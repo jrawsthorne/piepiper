@@ -1,13 +1,19 @@
 class PiePiper < Sinatra::Base
+
+  #Handles setting the user's location
   post '/get-location' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
     city = payload[:city]
-    if(payload[:city].empty?)
+
+    #If the location passed is empty
+    if(!city || city.empty?)
       location = Location.first
       session[:location_id] = location.id
       return location.name.to_json
       status 200
+
+    #If the location exists
     elsif(Location.exists?(name: city))
       session[:location_id] = Location.find_by(name: city).id
       return city.to_json
@@ -18,6 +24,8 @@ class PiePiper < Sinatra::Base
       status 200
     end
   end
+
+  #Sets the location session if the location is valid and in the database
   post '/set-location' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]
@@ -32,6 +40,8 @@ class PiePiper < Sinatra::Base
       status 200
     end
   end
+
+  #Sends a tweet based on posted data
   post '/send-tweet' do
     payload = params
     payload = JSON.parse(request.body.read).symbolize_keys unless params[:path]

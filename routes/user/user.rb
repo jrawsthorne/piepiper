@@ -1,5 +1,6 @@
 class PiePiper < Sinatra::Base
 
+  #Checks if the user is an admin, then sets their credentials to variables to be passed to the page
   get '/user/:user_id' do
     admin!
     user_id = params['user_id']
@@ -19,6 +20,7 @@ class PiePiper < Sinatra::Base
     end
   end
 
+  #Sets all user's data to variables and sends it to the user's page
   get '/users' do
     admin!
     @title = "Users"
@@ -33,6 +35,7 @@ class PiePiper < Sinatra::Base
     redirect '/'
   end
 
+  #Reset password form page
   get '/reset-password' do
     if(authenticated?)
       redirect('/account')
@@ -42,7 +45,10 @@ class PiePiper < Sinatra::Base
     end
   end
 
+  #When the user follows the email link to reset their password
   get '/reset-password/:token' do
+
+    #If the user exists, gets the token passed in the URL, and resets their password
     if(User.exists?(password_reset_token: params[:token]))
       @user = User.find_by(password_reset_token: params[:token])
       flash[:password_reset_token] = @user.password_reset_token
@@ -55,11 +61,14 @@ class PiePiper < Sinatra::Base
     end
   end
 
+  #Changes the password in the database, based on posted data
   post '/change-password' do
     if(params[:password] != params[:passwordconf])
       @error = 'Passwords don\'t match'
     end
+
     if(!@error)
+      #Finds the user based on the password_reset_token
       user = User.find_by(password_reset_token: flash[:password_reset_token])
       user.change_password(params[:password])
       user.remove_token
@@ -72,6 +81,7 @@ class PiePiper < Sinatra::Base
     end
   end
 
+  #Emails the user with a link to reset their password
   post '/reset-password' do
     if(User.exists?(email: params[:email]))
       user = User.find_by(email: params[:email])
@@ -97,6 +107,7 @@ class PiePiper < Sinatra::Base
     erb :'/user/reset-confirm'
   end
 
+  #Changes the user's account type
   post '/change-user-type' do
     data = params
     data = JSON.parse(request.body.read).symbolize_keys unless params[:path]
