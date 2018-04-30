@@ -20,7 +20,7 @@ class PiePiper < Sinatra::Base
   post '/signup' do
     if(params[:password] != params[:passwordconf])
       @error = 'Passwords don\'t match'
-    elsif(params[:street] = "" || params[:house] = "")
+    elsif(params[:street] == "" || params[:house] == "")
       @error = 'Fill in address'
     end
     if(!@error)

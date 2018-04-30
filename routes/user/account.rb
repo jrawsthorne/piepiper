@@ -15,7 +15,7 @@ class PiePiper < Sinatra::Base
 
   post '/account' do
     authenticate!
-      if(params[:house] = "" || params[:street] = "")
+      if(params[:house] == "" || params[:street] == "")
         @error = 'Fill in address'
       end
       if(!@error)

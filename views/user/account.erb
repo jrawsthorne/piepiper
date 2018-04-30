@@ -4,7 +4,7 @@
     <p>Account Settings</p>
     <%=display_error(@error) if @error%>
     <hr>
-    <form method="post" autocomplete="false" autocorrect="off" autocapitalize="off" spellcheck="false" required="required">
+    <form class="account_details_form" method="post" autocomplete="false" autocorrect="off" autocapitalize="off" spellcheck="false" required="required">
       <div class="form-group">
         <label for="username">Username</label>
         <input name="username" readonly="readonly" type="text" class="form-control" id="username" placeholder="<%=@user.username%>" value="<%=@user.username%>" required="required">
