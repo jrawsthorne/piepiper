@@ -1,4 +1,6 @@
 class PiePiper < Sinatra::Base
+
+  #Sets up the variables for passing to the sign-up page
   get '/signup' do
     if(session[:user_id])
       redirect('/account')
@@ -17,10 +19,11 @@ class PiePiper < Sinatra::Base
     erb :'/user/signup'
   end
 
+  #Creates a new user in the database based on the posted data
   post '/signup' do
     if(params[:password] != params[:passwordconf])
       @error = 'Passwords don\'t match'
-    elsif(params[:street] = "" || params[:house] = "")
+    elsif(params[:street] == "" || params[:house] == "")
       @error = 'Fill in address'
     end
     if(!@error)
@@ -51,3 +54,4 @@ class PiePiper < Sinatra::Base
     end
   end
 end
+>>>>>>> 861e9c79b04fa08068acf786549ffdd2b70e9ea0

@@ -1,3 +1,5 @@
+#Connects Location and ItemLocation
+
 class Location < ActiveRecord::Base
 	has_many :item_locations
 	has_many :items, through: :item_locations

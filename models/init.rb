@@ -1,3 +1,4 @@
+#Includes the other models in the program
 require_relative 'user'
 require_relative 'special'
 require_relative 'order'

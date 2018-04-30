@@ -13,7 +13,7 @@
         <%= order.user.fullname %>
         <span class="badge badge-info"><%= order.order_state.name %></span>
         <button class="btn btn-link text-secondary" data-toggle="collapse" data-target="#order-details-<%= order.id %>">
-          View order details
+          Toggle details
         </button>
       </div>
       <div id="order-details-<%=order.id%>" class="collapse" data-parent="#accordion">
