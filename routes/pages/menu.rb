@@ -1,6 +1,10 @@
 class PiePiper < Sinatra::Base
+
+  #Display the menu on homepage
   get '/' do
     @js = []
+
+    #If no location set, detect user's location
     if((!params[:location] && !session[:location_id]) || (params[:location] && !Location.exists?(name: params[:location])))
       @js.push('/scripts/menu.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAtL0gTPJvWpKL5vwRGDmFM0zHedJq1BCU')
     elsif(!params[:location])
@@ -8,6 +12,8 @@ class PiePiper < Sinatra::Base
     else
       @location = Location.find_by(name: params[:location])
     end
+
+    #If no location, show loading
     if(!@location)
       @title = "Menu loading"
       erb :'/pages/loading'
