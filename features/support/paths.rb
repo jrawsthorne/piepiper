@@ -64,6 +64,9 @@ module NavigationHelpers
 
     when /the items page/
       '/items/new'
+        
+    when /the edit_item page/
+      '/items/edit/2'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
