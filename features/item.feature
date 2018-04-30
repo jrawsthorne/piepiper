@@ -16,3 +16,9 @@ Scenario: Create an item
   When I press "Create"
   Then I should be on the home page
   Then I should see "Pie" within "body"
+  
+ Scenario: Edit an 
+  Given I am on the login page
+  When I fill in "username" with "admin"
+  When I fill in "password" with "admin"
+  When I press "Login" within "form"
