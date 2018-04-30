@@ -15,12 +15,12 @@
             <div class="input-group-prepend">
               <div class="input-group-text">£</div>
             </div>
-            <input required type="number" step="0.01" name="price" class="form-control" id="price" placeholder="Price">
+            <input required type="number" step="0.01" name="Price" class="form-control" id="Price" placeholder="Price">
           </div>
         </div>
       </div>
 
-      <div class="form-group">
+      <div id="special_cond_form" class="form-group">
         <label>Special Conditions</label>
         <% @special_conditions.each do |special_condition| %>
           <div class="form-check">

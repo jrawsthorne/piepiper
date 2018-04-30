@@ -3,10 +3,10 @@ Feature: Items
 Scenario: Create an item
   Given I am on the items page
   When I fill in "name" with "Pie"
-  When I fill in "price" with "10"
-  When I check "Vegan" within "speccond"
-  When I check "Pie" within "type"
+  When I choose "Vegan" within "#special_cond_form"
+  When I choose "Pie" within "type"
   When I check "Sheffield" within "locations[]"
+  When I fill in "Price" with "10"
   When I press "Create" within ".btn btn-primary"
   Then I should be on homedef page
   Then I should see "pie" within "body"

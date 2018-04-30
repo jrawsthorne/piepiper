@@ -2,7 +2,7 @@ Feature: Signup
 
   Scenario: Signing up
     Given I am on the signup page
-    When I fill in "abc" for "username"
+    When I fill in "username" with "abc" 
     When I fill in "password" with "password"
     When I fill in "passwordconf" with "password"
     When I fill in "firstname" with "Abc"
