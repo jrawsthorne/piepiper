@@ -12,7 +12,7 @@ task :db do
   Rake::Task[:"db:seed"].invoke
 end
 task :serve do
-  sh "rackup -p 4567"
+  sh "rackup -p 4567 --host 0.0.0.0"
 end
 task :deploy do
   Rake::Task[:"db"].invoke
