@@ -25,6 +25,7 @@ class PiePiper < Sinatra::Base
     if(!istweet(@tweet_id))
       @error = $errors[:tweet_not_exist]
     elsif(Order.exists?(tweet_id: @tweet_id))
+      # show error if tweet already associated with 
       @error = $errors[:already_order]+' <a href="/edit-order/'+Order.where(tweet_id: @tweet_id).pluck(:id).join.to_s+'">View it here</a>'
     else
       @tweet = $client.status(@tweet_id, tweet_mode: "extended")

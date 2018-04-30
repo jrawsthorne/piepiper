@@ -6,6 +6,7 @@ class PiePiper < Sinatra::Base
     @special_conditions = SpecialCondition.all
     @item_types = ItemType.all
     @title = "Edit item"
+    # set to non-veg if empty
     if(@item.special_condition_id == nil)
       @special_condition_id = 1
     else
@@ -24,6 +25,7 @@ class PiePiper < Sinatra::Base
     admin!
     if(Item.find(params[:item_id]))
       locations = []
+      # available in all locations if none specified
   		if params[:locations].nil?
   			Location.all.each do |l|
   				locations.push(l.id.to_s)
